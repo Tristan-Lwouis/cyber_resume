@@ -36,7 +36,7 @@
   <app-user-informations id="userInformations"></app-user-informations>
   <app-loisir-skills id="loisirSkills" *ngIf="showUserInfoCard" [skillsZIndex]="skillsZIndex" [loisirsZIndex]="loisirsZIndex" [distancePercentage]="18" (tabToggle)="onTabToggle($event)" (closeComponent)="onSkillsLoisirsClose()"></app-loisir-skills>
   <app-info-bulle id="infoBulle" [avatarClicked]="avatarClickedState" [portfolioOpen]="showPortfolio"></app-info-bulle>
-  <app-rolling-script id="rollingScript1" [code]="monCode" [typingSpeed]="10" width="12vw" height="13.5vw"></app-rolling-script>
+  <app-rolling-script id="rollingScript1" [code]="monCode" [typingSpeed]="10" width="12vw" height="25vh"></app-rolling-script>
   <!-- <app-rolling-script id="rollingScript2" [code]="monCode" [typingSpeed]="10" width="13vw" height="60vh"></app-rolling-script> -->
   <app-personal-info id="experience" tabTitle="EXPER1ENCE" componentId="experience" lineColor="black" [distancePercentage]="12" [content]="experienceContent" (closeComponent)="onExperienceClose()" *ngIf="showExperience"></app-personal-info>
   <app-personal-info id="formation" tabTitle="FORMATIONS" componentId="formation" lineColor="black" [distancePercentage]="12" [content]="formationContent" (closeComponent)="onFormationClose()" *ngIf="showFormation"></app-personal-info>

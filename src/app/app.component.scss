@@ -78,21 +78,11 @@ main {
 #rollingScript1 {
   // width: 30%; //On affecte la largeur dans le composant
   position: absolute;
-  top: 63%;
+  bottom: 5%;
   left: 1.5%;
   // width: 11vw;
   // height: 13.5vw;
 }
-
-// #rollingScript2 {
-//   // width: 30%; //On affecte la largeur dans le composant
-//   position: absolute;
-//   top: 20%;
-//   left: 42.5%;
-//   z-index: -1;
-//   // width: 1vw;
-//   // height: 13.5vh;
-// }
 
 #experience { //Experience
   width: 20%; //On affecte la largeur dans le composant
@@ -113,17 +103,18 @@ main {
   top: 33%;
   left: 1.5%;
   width: 9%;
-  // min-width: 200px;
+  min-width: 80px;
   // background-color: rgba(210, 105, 30, 0.801);
 }
 
 #userInformations {
   position: absolute;
-  top: 4.5vh;
-  left: 1.5vw;
+  top: 3.5%;
+  left: 1.5%;
   // top: 50%;
   // left: 50%;
-  width: 17%;
+  width: 30vh;
+  //height: 50vh;
   // min-width: 200px;
 }
 
