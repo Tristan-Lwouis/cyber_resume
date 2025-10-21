@@ -35,7 +35,7 @@ import { ViewportLineComponent } from './components/viewport-line/viewport-line.
     CompetancesComponent,
     PortfolioComponent,
     ViewportLineComponent
-  ],
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

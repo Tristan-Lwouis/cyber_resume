@@ -1,59 +1,71 @@
-# CyberResume
+![Aperçu du projet](./src/app/assets/media/images/cyberResume.png)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+## Description
 
-## Development server
+**CV interactif** développé en **Angular**, imaginé comme une interface futuriste au design **cyberpunk**.  
+Ce projet présente l’ensemble des éléments de mon parcours de **Concepteur Développeur d’Applications** :  
+mes **compétences techniques**, **formations**, **expériences** et **portfolio**, réunis dans une interface **dynamique et immersive**.  
 
-To start a local development server, run:
+Inspirée d’un **bureau virtuel**, l’application propose des **fenêtres déplaçables** (*draggable*) et une expérience visuelle soignée mêlant **design**, **interactivité** et **technologie**.
+
+##### [Voir le site en ligne](https://tristan-lwouis.github.io/cyber_resume/)
+
+
+![spacer](./src/app/assets/media/images/Spacer1.png)
+
+## Aperçu
+![Logo](./src/app/assets/media/images/Screenshot.png)
+> Interface principale du CV interactif, présentant le profil 3D et les modules dynamiques.
+
+![spacer](./src/app/assets/media/images/Spacer2.png)
+
+
+## 🧪 Fonctionnalités principales
+
+-  **Interface Angular dynamique** : gestion des sections via composants modulaires (expériences, formations, compétences…)
+-  **Design cyberpunk** : interface jaune/noir inspirée des HUDs de science-fiction
+-  **Composant 3D Avaturn** : avatar interactif et personnalisé
+-  **Transitions fluides et animations SCSS**
+-  **Liens dynamiques** vers LinkedIn, portfolio et contact
+
+## ⚙️ Fonctionnalités en cours de développement
+
+-  **Responsive design** optimisé pour desktop et tablette
+-  **Animations avatar** dynamique : l'avatar bouge en fonction des éléments à l'écran
+
+![spacer](./src/app/assets/media/images/Spacer1.png)
+
+## Technologies utilisées
+
+| Catégorie | Technologies |
+|------------|--------------|
+| Front-end | Angular 18, TypeScript, RxJS |
+| UI/UX |  SCSS |
+| Graphisme | Figma, Blender, Photoshop, Illustrator|
+| 3D | Avaturn (GLB), Three.js (animation & rendu) |
+| Outils | Node.js, Git, GitHub Pages |
+
+![spacer](./src/app/assets/media/images/Spacer2.png)
+
+## Installation & exécution
 
 ```bash
-ng serve
+# 1. Cloner le projet
+git clone https://github.com/<ton-pseudo>/cyber_resume.git
+
+# 2. Se placer dans le dossier
+cd cyber_resume
+
+# 3. Installer les dépendances
+npm install
+
+# 4. Lancer le serveur local
+ng serve --serve-path=/cyber_resume/
+
+# 5. Ouvrir dans ton navigateur
+http://localhost:4200/cyber_resume/
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+![spacer](./src/app/assets/media/images/Spacer1.png)
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
