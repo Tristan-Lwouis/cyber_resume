@@ -45,6 +45,22 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   // Tableau des projets portfolio
   portfolioItems: PortfolioItem[] = [
     {
+      id: 'rebel-manager',
+      title: '// Rebel Manager',
+      imagePath: 'assets/media/images/Rebel-Manager.png',
+      description:
+        'Rebel Manager est une application de gestion inspirée de l’univers Star Wars, développée pendant ma formation de Concepteur Développeur d’Applications. Elle permet de gérer toute une flotte rebelle : création et gestion des pilotes, des chasseurs (X-Wing, Y-Wing, etc.), des missions et de leurs affectations. Le projet m’a servi de terrain de jeu pour mettre en pratique une architecture en couches (domaine, services, contrôleurs), les relations JPA/Hibernate (OneToMany, ManyToOne, ManyToMany), la persistance avec MariaDB, ainsi que l’intégration front avec Thymeleaf. L’objectif était de construire une vraie application métier complète, avec formulaires, validations, pagination, historique des missions et affichage des résultats, comme si j’étais en train de développer un outil interne pour le commandement de l’Alliance Rebelle.',
+      technologies: [
+        { label: 'Spring Boot' },
+        { label: 'Thymeleaf' },
+        { label: 'MariaDB' }
+      ],
+      language: { label: 'Français' },
+      difficulty: { label: 'High effort' },
+      date: { label: 'Novembre 2025' },
+      seeMoreLink: 'https://github.com/Tristan-Lwouis' // à remplacer par le repo précis si tu veux
+    },
+    {
       id: 'nocte-grafika',
       title: '// Nocte Grafika',
       imagePath: 'assets/media/images/nocte-grafika.png',
@@ -55,6 +71,23 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       date: { label: 'Aout 2025' },
       seeMoreLink: 'https://github.com/Tristan-Lwouis/Nocte-Grafika'
     },
+    {
+      id: 'sk8-blog',
+      title: '// SK8 Blog',
+      imagePath: 'assets/media/images/SK8.png',
+      description:
+        'SK8 est une application web de type blog, développée en Jakarta EE autour de la culture skate. L’objectif du projet était de concevoir une application complète côté serveur, avec gestion des articles, des utilisateurs et des interactions de base. Le projet met en œuvre une architecture MVC claire, avec séparation des responsabilités entre les servlets (logique métier), les JSP (vues) et les entités persistantes. J’y ai implémenté la gestion des formulaires, la persistance en base de données, la navigation entre les pages et les opérations CRUD (création, lecture, modification, suppression des articles). Ce projet m’a permis de comprendre concrètement le fonctionnement d’une application Java web côté serveur, loin des frameworks "magiques", et de manipuler directement les mécanismes fondamentaux du web dynamique.',
+      technologies: [
+        { label: 'Jakarta EE' },
+        { label: 'Servlets' },
+        { label: 'JSP' },
+        { label: 'MySQL' }
+      ],
+      language: { label: 'Français' },
+      difficulty: { label: 'Medium effort' },
+      date: { label: 'Octobre 2025' },
+      seeMoreLink: 'https://github.com/Tristan-Lwouis' // remplace par le repo exact si tu veux
+    },    
     {
       id: 'cyber-resume',
       title: '// Cyber Resume',

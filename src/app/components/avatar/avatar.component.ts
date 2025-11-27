@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
 import { AvatarMemoryMonitorService } from '../../services/avatar-memory-monitor.service';
+import { LoadingProgressService } from '../../services/loading-progress.service';
 
 @Component({
   selector: 'app-avatar',
@@ -26,8 +27,12 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   private clickHandler: ((event: MouseEvent) => void) | null = null;
   private pixelRatio: number; // Cache le pixel ratio pour éviter les recalculs
   private instanceId: string; // Identifiant unique pour le monitoring
+  private fallbackProgress = 0; // Pourcentage approximatif si la taille totale est inconnue
 
-  constructor(private avatarMemoryMonitor: AvatarMemoryMonitorService) {
+  constructor(
+    private avatarMemoryMonitor: AvatarMemoryMonitorService,
+    private loadingProgress: LoadingProgressService
+  ) {
     this.pixelRatio = Math.min(window.devicePixelRatio, 2); // Limite à 2 pour les performances
     this.instanceId = `avatar-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
@@ -254,6 +259,7 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     // @ts-ignore
     const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
     const loader = new GLTFLoader();
+    this.loadingProgress.updateProgress(5);
     
     loader.load(
       'assets/3D/model.glb',
@@ -280,10 +286,21 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
             this.mixer!.clipAction(clip).play();
           });
         }
+
+        this.loadingProgress.markCompleted();
       },
-      undefined,
+      (event: ProgressEvent<EventTarget>) => {
+        if (event.lengthComputable && event.total > 0) {
+          const percent = (event.loaded / event.total) * 100;
+          this.loadingProgress.updateProgress(percent);
+        } else {
+          this.fallbackProgress = Math.min(95, this.fallbackProgress + 1.5);
+          this.loadingProgress.updateProgress(this.fallbackProgress);
+        }
+      },
       (error: any) => {
         console.error('Erreur lors du chargement du modèle 3D :', error);
+        this.loadingProgress.markCompleted();
       }
     );
   }

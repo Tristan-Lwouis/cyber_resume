@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgIf, DecimalPipe } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { LoadingProgressService } from '../services/loading-progress.service';
 
 @Component({
   selector: 'app-simple-loading',
@@ -22,36 +24,27 @@ export class SimpleLoadingComponent implements OnInit, OnDestroy {
   /** Flag de visibilité de l'overlay. */
   visible = true;
 
-  private timerId: any = null;
-  private readonly STEP = 1.5;       // incrément par tick
-  private readonly TICK_MS = 40;     // fréquence de mise à jour
   private readonly DOOR_ANIM_MS = 900;
+  private progressSub?: Subscription;
+  private completedOnce = false;
 
-  /** Initialise la progression avec un intervalle simple jusqu'à 100%. */
+  /** Injecte le service de progression partagé pour suivre le chargement réel. */
+  constructor(private loadingProgress: LoadingProgressService) {}
+
+  /** S'abonne au service de chargement pour refléter la progression réelle du modèle 3D. */
   ngOnInit(): void {
-    // Démarre un intervalle qui incrémente la progression régulièrement.
-    this.timerId = setInterval(() => {
-      if (this.progress < 100) {
-        this.progress = Math.min(100, this.progress + this.STEP);
-      }
-      if (this.progress >= 100) {
-        this.stopTimer();
+    this.progressSub = this.loadingProgress.progress$.subscribe(value => {
+      this.progress = value;
+      if (value >= 100 && !this.completedOnce) {
+        this.completedOnce = true;
         this.onComplete();
       }
-    }, this.TICK_MS);
+    });
   }
 
-  /** Nettoie le timer pour éviter les fuites mémoire. */
+  /** Nettoie l'abonnement pour éviter toute fuite mémoire. */
   ngOnDestroy(): void {
-    this.stopTimer();
-  }
-
-  /** Arrête l'intervalle si actif. */
-  private stopTimer(): void {
-    if (this.timerId !== null) {
-      clearInterval(this.timerId);
-      this.timerId = null;
-    }
+    this.progressSub?.unsubscribe();
   }
 
   /** Déclenche l'ouverture des portes puis émet l'événement de fermeture. */
