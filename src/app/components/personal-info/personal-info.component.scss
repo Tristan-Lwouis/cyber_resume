@@ -18,6 +18,11 @@
     height: 100%;
     overflow-y: scroll;
     padding : 0 2%;
+
+    ::ng-deep p {
+      font-size: 1.3em;
+      // line-height: 1.6;
+    }
     
     // Styles pour les balises strong avec spécificité renforcée
     ::ng-deep strong {
@@ -25,8 +30,11 @@
         background-color: var(--background-color) !important; // Surlignage noir
         padding: 0px 3px !important;
         font-weight: normal !important;                // Enlever le gras
+        
         // border-radius: 3px !important;
     }
+
+
 }
 
 .scrollable {

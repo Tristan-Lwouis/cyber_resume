@@ -17,6 +17,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { MemoryMonitorService } from './services/memory-monitor.service';
 import { AudioEventsService } from './services/audio-events.service';
 import { ViewportLineComponent } from './components/viewport-line/viewport-line.component';
+import { SimpleLoadingComponent } from "./loading-page/simple-loading.component";
 
 @Component({
   selector: 'app-root',
@@ -34,8 +35,9 @@ import { ViewportLineComponent } from './components/viewport-line/viewport-line.
     UserInformationsComponent,
     CompetancesComponent,
     PortfolioComponent,
-    ViewportLineComponent
-],
+    ViewportLineComponent,
+    SimpleLoadingComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -77,8 +79,6 @@ export class AppComponent implements OnInit, OnDestroy {
   wasAvatarHidden: boolean = false;
   avatarClickedState: boolean = false;
 
-
-
   // ========================================
   // PROPRIÉTÉS DU ROLLING SCRIPT
   // ========================================
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
 > Scan des ports...
 > Connexion à www.tristan.dev réussie.
 > Lecture des logs...
-> [OK] Expérience confirmée : developpement
+> [OK] Expérience confirmée : développement
 > [OK] Reconversion en développement : validée
 > [OK] Framework Angular détecté
 > Ready to code.
@@ -120,7 +120,7 @@ while (challenge) {
   experienceContent: string = `
    <h2>2025 - Aujourd’hui · Concepteur Développeur d’Applications (stagiaire)</h2>
     <p>
-      Formation  au métier de conceptuer développeur full-stack avec la réalisation de nombreux projets tutorés. 
+      Formation  au métier de concepteur développeur full-stack avec la réalisation de nombreux projets tutorés. 
       Approfondissement des <strong>principes de la Programmation Orientée Objet</strong> (Java, C++, C#) et mise en pratique 
       sur des projets Back-End (API, bases de données, sécurité) et Front-End (Angular, React). 
       Utilisation des <strong>méthodes AGILE</strong> pour gérer le cycle de vie des projets, avec des sprints, 
