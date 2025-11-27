@@ -1,0 +1,26 @@
+
+    <div class="loading-overlay" *ngIf="visible" [class.opening]="opening">
+  <!-- Portes -->
+  <svg class="door left" preserveAspectRatio="none" aria-hidden="true" viewBox="0 0 1032 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1029 2.50013L1029 165.904L959.538 215.972L958.496 216.723L958.5 218.008L960.495 861.764L891.29 911.245L890.244 911.993L890.244 1077.5L3.5 1077.5L3.50014 2.5L1029 2.50013Z" fill="#EDE52B" stroke="black" stroke-width="5"/>
+  </svg>
+  <svg class="door right" preserveAspectRatio="none" aria-hidden="true" viewBox="0 0 1032 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2.49995 1077.5L2.49996 914.096L71.9619 864.028L73.0039 863.277L73 861.992L71.0049 218.236L140.21 168.755L141.256 168.007L141.256 2.50094L1028 2.5L1028 1077.5L2.49995 1077.5Z" fill="#EDE52B" stroke="black" stroke-width="5"/>
+  </svg>
+
+  <!-- Contenu -->
+  <div class="content" aria-live="polite" aria-atomic="true">
+    <img src="assets/media/images/CyberResume.png" alt="logo cyber resume">
+    <div class="title">LOADING&nbsp;…</div>
+
+    <div class="bar">
+      <div class="bar-track">
+        <!-- --p ∈ [0,1] -->
+        <div class="bar-fill" [style.--p]="progress01"></div>
+      </div>
+      <div class="percent">//&nbsp;{{ progress | number:'1.0-0' }}%</div>
+    </div>
+  </div>
+</div>
+
+

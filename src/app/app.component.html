@@ -20,29 +20,102 @@
     <h3 class="barCode">OpenToWorkOpenToWorkOpenToWorkOpento</h3>
     <h2>C0NC3PTEUR DEVELOPP3EUR D'APPLICAT1ONS</h2>
   </header>
-  <app-viewport-line></app-viewport-line>
+  
 
   <!-- COMPOSANTS -->
-  <app-deco></app-deco>
   <!-- TODO : Ajouter une modale de presentation du site -->
   <!-- TODO : Ajouter une page 404 -->
+  <!-- TODO : Ajouter les liens vers les projets dans le composant portfolio -->
+  
+  <app-viewport-line></app-viewport-line>
+
+  <app-simple-loading></app-simple-loading>
+
+  <!-- <app-intro-modal></app-intro-modal> -->
+
+  <app-deco></app-deco>
+
   <app-avatar 
     [isVisible]="showAvatar"
     [class.avatar-appear]="showAvatar && !wasAvatarHidden"
     [class.avatar-visible]="showAvatar" 
     [class.avatar-hidden]="!showAvatar"
-    (avatarClicked)="onAvatarClicked()"></app-avatar>
-  <app-user-informations id="userInformations"></app-user-informations>
-  <app-loisir-skills id="loisirSkills" *ngIf="showUserInfoCard" [skillsZIndex]="skillsZIndex" [loisirsZIndex]="loisirsZIndex" [distancePercentage]="18" (tabToggle)="onTabToggle($event)" (closeComponent)="onSkillsLoisirsClose()"></app-loisir-skills>
-  <app-info-bulle id="infoBulle" [avatarClicked]="avatarClickedState" [portfolioOpen]="showPortfolio"></app-info-bulle>
-  <app-rolling-script id="rollingScript1" [code]="monCode" [typingSpeed]="10" width="12vw" height="25vh"></app-rolling-script>
-  <!-- <app-rolling-script id="rollingScript2" [code]="monCode" [typingSpeed]="10" width="13vw" height="60vh"></app-rolling-script> -->
-  <app-personal-info id="experience" tabTitle="EXPER1ENCE" componentId="experience" lineColor="black" [distancePercentage]="12" [content]="experienceContent" (closeComponent)="onExperienceClose()" *ngIf="showExperience"></app-personal-info>
-  <app-personal-info id="formation" tabTitle="FORMATIONS" componentId="formation" lineColor="black" [distancePercentage]="12" [content]="formationContent" (closeComponent)="onFormationClose()" *ngIf="showFormation"></app-personal-info>
+    (avatarClicked)="onAvatarClicked()">
+  </app-avatar>
+
+  <app-user-informations 
+    id="userInformations">
+  </app-user-informations>
+
+  <app-loisir-skills 
+    id="loisirSkills" 
+    *ngIf="showUserInfoCard" 
+    [skillsZIndex]="skillsZIndex" 
+    [loisirsZIndex]="loisirsZIndex" 
+    [distancePercentage]="18" 
+    (tabToggle)="onTabToggle($event)" 
+    (closeComponent)="onSkillsLoisirsClose()">
+  </app-loisir-skills>
+
+  <app-info-bulle 
+    id="infoBulle" 
+    [avatarClicked]="avatarClickedState" 
+    [portfolioOpen]="showPortfolio">
+  </app-info-bulle>
+
+  <app-rolling-script 
+    id="rollingScript1" 
+    [code]="monCode" 
+    [typingSpeed]="10" 
+    width="12vw" 
+    height="25vh">
+  </app-rolling-script>
+  
+  <app-personal-info
+    id="experience" 
+    tabTitle="EXPER1ENCE" 
+    componentId="experience" 
+    lineColor="black" 
+    [distancePercentage]="12" 
+    [content]="experienceContent" 
+    (closeComponent)="onExperienceClose()" 
+    *ngIf="showExperience">
+  </app-personal-info>
+  
+  <app-personal-info 
+    id="formation" 
+    tabTitle="FORMATIONS" 
+    componentId="formation" 
+    lineColor="black" 
+    [distancePercentage]="12" 
+    [content]="formationContent" 
+    (closeComponent)="onFormationClose()" 
+    *ngIf="showFormation">
+  </app-personal-info>
+  
   <app-cursor #cursorComponent></app-cursor>
-  <app-menu id="menu" [menuStates]="menuStates" (menuToggle)="onMenuToggle($event)"></app-menu>
-  <app-competances id="competances" [distancePercentage]="13" (closeComponent)="onCompetencesClose()" *ngIf="showCompetences"></app-competances>
-  <!-- TODO : Ajouter les liens vers les projets -->
-  <app-portfolio id="portfolio" *ngIf="showPortfolio" (closePortfolio)="onPortfolioClose()"></app-portfolio>
+  
+  <app-menu 
+    id="menu" 
+    [menuStates]="menuStates" 
+    (menuToggle)="onMenuToggle($event)">
+  </app-menu>
+  
+  <app-competances 
+    id="competances" 
+    [distancePercentage]="13" 
+    (closeComponent)="onCompetencesClose()" 
+    *ngIf="showCompetences">
+  </app-competances>
+
+  <app-portfolio 
+    id="portfolio" 
+    *ngIf="showPortfolio" 
+    (closePortfolio)="onPortfolioClose()">
+  </app-portfolio>
+
+    <!-- <app-rolling-script id="rollingScript2" [code]="monCode" [typingSpeed]="10" width="13vw" height="60vh"></app-rolling-script> -->
+
+
 </main>
 <router-outlet/>
