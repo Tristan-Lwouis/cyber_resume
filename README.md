@@ -1,4 +1,4 @@
-![Aperçu du projet](./src/app/assets/media/images/cyberResume.png)
+![Aperçu du projet](./src/app/assets/media/images/CyberResume.png)
 
 ## Description
 
