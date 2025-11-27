@@ -35,7 +35,7 @@ export class CompetancesComponent implements OnInit, OnDestroy {
   languages: Language[] = [
     { //ANGULAR + TS
       id: 'angular-typescript',
-      name: 'ANGULAR + TYPESCRIPT',
+      name: 'ANGULAR',
       icon: 'assets/media/icons/LANG_Angular.svg',
       progressWidth: 70, // 70% de largeur
       skills: [
@@ -48,7 +48,7 @@ export class CompetancesComponent implements OnInit, OnDestroy {
     },
     { //JAVASCRIPT
       id: 'javascript',
-      name: 'JAVASCRIPT',
+      name: 'JAVASCRIPT + TYPESCRIPT',
       icon: 'assets/media/icons/LANG_logo-javascript.svg',
       progressWidth: 60, // 85% de largeur
       skills: [
@@ -72,6 +72,21 @@ export class CompetancesComponent implements OnInit, OnDestroy {
         'Multithreading'
       ]
     },
+    { // SPRING BOOT
+      id: 'springboot',
+      name: 'SPRING BOOT',
+      icon: 'assets/media/icons/LANG_logo-spring-boot.svg',
+      // icon: 'assets/media/icons/LANG_spring-boot.svg',
+      progressWidth: 70,
+      skills: [
+        'Création de controllers REST & MVC',
+        'Architecture en couches (Controller / Service / Repository)',
+        'JPA / Hibernate & mapping relationnel',
+        'Intégration Thymeleaf (views dynamiques)',
+        'Connexion à une base MariaDB',
+        'Gestion des entités et relations complexes',
+      ]
+    },    
     { //J2EE
       id: 'j2ee',
       name: 'J2EE - Jakarta',
