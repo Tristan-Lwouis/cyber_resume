@@ -223,8 +223,8 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     const sunLight = new THREE.DirectionalLight(0xfff6c6, 7);
     sunLight.position.set(8, 10, 5);
     sunLight.castShadow = true;
-    sunLight.shadow.mapSize.width = 512; // Réduit pour les performances
-    sunLight.shadow.mapSize.height = 512;
+    sunLight.shadow.mapSize.width = 2048; // Réduit pour les performances (512)
+    sunLight.shadow.mapSize.height = 2048;
     sunLight.shadow.camera.near = 0.5;
     sunLight.shadow.camera.far = 50;
     this.scene.add(sunLight);

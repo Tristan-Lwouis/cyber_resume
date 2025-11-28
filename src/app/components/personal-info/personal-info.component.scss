@@ -10,7 +10,7 @@
 .viewport-line {
   position: absolute;
   height: 5px;
-  background-color: black;
+  background-color: var(--background-color);
   z-index: -1;
   pointer-events: none;
 }
