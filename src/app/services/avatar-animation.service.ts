@@ -5,24 +5,32 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AvatarAnimationService implements OnDestroy {
-  private animationRequestsSubject = new Subject<string>();
 
-  // Observable public exposant les demandes d'animation
+  // Maintenant le service peut envoyer une SEQUENCE entière
+  private animationRequestsSubject = new Subject<string[]>();
+
+  // Observable public exposant les demandes d’animation (sous forme de liste)
   animationRequests$ = this.animationRequestsSubject.asObservable();
 
   /**
-   * Déclenche une demande d'animation à destination de l'avatar.
+   * Demande la lecture d'une ou plusieurs animations.
+   * 
+   * Exemples :
+   *   requestAnimation('idle')
+   *   requestAnimation('idle-to-sit', 'sit-to-type', 'type')
    */
-  requestAnimation(animationName: string): void {
-    this.animationRequestsSubject.next(animationName);
+  requestAnimation(...animationNames: string[]): void {
+    if (!animationNames || animationNames.length === 0) {
+      return;
+    }
+
+    this.animationRequestsSubject.next(animationNames);
   }
 
   /**
-   * Nettoie automatiquement les abonnés lors de la destruction du service.
+   * Nettoyage du service
    */
   ngOnDestroy(): void {
     this.animationRequestsSubject.complete();
   }
 }
-
-

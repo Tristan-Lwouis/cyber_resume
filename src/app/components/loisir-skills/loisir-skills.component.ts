@@ -126,7 +126,7 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
   /**
    * Déclenche l'animation souhaitée sur l'avatar depuis cette fenêtre.
    */
-  onClickAnimation(animationName: string): void {
-    this.avatarAnimationService.requestAnimation(animationName);
+  onClickAnimation(...animationNames: string[]): void {
+    this.avatarAnimationService.requestAnimation(...animationNames);
   }
 }

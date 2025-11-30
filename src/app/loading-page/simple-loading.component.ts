@@ -49,6 +49,9 @@ export class SimpleLoadingComponent implements OnInit, OnDestroy {
 
   /** Déclenche l'ouverture des portes puis émet l'événement de fermeture. */
   private onComplete(): void {
+    // Pour faire attendre le programme 1 seconde (de façon asynchrone, sans bloquer le thread principal) :
+    // On peut utiliser setTimeout (comme ci-dessous), ou bien une fonction asynchrone avec await/Promise :
+    // Exemple (ici pour information, ce n'est pas utile d'en ajouter un nouveau):
     this.opening = true;
     setTimeout(() => {
       this.visible = false;
