@@ -99,3 +99,4 @@ $RECYCLE.BIN/
 /ignore/*
 /src/app/assets/3D/ignore
 /src/app/assets/3D/simple model
+/src/app/assets/3D/ignore/model-with-face-animation-wait.glb

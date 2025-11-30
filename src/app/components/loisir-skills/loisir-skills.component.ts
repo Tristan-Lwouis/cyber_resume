@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common'; // OBLIGATOIRE pour ngStyle
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
 import { ViewportLineDirective } from '../../directives/viewport-line.directive';
 import { WindowManagerService } from '../../services/window-manager.service';
+import { AudioEventsService } from '../../services/audio-events.service';
 import { Subscription } from 'rxjs';
 import { AvatarAnimationService } from '../../services/avatar-animation.service';
 
@@ -43,7 +44,8 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
     constructor(
       private elementRef: ElementRef,
       private windowManagerService: WindowManagerService,
-      private avatarAnimationService: AvatarAnimationService
+      private avatarAnimationService: AvatarAnimationService,
+      private audioEventsService: AudioEventsService
     ) {}
 
   /**
@@ -74,13 +76,13 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
   showFirstTab() {
     // Émettre l'événement pour activer/désactiver l'onglet Loisirs
     this.tabToggle.emit({tab: 'loisirs', isActive: true});
-    console.log("Appuie sur le premier onglet (Loisirs)")
+    // console.log("Appuie sur le premier onglet (Loisirs)")
   }
 
   showSecondTab() {
     // Émettre l'événement pour activer/désactiver l'onglet Skills
     this.tabToggle.emit({tab: 'skills', isActive: true});
-    console.log("Appuie sur le deuxieme onglet (Skills)")
+    // console.log("Appuie sur le deuxieme onglet (Skills)")
   }
 
   /**
@@ -127,6 +129,7 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
    * Déclenche l'animation souhaitée sur l'avatar depuis cette fenêtre.
    */
   onClickAnimation(...animationNames: string[]): void {
+    this.audioEventsService.playOpenSound();
     this.avatarAnimationService.requestAnimation(...animationNames);
   }
 }
