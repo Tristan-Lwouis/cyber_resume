@@ -584,7 +584,8 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     
     if (this.mixer) {
       // Pas de deltaTime réel ici, mais un pas fixe pour simplifier
-      this.mixer.update(1 / 120); // ~120 FPS de simulation
+      this.mixer.update(1 / 90); // 60 normal 120 2x plus lent
+      // this.mixer.update(1 / 120); // 
     }
     
     this.renderer.render(this.scene, this.camera);

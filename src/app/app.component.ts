@@ -120,11 +120,25 @@ while (challenge) {
   experienceContent: string = `
    <h2>2025 - Aujourd’hui · Concepteur Développeur d’Applications (stagiaire)</h2>
     <p>
-      Formation  au métier de concepteur développeur full-stack avec la réalisation de nombreux projets tutorés. 
+      Formation au métier de concepteur développeur full-stack avec la réalisation de nombreux projets tutorés. 
       Approfondissement des <strong>principes de la Programmation Orientée Objet</strong> (Java, C++, C#) et mise en pratique 
       sur des projets Back-End (API, bases de données, sécurité) et Front-End (Angular, React). 
       Utilisation des <strong>méthodes AGILE</strong> pour gérer le cycle de vie des projets, avec des sprints, 
       revues de code et travail collaboratif.
+    </p>
+
+    <h2>2019 - Aujourd'hui · Développeur Web & Graphiste (auto-entrepreneur)</h2>
+    <p>
+      Création de sites internet ergonomiques et sur mesure <strong>from scratch</strong> ou via <strong>CMS</strong>. 
+      Optimisation du référencement (<strong>SEO</strong>) et développement d’une <strong>identité numérique complète</strong> pour mes clients : Logo, charte graphique, webmarketing, 
+      gestion des réseaux sociaux. Expérience pro qui m’a permis de développer autonomie, rigueur et relation client.
+    </p>
+
+    <h2>2023 - Aujourd’hui · Graphiste</h2>
+    <p>
+      Réalisation de supports visuels pour print et digital : <strong>logos, affiches, flyers, contenus réseaux sociaux</strong>. 
+      Participation à l’organisation et à la <strong>planification d’événements</strong> en gérant la communication visuelle, 
+      la coordination des intervenants et la cohérence graphique des projets.
     </p>
 
     <h2>2020 - 2025 · Dessinateur Projeteur</h2>
@@ -133,22 +147,6 @@ while (challenge) {
       Maîtrise des outils de <strong>CAO 2D & 3D</strong> (AutoCAD, Revit, Inventor) et réalisation de plans 
       pour des projets industriels et ferroviaires. Coordination avec les équipes de terrain et adaptation aux contraintes 
       techniques et réglementaires.
-    </p>
-
-    <h2>2019 - Aujourd'hui · Développeur Web & Graphiste (auto-entrepreneur)</h2>
-    <p>
-      Création de sites internet ergonomiques et sur mesure via <strong>CMS</strong>. 
-      Mise en place de systèmes de gestion de stock, optimisation du référencement (<strong>SEO</strong>) et 
-      développement d’une <strong>identité numérique complète</strong> pour mes clients : charte graphique, webmarketing, 
-      gestion des réseaux sociaux. Expérience entrepreneuriale qui m’a permis de développer autonomie, rigueur 
-      et relation client.
-    </p>
-
-    <h2>2023 - Aujourd’hui · Graphiste</h2>
-    <p>
-      Réalisation de supports visuels pour print et digital : <strong>logos, affiches, flyers, contenus réseaux sociaux</strong>. 
-      Participation à l’organisation et à la <strong>planification d’événements</strong> en gérant la communication visuelle, 
-      la coordination des intervenants et la cohérence graphique des projets.
     </p>
 
     <h2>Janvier 2025 · Dakar avec Team Red Bull</h2>
@@ -168,13 +166,19 @@ while (challenge) {
   `;
 
   formationContent: string = `
-    <h2>2025 → Formation Développeur Full Stack (LDNR) NIVEAU 6 - BAC+3/4</h2>
+    <h2>2025 → Formation Concepteur développeur d'application (LDNR) NIVEAU 6 - BAC+3/4</h2>
     <p>
-      Formation intensive de 1 an préparant au métier de <strong>concepteur développeur d'applications</strong>, alliant théorie et pratique à travers des projets tutorés et un stage en entreprise. 
-      Le cursus couvre l’<strong>algorithmique</strong>, le développement en <strong>C et C++</strong>, ainsi que la programmation <strong>Java (JSE, J2EE)</strong> et ses frameworks, incluant une initiation au développement mobile sur <strong>Android</strong>. 
-      La formation aborde également le <strong>développement web</strong> (HTML5, CSS3, JavaScript, Angular), la conception et l’utilisation de <strong>bases de données</strong>, les <strong>design patterns</strong> et la modélisation via <strong>UML</strong> pour la programmation orientée objet. 
-      S’ajoutent des modules de <strong>gestion de projet</strong> et de méthodologies agiles, une introduction à la <strong>sécurité informatique</strong>, ainsi qu’au <strong>déploiement d’applications</strong>.
+      Formation intensive Full Stack de 1 an préparant au métier de <strong>concepteur développeur d'applications</strong>, alliant théorie et pratique à travers des projets tutorés et un stage en entreprise. 
+      Le cursus couvre l’<strong>algorithmique</strong>, la programmation en C, C++ mais aussi <strong>Java (JSE, J2EE)</strong> et ses frameworks <strong>(Spring)</strong>, incluant une initiation au développement mobile sur <strong>Android</strong>. 
+      La formation aborde également le <strong>développement web</strong> (Angular, CSS, TypeScript ), la conception et l’utilisation de <strong>bases de données</strong>, les <strong>design patterns</strong> et la modélisation via <strong>UML</strong> pour la programmation orientée objet. 
+      S’ajoutent des modules de <strong>gestion de projet</strong> et de méthodologies agiles, une introduction à la <strong>sécurité informatique</strong>, ainsi qu’au <strong>déploiement d’applications CICD</strong>.
     he
+    </p>
+
+    <h2>Formation autodidacte continue</h2>
+    <p>
+      Auto‑formation permanente aux métiers du dev et de la cyber via des plateformes spécialisées : <strong>Udemy</strong>, <strong>OpenClassrooms</strong>, <strong>Hack The Box</strong> ,<strong>TryHackMe</strong>.
+      Approfondissement en <strong>développement web</strong>, <strong>scripting</strong>, <strong>sécurité informatique</strong> et <strong>environnements Linux</strong>, avec une logique d’apprentissage orientée <strong>pratique</strong>, <strong>résolution de problèmes</strong> et montée en compétence continue.
     </p>
 
     <h2>2020 → DUT + Licence Infrastructure et reseaux - BAC+3</h2>

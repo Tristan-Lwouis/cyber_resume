@@ -44,6 +44,21 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   
   // Tableau des projets portfolio
   portfolioItems: PortfolioItem[] = [
+      {
+      id: 'e-fsf',
+      title: '// E-Formation sans frontieres',
+      imagePath: 'assets/media/images/e-formation-sans-frontieres.png',
+      description:
+        'E-FSF est un site WordPress conçu comme une plateforme immersive mettant l’accent sur l’expérience utilisateur, l’identité graphique et le dynamisme de navigation. Il dépasse le cadre du site vitrine standard en proposant une interface animée, interactive et orientée storytelling visuel. C\'est un site pour présenter l\'ensemble des formations que propose e-fsf ainsi que les modalités d\'inscriptions.',
+      technologies: [
+        { label: 'WordPress' },
+        { label: 'TreeJS' },
+      ],
+      language: { label: 'Français' },
+      difficulty: { label: 'Medium effort' },
+      date: { label: 'Novembre 2025' },
+      seeMoreLink: 'https://www.eformationsansfrontiere.fr/'
+    },
     {
       id: 'rebel-manager',
       title: '// Rebel Manager',
@@ -58,7 +73,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       language: { label: 'Français' },
       difficulty: { label: 'High effort' },
       date: { label: 'Novembre 2025' },
-      seeMoreLink: 'https://github.com/Tristan-Lwouis' // à remplacer par le repo précis si tu veux
+      seeMoreLink: 'https://github.com/Tristan-Lwouis' //TODO : Mettre le lien vers le repo github 
     },
     {
       id: 'nocte-grafika',
