@@ -5,6 +5,7 @@ import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and
 import { ViewportLineDirective } from '../../directives/viewport-line.directive';
 import { WindowManagerService } from '../../services/window-manager.service';
 import { Subscription } from 'rxjs';
+import { AvatarAnimationService } from '../../services/avatar-animation.service';
 
 @Component({
   selector: 'app-loisir-skills',
@@ -41,7 +42,8 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
 
     constructor(
       private elementRef: ElementRef,
-      private windowManagerService: WindowManagerService
+      private windowManagerService: WindowManagerService,
+      private avatarAnimationService: AvatarAnimationService
     ) {}
 
   /**
@@ -119,5 +121,12 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
    */
   onWindowClick(): void {
     this.windowZIndex = this.windowManagerService.bringToFront(this.componentId);
+  }
+
+  /**
+   * Déclenche l'animation souhaitée sur l'avatar depuis cette fenêtre.
+   */
+  onClickAnimation(animationName: string): void {
+    this.avatarAnimationService.requestAnimation(animationName);
   }
 }

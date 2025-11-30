@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AvatarAnimationService } from '../../services/avatar-animation.service';
 
 @Component({
   selector: 'app-user-informations',
@@ -10,6 +11,8 @@ export class UserInformationsComponent implements OnInit, OnDestroy {
   phoneNumber: string = '';
   email: string = '';
   private colorChangeObserver: MutationObserver | null = null;
+
+  constructor(private avatarAnimationService: AvatarAnimationService) {}
 
   ngOnInit() {
     this.decodeContactInfo();
@@ -74,6 +77,13 @@ export class UserInformationsComponent implements OnInit, OnDestroy {
       const max = char <= 'Z' ? 90 : 122;
       return String.fromCharCode(shifted <= max ? shifted : shifted - 26);
     });
+  }
+
+  /**
+   * Déclenche l'animation souhaitée sur l'avatar
+   */
+  onClickAnimation(animationName: string): void {
+    this.avatarAnimationService.requestAnimation(animationName);
   }
 
 }

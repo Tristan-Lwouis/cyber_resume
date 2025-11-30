@@ -1,7 +1,9 @@
 import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as THREE from 'three';
+import { Subscription } from 'rxjs';
 import { AvatarMemoryMonitorService } from '../../services/avatar-memory-monitor.service';
 import { LoadingProgressService } from '../../services/loading-progress.service';
+import { AvatarAnimationService } from '../../services/avatar-animation.service';
 
 @Component({
   selector: 'app-avatar',
@@ -13,6 +15,15 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Output() avatarClicked = new EventEmitter<void>();
   @Input() isVisible: boolean = true;
 
+
+  /** 
+   * TODO : L'animation hors idle doit se lancer sans loop 
+   * TODO : Modification du ilde sur model .glb
+   * TODO : Ajout de nouvelles animations pour les loisirs / skills
+   * TODO : 
+   */ 
+
+
   // === Paramètres principaux de la scène ===
   private renderer!: THREE.WebGLRenderer;
   private scene!: THREE.Scene;
@@ -20,6 +31,10 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   private controls!: any;
   private model: THREE.Group | undefined;
   private mixer?: THREE.AnimationMixer;
+  private animationActions = new Map<string, THREE.AnimationAction>();
+  private currentAnimationName: string | null = null;
+  private defaultAnimationName: string | null = null;
+  private animationRequestSub?: Subscription;
   private raycaster = new THREE.Raycaster();
   private mouse = new THREE.Vector2();
   private animationId: number | null = null;
@@ -31,7 +46,8 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   constructor(
     private avatarMemoryMonitor: AvatarMemoryMonitorService,
-    private loadingProgress: LoadingProgressService
+    private loadingProgress: LoadingProgressService,
+    private avatarAnimationService: AvatarAnimationService
   ) {
     this.pixelRatio = Math.min(window.devicePixelRatio, 2); // Limite à 2 pour les performances
     this.instanceId = `avatar-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -47,6 +63,10 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.setupClickDetection();
     this.resizeHandler = () => this.onResize();
     window.addEventListener('resize', this.resizeHandler);
+
+    this.animationRequestSub = this.avatarAnimationService.animationRequests$.subscribe((animationName: string) => {
+      this.playAnimation(animationName);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -90,6 +110,11 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
       this.clickHandler = null;
     }
 
+    if (this.animationRequestSub) {
+      this.animationRequestSub.unsubscribe();
+      this.animationRequestSub = undefined;
+    }
+
     // Nettoyage optimisé des ressources
     this.cleanupResources();
   }
@@ -103,11 +128,15 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     // Nettoyer le mixer d'animation
     if (this.mixer) {
+      this.mixer.removeEventListener('finished', this.onAnimationFinished);
       this.mixer.stopAllAction();
       if (this.model) {
         this.mixer.uncacheRoot(this.model);
       }
       this.mixer = undefined;
+      this.animationActions.clear();
+      this.currentAnimationName = null;
+      this.defaultAnimationName = null;
     }
 
     // Nettoyer le modèle 3D
@@ -281,10 +310,10 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
 
         // Gestion des animations
         if (gltf.animations && gltf.animations.length > 0) {
+          console.log('Animations disponibles dans le .glb:', gltf.animations.map((clip: any) => clip.name));
           this.mixer = new THREE.AnimationMixer(this.model!);
-          gltf.animations.forEach((clip: any) => {
-            this.mixer!.clipAction(clip).play();
-          });
+          this.mixer.addEventListener('finished', this.onAnimationFinished);
+          this.setupAnimations(gltf.animations);
         }
 
         this.loadingProgress.markCompleted();
@@ -304,6 +333,98 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
       }
     );
   }
+
+  /**
+   * Configure les animations importées et sélectionne une animation par défaut.
+   */
+  private setupAnimations(clips: THREE.AnimationClip[]): void {
+    if (!this.mixer || !this.model) {
+      return;
+    }
+
+    this.animationActions.clear();
+
+    clips.forEach((clip: THREE.AnimationClip, index: number) => {
+      const clipName = clip.name && clip.name.trim().length > 0 ? clip.name : `clip-${index}`;
+      const action = this.mixer!.clipAction(clip);
+      action.enabled = true;
+
+      if (clipName === 'Animation') { //Nom de l'animation a repeter en boucle
+        action.setLoop(THREE.LoopRepeat, Infinity);
+        action.clampWhenFinished = false;
+      } else {
+        action.setLoop(THREE.LoopOnce, 0);
+        action.clampWhenFinished = true;
+      }
+
+      this.animationActions.set(clipName, action);
+    });
+
+    const preferredAnimation = this.animationActions.has('Animation')
+      ? 'Animation'
+      : (() => {
+          const iterator = this.animationActions.keys().next();
+          return iterator.done ? null : iterator.value;
+        })();
+
+    if (preferredAnimation) {
+      this.defaultAnimationName = preferredAnimation;
+      this.playAnimation(preferredAnimation);
+    }
+  }
+
+  /**
+   * Lance uniquement l'animation demandée en gérant un fondu doux entre les actions.
+   */
+  public playAnimation(animationName: string): void {
+    if (!this.mixer) {
+      console.warn('Animation mixer non initialisé, impossible de lancer une animation.');
+      return;
+    }
+
+    const nextAction = this.animationActions.get(animationName);
+
+    if (!nextAction) {
+      console.warn(`Animation "${animationName}" introuvable.`);
+      return;
+    }
+
+    if (this.currentAnimationName === animationName) {
+      return;
+    }
+
+    if (this.currentAnimationName) {
+      const currentAction = this.animationActions.get(this.currentAnimationName);
+      currentAction?.fadeOut(0.3);
+    }
+
+    nextAction.reset().fadeIn(0.3).play();
+    this.currentAnimationName = animationName;
+  }
+
+  /**
+   * Réagit à la fin d'une animation non idle pour relancer automatiquement l'idle.
+   */
+  private onAnimationFinished = (event: THREE.Event & { action: THREE.AnimationAction }): void => {
+    if (!this.defaultAnimationName) {
+      return;
+    }
+
+    const finishedAction = event.action;
+    const animationEntry = Array.from(this.animationActions.entries()).find(([, action]) => action === finishedAction);
+
+    if (!animationEntry) {
+      return;
+    }
+
+    const [finishedName] = animationEntry;
+
+    if (finishedName === this.defaultAnimationName) {
+      return;
+    }
+
+    this.playAnimation(this.defaultAnimationName);
+  };
 
   private animate = (): void => {
     // Vérifier si le composant est toujours valide avant de continuer

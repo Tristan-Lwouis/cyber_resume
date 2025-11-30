@@ -14,9 +14,9 @@
                 <a href="https://linktr.ee/tristan.regnier" target="_blank" class="qr-link">
                     <img id="QrDeco2" src="assets/media/icons/QR-Code.png" alt="Qr-code" class="clickable-qr">
                 </a>
-                <span class="contact-info">{{ phoneNumber }}</span>
-                <span class="contact-info">{{ email }}</span>
-                <span>lvl 25</span>
+                <span class="contact-info clickable" role="button" tabindex="0" (click)="onClickAnimation('call')">{{ phoneNumber }}</span>
+                <span class="contact-info clickable" role="button" tabindex="0" (click)="onClickAnimation('call')">{{ email }}</span>
+                <span>lvl 26</span>
                 <span>permis B</span>
                 <span>Toulouse+</span>
                 <span class="barCode">HelloThere</span>

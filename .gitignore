@@ -97,3 +97,5 @@ $RECYCLE.BIN/
 #Other files
 /commands.txt
 /ignore/*
+/src/app/assets/3D/ignore
+/src/app/assets/3D/simple model
