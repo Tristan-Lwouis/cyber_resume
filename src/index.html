@@ -1,52 +1,26 @@
 <!doctype html>
-<html lang="en">
-  
+<html lang="fr">
+
 <head>
   <meta charset="utf-8">
-  <title>CyberResume</title>
-  <!-- <base href="/cyber_resume/"> -->
+  <title>Tristan Regnier · Concepteur Développeur d'Applications</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!-- Favicon ICO (format classique) -->
+  <meta name="description" content="CV interactif de Tristan Regnier, Concepteur Développeur d'Applications full-stack (Angular, Vue.js, Java/Spring, Python) basé à Toulouse.">
+  <meta name="theme-color" content="#ede62c">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
-  <!-- Alternative: Favicon PNG -->
-  <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"> -->
-  <!-- <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"> -->
-  
-  <!-- Alternative: Favicon SVG (moderne) -->
-  <!-- <link rel="icon" type="image/svg+xml" href="favicon.svg"> -->
-  
-  <!-- Alternative: Apple Touch Icon -->
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> -->
+
+  <!-- Le modèle 3D est la ressource la plus lourde : on lance son téléchargement au plus tôt -->
+  <link rel="preload" href="assets/3D/model.glb" as="fetch" type="model/gltf-binary" crossorigin>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Barcode+39&display=block" rel="stylesheet">
-
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Libre+Barcode+39&display=swap" rel="stylesheet">
 </head>
-  <body>
 
-    <!-- <svg id="HG" width="286" height="69" viewBox="0 0 286 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M286 0L244.505 69L0.000199388 69L0 0L286 0Z" fill="black"/>
-    </svg>
+<body>
+  <app-root></app-root>
+</body>
 
-    <svg id="HD" width="93" height="93" viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5.00924e-07 -8.13032e-06L93 93L93 0L5.00924e-07 -8.13032e-06Z" fill="black"/>
-    </svg>
-
-    <svg id="BD" width="286" height="69" viewBox="0 0 286 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 69L41.4955 1.51292e-06L286 2.28882e-05L286 69L0 69Z" fill="black"/>
-    </svg>
-
-    <svg id="BG" width="93" height="93" viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M93 93L0 0L0 93L93 93Z" fill="black"/>
-    </svg> -->
-
-    <app-root></app-root>
-
-  </body>
 </html>

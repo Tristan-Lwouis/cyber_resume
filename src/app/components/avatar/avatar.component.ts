@@ -14,7 +14,6 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 import { Subscription } from 'rxjs';
-import { AvatarMemoryMonitorService } from '../../services/avatar-memory-monitor.service';
 import { LoadingProgressService } from '../../services/loading-progress.service';
 import { AvatarAnimationService } from '../../services/avatar-animation.service';
 
@@ -67,22 +66,17 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   // Optimisation
   private pixelRatio: number; // Cache le pixel ratio pour éviter les recalculs
-  private instanceId: string; // Identifiant unique pour le monitoring
   private fallbackProgress = 0; // Pourcentage approximatif si la taille totale est inconnue
   private clock = new THREE.Clock(); // Horloge pour le temps d'animation réel
   private frameCount = 0; // Compteur de frames pour le throttling des ombres
 
   constructor(
-    private avatarMemoryMonitor: AvatarMemoryMonitorService,
     private loadingProgress: LoadingProgressService,
     private avatarAnimationService: AvatarAnimationService,
     private ngZone: NgZone
   ) {
     // Limite le pixel ratio à 2 pour éviter de flinguer le GPU sur les écrans 4K
     this.pixelRatio = Math.min(window.devicePixelRatio, 2);
-
-    // Identifiant unique pour cet avatar (utile pour le monitoring)
-    this.instanceId = `avatar-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
   // =====================================================================
@@ -90,9 +84,6 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   // =====================================================================
 
   async ngAfterViewInit(): Promise<void> {
-    // Enregistrer l'instance pour le monitoring
-    this.avatarMemoryMonitor.registerAvatar(this.instanceId, this);
-    
     await this.initThree();
     await this.loadModel();
     this.ngZone.runOutsideAngular(() => {
@@ -140,9 +131,6 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    // Désenregistrer l'instance du monitoring
-    this.avatarMemoryMonitor.unregisterAvatar(this.instanceId);
-    
     // Arrêter la boucle d'animation
     this.stopAnimation();
 
@@ -232,25 +220,6 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     // Réinitialiser les utilitaires
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
-  }
-
-  /**
-   * Méthode de nettoyage forcé appelée par le service de monitoring
-   * en cas de détection de fuite mémoire.
-   */
-  forceCleanup(): void {
-    console.log(`🧹 Nettoyage forcé de l'avatar ${this.instanceId}`);
-    
-    // Arrêter l'animation immédiatement
-    this.stopAnimation();
-    
-    // Forcer le garbage collection si disponible (Chrome avec flag spécial)
-    if ((window as any).gc) {
-      (window as any).gc();
-    }
-    
-    // Nettoyer les ressources
-    this.cleanupResources();
   }
 
   // =====================================================================
@@ -394,7 +363,6 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
 
         // Gestion des animations
         if (gltf.animations && gltf.animations.length > 0) {
-          console.log('Animations disponibles dans le .glb :', gltf.animations.map((clip: any) => clip.name));
           this.mixer = new THREE.AnimationMixer(this.model!);
           this.mixer.addEventListener('finished', this.onAnimationFinished);
           this.setupAnimations(gltf.animations);

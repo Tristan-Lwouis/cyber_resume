@@ -41,8 +41,6 @@ export class AudioEventsService implements OnDestroy {
    * Implémentation de OnDestroy pour nettoyer automatiquement les ressources
    */
   ngOnDestroy(): void {
-    console.log('AudioEventsService - Nettoyage automatique des ressources');
-    
     // Compléter le Subject pour libérer les abonnés
     this.audioEventSubject.complete();
   }

@@ -1,5 +1,8 @@
 <div id="BACKGROUND">
-    <img class="gif-background" src="assets/media/deco/background.gif" alt="background animatoin">
+    <video class="gif-background" autoplay muted [muted]="true" loop playsinline aria-hidden="true">
+        <source src="assets/media/deco/background.webm" type="video/webm">
+        <source src="assets/media/deco/background.mp4" type="video/mp4">
+    </video>
 </div>
 
 <svg class="deco" id="HG" width="286" height="69" viewBox="0 0 286 69" fill="none" xmlns="http://www.w3.org/2000/svg">

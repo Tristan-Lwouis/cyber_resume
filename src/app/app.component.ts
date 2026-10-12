@@ -1,5 +1,4 @@
-import { Component, OnDestroy, ChangeDetectorRef, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, ChangeDetectorRef, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
 
 
 import { EXPERIENCE_CONTENT } from './data/experiences.data';
@@ -18,7 +17,6 @@ import { UserInformationsComponent } from './components/user-informations/user-i
 import { CompetancesComponent } from './components/competances/competances.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { MapModalComponent } from './components/map-modal/map-modal.component';
-import { MemoryMonitorService } from './services/memory-monitor.service';
 import { AudioEventsService } from './services/audio-events.service';
 import { ViewportLineComponent } from './components/viewport-line/viewport-line.component';
 import { SimpleLoadingComponent } from "./loading-page/simple-loading.component";
@@ -27,7 +25,6 @@ import { SimpleLoadingComponent } from "./loading-page/simple-loading.component"
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
     LoisirSkillsComponent,
     InfoBulleComponent,
     RollingScriptComponent,
@@ -48,13 +45,12 @@ import { SimpleLoadingComponent } from "./loading-page/simple-loading.component"
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   
   // ========================================
   // CONSTRUCTEUR
   // ========================================
   constructor(
-    private memoryMonitor: MemoryMonitorService,
     private audioEventsService: AudioEventsService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -326,7 +322,6 @@ while (challenge) {
    * Bascule l'état de l'info-bulle et joue les sons appropriés
    */
   onAvatarClicked(): void {
-    console.log('Avatar cliqué - Communication avec info-bulle');
     this.avatarClickedState = !this.avatarClickedState; // Toggle pour déclencher la détection
     
     // Jouer le son d'ouverture quand l'info-bulle s'affiche
@@ -335,19 +330,6 @@ while (challenge) {
     } else {
       this.audioEventsService.playCloseSound();
     }
-  }
-
-  // ========================================
-  // MÉTHODES UTILITAIRES
-  // ========================================
-  /**
-   * Méthode pour forcer la mise à jour de l'état du menu
-   * Permet de synchroniser l'état du menu avec les onglets (méthode préparée pour usage futur)
-   */
-  private updateMenuState(): void {
-    // Cette méthode sera appelée après chaque changement d'état pour s'assurer
-    // que le menu reflète l'état actuel
-    // Le menu se mettra automatiquement à jour grâce au binding [menuStates]="menuStates"
   }
 
   // ========================================
@@ -392,13 +374,6 @@ while (challenge) {
     this.detectMobile();
   }
 
-  /**
-   * Méthode appelée lors de la destruction du composant
-   * Arrête le monitoring de la mémoire pour éviter les fuites
-   */
-  ngOnDestroy(): void {
-    this.memoryMonitor.stopMonitoring();
-  }
 
   /**
    * Bascule l'affichage de la modale de carte

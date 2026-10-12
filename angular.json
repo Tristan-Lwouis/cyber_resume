@@ -41,6 +41,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
+            "allowedCommonJsDependencies": ["leaflet"],
              "stylePreprocessorOptions": {
               "includePaths": [
                 "src/styles"
@@ -52,8 +53,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",
-                  "maximumError": "2MB"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",

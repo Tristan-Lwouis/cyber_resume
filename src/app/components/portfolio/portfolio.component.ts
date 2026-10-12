@@ -74,26 +74,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  // Exemple d'ajout d'un nouveau projet
-  addExampleProject(): void {
-    const newProject: PortfolioItem = {
-      id: 'mon-nouveau-projet', //Ne pas mettre d'espace dans l'id
-      title: '// Mon Nouveau Projet',
-      imagePath: 'assets/media/images/nocte-grafika.png', // Utilise la même image pour l'exemple
-      description: 'Description de mon nouveau projet portfolio',
-      technologies: [
-        { label: 'React' },
-        { label: 'TypeScript' }
-      ],
-      language: { label: 'Anglais' },
-      difficulty: { label: 'Moyen' },
-      date: { label: 'Décembre 2024' },
-      seeMoreLink: 'https://github.com/mon-projet'
-    };
-    
-    this.addPortfolioItem(newProject);
-  }
-
   // Méthode pour fermer le portfolio
   onCloseClick(): void {
     this.closePortfolio.emit();
@@ -106,8 +86,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   onSeeMoreClick(item: PortfolioItem): void {
     if (item.seeMoreLink && item.seeMoreLink !== '#') {
       window.open(item.seeMoreLink, '_blank', 'noopener,noreferrer');
-    } else {
-      console.log('Lien non disponible pour le projet:', item.title);
     }
   }
 

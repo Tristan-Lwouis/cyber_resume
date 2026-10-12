@@ -1,4 +1,4 @@
-![Aperçu du projet](./src/app/assets/media/images/CyberResume.png)
+![Aperçu du projet](./docs/CyberResume.png)
 
 ## Description
 
@@ -11,13 +11,13 @@ Inspirée d’un **bureau virtuel**, l’application propose des **fenêtres dé
 ##### [Voir le site en ligne](https://tristan-lwouis.github.io/cyber_resume/)
 
 
-![spacer](./src/app/assets/media/images/Spacer1.png)
+![spacer](./docs/Spacer1.png)
 
 ## Aperçu
-![Logo](./src/app/assets/media/images/Screenshot.png)
+![Logo](./docs/Screenshot.png)
 > Interface principale du CV interactif, présentant le profil 3D et les modules dynamiques.
 
-![spacer](./src/app/assets/media/images/Spacer2.png)
+![spacer](./docs/Spacer2.png)
 
 
 ## 🧪 Fonctionnalités principales
@@ -33,7 +33,7 @@ Inspirée d’un **bureau virtuel**, l’application propose des **fenêtres dé
 -  **Responsive design** optimisé pour desktop et tablette
 -  **Animations avatar** dynamique : l'avatar bouge en fonction des éléments à l'écran
 
-![spacer](./src/app/assets/media/images/Spacer1.png)
+![spacer](./docs/Spacer1.png)
 
 ## Technologies utilisées
 
@@ -45,7 +45,7 @@ Inspirée d’un **bureau virtuel**, l’application propose des **fenêtres dé
 | 3D | Avaturn (GLB), Three.js (animation & rendu) |
 | Outils | Node.js, Git, GitHub Pages |
 
-![spacer](./src/app/assets/media/images/Spacer2.png)
+![spacer](./docs/Spacer2.png)
 
 ## Installation & exécution
 
@@ -67,4 +67,4 @@ http://localhost:4200/
 
 ```
 
-![spacer](./src/app/assets/media/images/Spacer1.png)
+![spacer](./docs/Spacer1.png)

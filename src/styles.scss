@@ -5,10 +5,11 @@
 /* ===== POLICES PERSONNALISÉES ===== */
 @font-face {
   font-family: 'CyberAlert';
-  src: url('./app/assets/font/Cyber-Alert.otf') format('opentype');
+  src: url('./app/assets/font/Cyber-Alert.woff2') format('woff2'),
+       url('./app/assets/font/Cyber-Alert.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-  font-display: block; /* Masquer le texte en attendant la police */
+  font-display: swap; /* L'écran de chargement masque déjà le changement de police */
 }
 
 /* ===== VARIABLES CSS ===== */
