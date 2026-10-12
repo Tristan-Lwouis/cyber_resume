@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectorRef, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 
@@ -45,6 +45,7 @@ import { SimpleLoadingComponent } from "./loading-page/simple-loading.component"
 ],
 
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {

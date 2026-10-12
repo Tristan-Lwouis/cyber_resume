@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import { MemoryMonitorService } from './services/memory-monitor.service';
 import { AudioEventsService } from './services/audio-events.service';
 import { AvatarMemoryMonitorService } from './services/avatar-memory-monitor.service';
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
       eventCoalescing: true
     }), 
     provideRouter(routes), 
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     MemoryMonitorService,
     AudioEventsService,
     AvatarMemoryMonitorService,

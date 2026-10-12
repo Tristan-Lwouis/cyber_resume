@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, PLATFORM_ID, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, PLATFORM_ID, Inject, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import * as L from 'leaflet';
 
@@ -7,6 +7,7 @@ import * as L from 'leaflet';
   standalone: true,
   imports: [],
   templateUrl: './map-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './map-modal.component.scss'
 })
 export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {

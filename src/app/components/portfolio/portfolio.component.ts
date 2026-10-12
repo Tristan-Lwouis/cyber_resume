@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import { WindowManagerService } from '../../services/window-manager.service';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { PortfolioItem, PORTFOLIO_ITEMS } from '../../data/portfolio.data';
   selector: 'app-portfolio',
   imports: [],
   templateUrl: './portfolio.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './portfolio.component.scss'
 })
 export class PortfolioComponent implements OnInit, OnDestroy {

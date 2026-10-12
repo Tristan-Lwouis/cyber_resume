@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { LoadingProgressService } from '../services/loading-progress.service';
@@ -8,6 +8,7 @@ import { LoadingProgressService } from '../services/loading-progress.service';
   standalone: true,
   imports: [DecimalPipe],
   templateUrl: './simple-loading.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './simple-loading.component.scss'
 })
 export class SimpleLoadingComponent implements OnInit, OnDestroy {
