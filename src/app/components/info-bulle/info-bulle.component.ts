@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { PROFILE_PITCH } from '../../data/profile.data';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class InfoBulleComponent implements OnInit, OnDestroy, OnChanges {
   @Input() portfolioOpen: boolean = false; // Nouvelle propriété pour détecter si le portfolio est ouvert
   
   displayedText = '';
-  fullText = "Bonjour ! Moi c'est Tristan, je suis en quête d'un poste de Développeur Full-Stack. J'ai déjà un solide bagage en informatique et en graphisme, avec plusieurs projets (perso & pro) déjà en ligne. Je ne cherche pas juste à coder, mais à concevoir des outils fonctionnels, modernes et innovants. Je serais ravi d'échanger avec vous.";
+  fullText = PROFILE_PITCH;
   currentIndex = 0;
   isTyping = false;
   isVisible = true;

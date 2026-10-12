@@ -1,0 +1,165 @@
+<div class="m-bg" aria-hidden="true"></div>
+
+<header class="m-header">
+  <div class="m-header__bar">
+    <a class="m-chip" href="https://linktr.ee/tristan.regnier" target="_blank" rel="noopener">CONTACT</a>
+    <span class="m-header__status"><span class="m-led"></span>OPEN_TO_WORK</span>
+    <a class="m-chip m-chip--icon" href="https://www.linkedin.com/in/tristan-regnier/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <img src="assets/media/icons/Linkedin.png" alt="">
+    </a>
+  </div>
+  <h1 class="m-title">TRISTAN REGNIER</h1>
+  <p class="m-barcode" aria-hidden="true">OpenToWorkOpenToWork</p>
+  <p class="m-subtitle">C0NC3PTEUR D3VELOPPEUR D'APPLICAT1ONS</p>
+</header>
+
+<div class="m-layout">
+
+  <!-- Avatar 3D : en tête sur téléphone, fixé à gauche sur tablette -->
+  <section #hero class="m-hero" aria-label="Avatar 3D de Tristan">
+    @defer (on immediate) {
+      <app-avatar [compact]="true" (avatarClicked)="onAvatarClicked()"></app-avatar>
+    }
+    <p class="m-hero__hint" aria-hidden="true">&lt;&gt; GLISSE POUR TOURNER · TAP POUR SALUER</p>
+  </section>
+
+  <div class="m-content">
+
+    <section class="m-panel m-panel--profile" aria-label="Profil">
+      <h2 class="m-panel__tab">PR0F1L</h2>
+      <div class="m-panel__body">
+        <p class="m-barcode m-barcode--small" aria-hidden="true">Im looking for a job</p>
+        <p class="m-pitch">{{ pitch }}</p>
+      </div>
+    </section>
+
+    <app-user-informations class="m-userinfo" (openMap)="scrollTo('deplacement')"></app-user-informations>
+
+    <nav #nav class="m-nav" aria-label="Sections du CV">
+      @for (section of sections; track section.id) {
+        <a [href]="'#' + section.id"
+           [class.active]="activeSection() === section.id"
+           (click)="scrollTo(section.id, $event)">{{ section.label }}</a>
+      }
+    </nav>
+
+    <!-- EXPÉRIENCES -->
+    <section #section id="experience" class="m-panel">
+      <h2 class="m-panel__tab">EXPER1ENCE</h2>
+      <div class="m-panel__body m-rich" [innerHTML]="experienceContent"></div>
+    </section>
+
+    <!-- FORMATIONS -->
+    <section #section id="formation" class="m-panel">
+      <h2 class="m-panel__tab">F0RMATIONS</h2>
+      <div class="m-panel__body m-rich" [innerHTML]="formationContent"></div>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section #section id="competences" class="m-panel">
+      <h2 class="m-panel__tab">C0MP3TENCES</h2>
+      <div class="m-panel__body">
+        <div class="m-switch" role="tablist">
+          <button type="button" role="tab" [class.active]="competenceTab() === 'dev'"
+                  [attr.aria-selected]="competenceTab() === 'dev'" (click)="setCompetenceTab('dev')">DÉV</button>
+          <button type="button" role="tab" [class.active]="competenceTab() === 'tools'"
+                  [attr.aria-selected]="competenceTab() === 'tools'" (click)="setCompetenceTab('tools')">L0G1CIELS</button>
+        </div>
+        <ul class="m-competences">
+          @for (language of currentCompetences(); track language.id) {
+            <li>
+              <details>
+                <summary>
+                  <img [src]="language.icon" alt="" loading="lazy">
+                  <span class="m-competences__name">{{ language.name }}</span>
+                  <span class="m-bar" aria-hidden="true">
+                    <span class="m-bar__fill" [style.width.%]="language.progressWidth"></span>
+                  </span>
+                </summary>
+                <ul class="m-competences__details">
+                  @for (skill of language.skills; track skill) {
+                    <li>{{ skill }}</li>
+                  }
+                </ul>
+              </details>
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- SOFT SKILLS -->
+    <section #section id="skills" class="m-panel">
+      <h2 class="m-panel__tab">SK1LLS</h2>
+      <div class="m-panel__body">
+        <ol class="m-skills">
+          @for (skill of skills; track skill.number) {
+            <li><span class="m-skills__number">{{ skill.number }}</span>{{ skill.name }}</li>
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- LOISIRS : chaque loisir fait jouer une animation à l'avatar -->
+    <section #section id="loisirs" class="m-panel">
+      <h2 class="m-panel__tab">L0IS1RS</h2>
+      <div class="m-panel__body">
+        <p class="m-hint">Touche un loisir pour voir l'avatar en action.</p>
+        <div class="m-loisirs">
+          @for (loisir of loisirs; track loisir.id) {
+            <button type="button" class="m-loisirs__item" (click)="playLoisir(loisir)">
+              <img [src]="loisir.imagePath" alt="" loading="lazy">
+              <span>{{ loisir.name }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section #section id="portfolio" class="m-panel">
+      <h2 class="m-panel__tab">P0RTFOL10</h2>
+      <div class="m-panel__body m-portfolio">
+        @for (item of portfolioItems; track item.id) {
+          <article class="m-project">
+            <img class="m-project__image" [src]="item.imagePath" [alt]="'Aperçu du projet ' + item.title.replace('// ', '')"
+                 loading="lazy" decoding="async" width="1400" height="385">
+            <h3>{{ item.title }}</h3>
+            <ul class="m-tags">
+              @for (tech of item.technologies; track tech.label) {
+                <li>{{ tech.label }}</li>
+              }
+              <li class="m-tags__meta">{{ item.difficulty.label }}</li>
+              <li class="m-tags__meta">{{ item.date.label }}</li>
+            </ul>
+            <p>{{ item.description }}</p>
+            @if (item.seeMoreLink && item.seeMoreLink !== '#') {
+              <a class="m-button" [href]="item.seeMoreLink" target="_blank" rel="noopener">SEE MORE &gt;</a>
+            }
+          </article>
+        }
+      </div>
+    </section>
+
+    <!-- DÉPLACEMENT : la carte (Leaflet) n'est chargée qu'à l'approche de la section -->
+    <section #section id="deplacement" class="m-panel">
+      <h2 class="m-panel__tab">DÉPLAC3M3NT</h2>
+      <div class="m-panel__body">
+        <p class="m-hint">Basé à Toulouse · permis B · ouvert au <strong>télétravail hybride ou complet</strong>.</p>
+        <div class="m-map">
+          @defer (on viewport) {
+            <app-cyber-map></app-cyber-map>
+          } @placeholder {
+            <div class="m-map__placeholder">CHARGEMENT_CARTE...</div>
+          }
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer class="m-footer">
+  <app-rolling-script [code]="rollingCode" [typingSpeed]="10" width="100%" height="200px"></app-rolling-script>
+  <p>CURRENT: Cyber_Resume V3.0 · STATUS: Looking for a job</p>
+</footer>

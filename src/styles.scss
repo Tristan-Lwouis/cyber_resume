@@ -32,18 +32,51 @@ img {
 html, body {
   height: 100%;
   margin: 0;
-  cursor: none !important;
-  overflow: hidden;
+  overflow: hidden; // Bureau virtuel : tout tient dans l'écran
   /* Optimisations de performance */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* Réduire les reflows */
-  // will-change: auto;
+}
+
+// Mise en page mobile : la page défile normalement.
+// Seul <html> porte l'overflow (propagé au viewport) : un overflow sur <body>
+// en ferait un conteneur de défilement et casserait les éléments "sticky".
+html.layout-mobile {
+  height: auto;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+html.layout-mobile body {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+}
+
+body {
+  background-color: var(--primary-color);
+  font-family: 'JetBrains Mono', monospace;
 }
 
 a {
   text-decoration: none;
-  cursor : none;
+}
+
+// Curseur personnalisé (souris uniquement) : on masque le curseur natif partout
+html.custom-cursor,
+html.custom-cursor body,
+html.custom-cursor a {
+  cursor: none !important;
+}
+
+// Accessibilité : on respecte le réglage "réduire les animations" du système
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 /* ===== FIN RÈGLES GLOBALES ===== */

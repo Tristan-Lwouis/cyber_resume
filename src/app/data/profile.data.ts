@@ -1,0 +1,2 @@
+// Texte de présentation affiché dans l'info-bulle (desktop) et la carte "Profil" (mobile)
+export const PROFILE_PITCH: string = "Bonjour ! Moi c'est Tristan, je suis en quête d'un poste de Développeur Full-Stack. J'ai déjà un solide bagage en informatique et en graphisme, avec plusieurs projets (perso & pro) déjà en ligne. Je ne cherche pas juste à coder, mais à concevoir des outils fonctionnels, modernes et innovants. Je serais ravi d'échanger avec vous.";

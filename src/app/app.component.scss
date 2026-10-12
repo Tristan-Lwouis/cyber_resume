@@ -85,15 +85,85 @@ main {
   /*Test*/
   // background-color: chartreuse;
 }
-// Positionnement des composants principaux
-#loisirSkills{ //Skills ou Loisirs
+// ========================================
+// POSITIONNEMENT DES COMPOSANTS (BUREAU VIRTUEL)
+// ========================================
+// Les fenêtres ont un ratio fixe (cadres SVG) : leur largeur est donc bornée à la fois
+// par la largeur ET par la hauteur de l'écran, pour qu'elles ne débordent jamais en bas.
+
+.main {
+  // Largeur de la colonne de gauche (user-info, menu, terminal)
+  --rail-w: min(30vh, 19vw);
+  // Bord gauche des fenêtres placées à droite de la colonne
+  --rail-right: calc(1.5% + var(--rail-w) + 2vw);
+}
+
+// Colonne de gauche : empilement vertical, aucun chevauchement possible
+.left-rail {
   position: absolute;
-  width: 32%;
-  // min-width: 500px;
-  max-width: 650px;
-  bottom: 30%;
+  // Juste sous le bandeau CONTACT / LinkedIn (deco #HG : clamp(200px, 15vw, 250px) de large, ratio 286x69)
+  top: calc(clamp(200px, 15vw, 250px) * 69 / 286 + 10px);
+  bottom: 4%;
+  left: 1.5%;
+  width: var(--rail-w);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  pointer-events: none; // Les zones vides laissent passer les clics vers l'avatar
+
+  > * {
+    pointer-events: auto;
+    flex: none;
+  }
+}
+
+#userInformations {
+  width: 100%;
+}
+
+#menu {
+  width: min(100%, clamp(150px, 9vw, 200px));
+  height: auto; // Le composant est en 100% par défaut : ici il prend juste la place de ses onglets
+}
+
+#rollingScript1 {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: min(100%, 12vw);
+  max-height: 32vh;
+  overflow: hidden;
+}
+
+#experience { //Experience
+  width: min(clamp(300px, 22vw, 450px), 43vh);
+  position: absolute;
+  top: 6%;
+  right: 6%;
+}
+
+#formation { //Formation
+  width: min(clamp(300px, 22vw, 450px), 43vh);
+  position: absolute;
+  bottom: 5%;
+  left: var(--rail-right);
+}
+
+#competances {
+  position: absolute;
+  top: 16%;
+  left: var(--rail-right);
+  // Ratio le plus haut (compétence dépliée) : 599 x 770
+  width: min(clamp(320px, 25vw, 550px), 60vh);
+}
+
+#loisirSkills { //Skills ou Loisirs
+  position: absolute;
+  width: clamp(400px, 32vw, 650px);
+  aspect-ratio: 853 / 284; // Le cadre SVG est en absolu : on donne sa hauteur à l'hôte pour que "bottom" soit juste
+  bottom: 10%;
   right: 5%;
 }
+
 #infoBulle {
   width: 17%; //Taille de l'info bulle en fonction de la taille de l'écran
   min-width: 200px;
@@ -102,64 +172,6 @@ main {
   top: 22%;
   left: auto;
   right: calc(50% + 50px);
-}
-#rollingScript1 {
-  // width: 30%; //On affecte la largeur dans le composant
-  position: absolute;
-  bottom: 5%;
-  left: 1.5%;
-  // width: 11vw;
-  // height: 13.5vw;
-}
-
-#experience { //Experience
-  width: 20%; //On affecte la largeur dans le composant
-  max-width: 450px;
-  position: absolute;
-  top: 6%;
-  right: 6%;
-}
-
-#formation { //Formation
-  width: 20%; //On affecte la largeur dans le composant
-  max-width: 450px;
-  position: absolute;
-  bottom: 5%;
-  left: 18%;
-}
-
-#menu {
-  position: absolute;
-  top: 33%;
-  left: 1.5%;
-  width: 9%;
-  min-width: 150px;
-  max-width: 200px;
-  max-height: 50vh;
-  // background-color: rgba(210, 105, 30, 0.801);
-}
-
-#userInformations {
-  position: absolute;
-  top: 3.5%;
-  left: 1.5%;
-  // top: 50%;
-  // left: 50%;
-  width: 30vh;
-  //height: 50vh;
-  // min-width: 200px;
-}
-
-#competances {
-  position: absolute;
-  top: 16%;
-  left: 15%;
-  // top: 50%;
-  // left: 50%;
-  width: 25%;
-  max-width: 550px;
-  // min-width: 300px;
-  // max-width: 400px;
 }
 
 #portfolio {
@@ -171,143 +183,9 @@ main {
   z-index: 10;
 }
 
-// ========================================
-// STYLES POUR LE MESSAGE MOBILE
-// ========================================
-.mobile-warning {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #2b2e1a 50%, #030300 100%);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-  
-  // Animation d'apparition
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.mobile-warning-content {
-  background: rgba(0, 0, 0, 0.8);
-  border: 2px solid var(--primary-color);
-  border-radius: 10px;
-  padding: 40px 30px;
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 
-    0 0 20px var(--primary-color),
-    inset 0 0 20px var(--primary-color);
-  
-  // Animation de pulsation pour la bordure
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 
-      0 0 20px var(--primary-color),
-;
-  }
-  50% {
-    box-shadow: 
-      0 0 30px var(--primary-color);
-  }
-}
-
-.warning-icon {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  animation: bounce 1s infinite alternate;
-}
-
-@keyframes bounce {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-10px);
-  }
-}
-
-.warning-title {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-  margin: 0 0 20px 0;
-  text-shadow: 0 0 10px var(--primary-color);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.warning-message {
-  color: #ffffff;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0 0 30px 0;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.warning-footer {
-  border-top: 1px solid var(--primary-color);
-  padding-top: 20px;
-}
-
-.cyber-text {
-  color: var(--primary-color);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  text-shadow: 0 0 5px var(--primary-color);
-  animation: blink 1.5s infinite;
-}
-
-@keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0.3;
-  }
-}
-
-// Masquer le contenu principal sur mobile
-.mobile-hidden {
-  display: none;
-}
-
-// Responsive pour les très petits écrans
-@media (max-width: 480px) {
-  .mobile-warning-content {
-    padding: 30px 20px;
-    margin: 10px;
-  }
-  
-  .warning-title {
-    font-size: 1.2rem;
-  }
-  
-  .warning-message {
-    font-size: 0.9rem;
-  }
-  
-  .cyber-text {
-    font-size: 0.8rem;
+// Écrans peu hauts : le terminal décoratif laisse la place au menu
+@media (max-height: 720px) {
+  #rollingScript1 {
+    display: none;
   }
 }

@@ -24,12 +24,18 @@ let GREETING_ALREADY_PLAYED = false;
   selector: 'app-avatar',
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[class.compact]': 'compact' }
 })
 export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('avatarCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   @Output() avatarClicked = new EventEmitter<void>();
   @Input() isVisible: boolean = true;
+  /**
+   * Mode mobile : rendu moins coûteux, rotation horizontale uniquement
+   * et défilement vertical de la page possible par-dessus le canvas.
+   */
+  @Input() compact: boolean = false;
 
   // === Paramètres principaux de la scène ===
   private renderer!: THREE.WebGLRenderer;
@@ -61,11 +67,13 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   // Gestion de la boucle d'animation et des listeners
   private animationId: number | null = null;
-  private resizeHandler: (() => void) | null = null;
+  private resizeObserver?: ResizeObserver;
+  private visibilityObserver?: IntersectionObserver;
+  private inViewport = true; // La boucle de rendu est coupée quand le canvas sort de l'écran
   private clickHandler: ((event: MouseEvent) => void) | null = null;
 
   // Optimisation
-  private pixelRatio: number; // Cache le pixel ratio pour éviter les recalculs
+  private pixelRatio = 1; // Cache le pixel ratio pour éviter les recalculs
   private fallbackProgress = 0; // Pourcentage approximatif si la taille totale est inconnue
   private clock = new THREE.Clock(); // Horloge pour le temps d'animation réel
   private frameCount = 0; // Compteur de frames pour le throttling des ombres
@@ -74,26 +82,34 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     private loadingProgress: LoadingProgressService,
     private avatarAnimationService: AvatarAnimationService,
     private ngZone: NgZone
-  ) {
-    // Limite le pixel ratio à 2 pour éviter de flinguer le GPU sur les écrans 4K
-    this.pixelRatio = Math.min(window.devicePixelRatio, 2);
-  }
+  ) {}
 
   // =====================================================================
   //  CYCLE DE VIE ANGULAR
   // =====================================================================
 
   async ngAfterViewInit(): Promise<void> {
+    // Limite le pixel ratio pour éviter de flinguer le GPU (4K, téléphones à très haute densité)
+    this.pixelRatio = Math.min(window.devicePixelRatio, this.compact ? 1.5 : 2);
+
     await this.initThree();
     await this.loadModel();
-    this.ngZone.runOutsideAngular(() => {
-      this.animate();
-    });
+    this.updateRenderLoop();
     this.setupClickDetection();
 
-    // Gestion du resize
-    this.resizeHandler = () => this.onResize();
-    window.addEventListener('resize', this.resizeHandler);
+    const canvas = this.canvasRef.nativeElement;
+    this.ngZone.runOutsideAngular(() => {
+      // Suit la taille réelle du canvas (fenêtre redimensionnée, rotation, conteneur mobile...)
+      this.resizeObserver = new ResizeObserver(() => this.onResize());
+      this.resizeObserver.observe(canvas);
+
+      // Inutile de calculer des frames quand l'avatar n'est pas à l'écran (scroll sur mobile)
+      this.visibilityObserver = new IntersectionObserver(([entry]) => {
+        this.inViewport = entry.isIntersecting;
+        this.updateRenderLoop();
+      });
+      this.visibilityObserver.observe(canvas);
+    });
 
     // Souscription aux demandes d'animation venant du service
     // -> Même API, il peut toujours envoyer un seul nom d'animation
@@ -108,18 +124,21 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     if (changes['isVisible'] && this.canvasRef) {
       const canvas = this.canvasRef.nativeElement;
 
-      if (this.isVisible) {
-        canvas.style.display = 'block';
-        // Si la boucle d'animation a été stoppée, on la relance
-        if (this.animationId === null && this.renderer && this.scene && this.camera) {
-          this.ngZone.runOutsideAngular(() => {
-            this.animate();
-          });
-        }
-      } else {
-        canvas.style.display = 'none';
-        this.stopAnimation();
-      }
+      canvas.style.display = this.isVisible ? 'block' : 'none';
+      this.updateRenderLoop();
+    }
+  }
+
+  /**
+   * Démarre ou coupe la boucle de rendu selon la visibilité de l'avatar.
+   */
+  private updateRenderLoop(): void {
+    const shouldRun = this.isVisible && this.inViewport && !!this.renderer && !!this.scene && !!this.camera;
+    if (shouldRun && this.animationId === null) {
+      this.clock.getDelta(); // Évite un saut d'animation après une pause
+      this.ngZone.runOutsideAngular(() => this.animate());
+    } else if (!shouldRun) {
+      this.stopAnimation();
     }
   }
 
@@ -135,10 +154,8 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.stopAnimation();
 
     // Supprimer les event listeners
-    if (this.resizeHandler) {
-      window.removeEventListener('resize', this.resizeHandler);
-      this.resizeHandler = null;
-    }
+    this.resizeObserver?.disconnect();
+    this.visibilityObserver?.disconnect();
 
     if (this.clickHandler && this.canvasRef) {
       const canvas = this.canvasRef.nativeElement;
@@ -267,6 +284,7 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
       1000
     );
     this.camera.position.set(0.5, 1.5, 2.1);
+    this.fitCameraToAspect();
 
     // Renderer optimisé
     this.renderer = new THREE.WebGLRenderer({ 
@@ -325,6 +343,15 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.controls.minDistance = 2.1;
     this.controls.maxDistance = 2.1;
     this.controls.maxPolarAngle = Math.PI / 2;
+
+    if (this.compact) {
+      // Sur mobile : on garde la rotation horizontale au doigt, mais un glissement vertical fait défiler la page
+      this.renderer.domElement.style.touchAction = 'pan-y';
+      this.controls.update();
+      const polarAngle = this.controls.getPolarAngle();
+      this.controls.minPolarAngle = polarAngle;
+      this.controls.maxPolarAngle = polarAngle;
+    }
   }
 
   // =====================================================================
@@ -589,13 +616,26 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.renderer.render(this.scene, this.camera);
   };
 
+  /**
+   * Dans un cadre très vertical (colonne mobile / tablette), le champ horizontal devient trop étroit
+   * et l'avatar est rogné : on recule la caméra (zoom < 1) proportionnellement.
+   */
+  private fitCameraToAspect(): void {
+    const MIN_COMFORTABLE_ASPECT = 0.65;
+    this.camera.zoom = Math.min(1, Math.pow(this.camera.aspect / MIN_COMFORTABLE_ASPECT, 0.6));
+    this.camera.updateProjectionMatrix();
+  }
+
   private onResize(): void {
     const canvas = this.canvasRef.nativeElement;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
-    
+    if (!this.camera || !this.renderer || width === 0 || height === 0) {
+      return; // Canvas masqué ou composant en cours de destruction
+    }
+
     this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
+    this.fitCameraToAspect();
     this.renderer.setSize(width, height, false);
   }
 }

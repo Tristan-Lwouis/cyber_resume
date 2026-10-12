@@ -1,7 +1,7 @@
 svg {
+    display: block;
     width: 100%;
-    // height: auto;
-    // max-width: 450px;
+    height: auto; // Garde le ratio du cadre (sinon l'attribut height="295" fige la hauteur)
   }
 
 .user-informations {

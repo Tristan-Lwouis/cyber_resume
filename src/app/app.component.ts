@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, ChangeDetectionStrategy, inject } from '@angular/core';
 
 
 import { EXPERIENCE_CONTENT } from './data/experiences.data';
@@ -20,6 +20,8 @@ import { MapModalComponent } from './components/map-modal/map-modal.component';
 import { AudioEventsService } from './services/audio-events.service';
 import { ViewportLineComponent } from './components/viewport-line/viewport-line.component';
 import { SimpleLoadingComponent } from "./loading-page/simple-loading.component";
+import { MobileLayoutComponent } from './components/mobile-layout/mobile-layout.component';
+import { LayoutService } from './services/layout.service';
 
 
 @Component({
@@ -38,14 +40,15 @@ import { SimpleLoadingComponent } from "./loading-page/simple-loading.component"
     PortfolioComponent,
     MapModalComponent,
     ViewportLineComponent,
-    SimpleLoadingComponent
+    SimpleLoadingComponent,
+    MobileLayoutComponent
 ],
 
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   
   // ========================================
   // CONSTRUCTEUR
@@ -60,9 +63,8 @@ export class AppComponent implements OnInit {
   // ========================================
   title = 'Cyber_Resume';
   
-  // Détection mobile
-  isMobile: boolean = false;
-  showMobileMessage: boolean = false;
+  // Choix de la mise en page (bureau virtuel ou mobile) et du curseur
+  readonly layout = inject(LayoutService);
 
   // État de la modale de carte
   showMapModal: boolean = false;
@@ -153,17 +155,19 @@ while (challenge) {
    */
   onMenuToggle(event: {index: number, isActive: boolean}): void {
     if (event.index >= 0 && event.index < this.menuStates.length) {
-      
+
+      // Déplacement (index 6) : onMapToggle gère son propre son et l'état du menu
+      if (event.index === 6) {
+        this.onMapToggle();
+        return;
+      }
+
       // Jouer le son approprié selon l'action
       this.audioEventsService.playToggleSound(event.isActive);
-      
+
       // Logique spéciale pour Portfolio (index 5)
       if (event.index === 5) {
         this.handlePortfolioToggle(event.isActive);
-      }
-      // Logique spéciale pour Déplacement (index 6)
-      else if (event.index === 6) {
-        this.onMapToggle();
       }
       // Logique spéciale pour Skills (index 3) et Loisirs (index 4)
       else if (event.index === 3 || event.index === 4) {
@@ -331,49 +335,6 @@ while (challenge) {
       this.audioEventsService.playCloseSound();
     }
   }
-
-  // ========================================
-  // MÉTHODES DE DÉTECTION MOBILE
-  // ========================================
-  /**
-   * Méthode pour détecter si l'appareil est mobile
-   */
-  private detectMobile(): void {
-    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-    
-    // Détection plus précise des appareils mobiles
-    const isMobileDevice = /android|webos|iphone|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-    const isTablet = /ipad|tablet/i.test(userAgent);
-    
-    // Vérifier si c'est un vrai téléphone (pas tablette) ET en mode portrait
-    const isPhonePortrait = isMobileDevice && !isTablet && window.innerWidth <= 480 && window.innerHeight > window.innerWidth;
-    
-    // Ou si c'est un écran très petit (largeur <= 480px) en mode portrait
-    const isSmallPortrait = window.innerWidth <= 480 && window.innerHeight > window.innerWidth;
-    
-    this.isMobile = isPhonePortrait || isSmallPortrait;
-    this.showMobileMessage = this.isMobile;
-  }
-
-  /**
-   * Listener pour détecter les changements de taille d'écran
-   */
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.detectMobile();
-  }
-
-  // ========================================
-  // LIFECYCLE
-  // ========================================
-  /**
-   * Méthode appelée lors de l'initialisation du composant
-   * Détecte si l'appareil est mobile
-   */
-  ngOnInit(): void {
-    this.detectMobile();
-  }
-
 
   /**
    * Bascule l'affichage de la modale de carte

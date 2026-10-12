@@ -1,47 +1,46 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 export type AudioEventType = 'open' | 'close';
 
+/**
+ * Service centralisant les effets sonores de l'interface (ouverture / fermeture des fenêtres).
+ * Les fichiers audio ne sont créés qu'au premier son joué, pour ne rien télécharger inutilement.
+ */
 @Injectable({
   providedIn: 'root'
 })
-export class AudioEventsService implements OnDestroy {
-  private audioEventSubject = new Subject<AudioEventType>();
-
-  // Observable pour écouter les événements audio
-  audioEvents$ = this.audioEventSubject.asObservable();
+export class AudioEventsService {
+  private readonly sounds = new Map<AudioEventType, HTMLAudioElement>();
 
   /**
-   * Émet un événement pour jouer le son d'ouverture
+   * Joue le son d'ouverture
    */
   playOpenSound(): void {
-    this.audioEventSubject.next('open');
+    this.play('open');
   }
 
   /**
-   * Émet un événement pour jouer le son de fermeture
+   * Joue le son de fermeture
    */
   playCloseSound(): void {
-    this.audioEventSubject.next('close');
+    this.play('close');
   }
 
   /**
-   * Émet un événement pour jouer le son approprié selon l'état
+   * Joue le son approprié selon l'état
    */
   playToggleSound(isOpening: boolean): void {
-    if (isOpening) {
-      this.playOpenSound();
-    } else {
-      this.playCloseSound();
-    }
+    this.play(isOpening ? 'open' : 'close');
   }
 
-  /**
-   * Implémentation de OnDestroy pour nettoyer automatiquement les ressources
-   */
-  ngOnDestroy(): void {
-    // Compléter le Subject pour libérer les abonnés
-    this.audioEventSubject.complete();
+  private play(type: AudioEventType): void {
+    let sound = this.sounds.get(type);
+    if (!sound) {
+      sound = new Audio(`assets/media/soundFX/${type}.mp3`);
+      this.sounds.set(type, sound);
+    }
+    sound.currentTime = 0; // Remettre à zéro pour pouvoir rejouer immédiatement
+    // Le navigateur peut refuser la lecture avant la première interaction : on ignore silencieusement
+    sound.play().catch(() => {});
   }
 }

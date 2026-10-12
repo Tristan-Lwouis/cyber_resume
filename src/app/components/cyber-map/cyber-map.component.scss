@@ -1,0 +1,247 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+}
+
+.map-inner-container {
+ 
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  // border: 1px solid var(--background-color);
+  box-sizing: border-box;
+}
+
+.map-container {
+  cursor: none;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  pointer-events: none;
+  
+  // --- LOOK CYBERPUNK ---
+  ::ng-deep .leaflet-tile-pane {
+    // On a baissé le contraste et augmenté la luminosité (brightness) pour que les routes et le texte ressortent
+    filter: sepia(1) saturate(250%) hue-rotate(10deg) brightness(1.8) contrast(1.1);
+  }
+
+  // Repli OpenStreetMap (tuiles claires) : on inverse avant d'appliquer la teinte
+  &.osm-fallback ::ng-deep .leaflet-tile-pane {
+    filter: grayscale(1) invert(1) brightness(0.75) contrast(1.2) sepia(1) saturate(250%) hue-rotate(10deg);
+  }
+
+  ::ng-deep .leaflet-container {
+    background: #000;
+  }
+
+  ::ng-deep .leaflet-marker-pane {
+    z-index: 2000 !important;
+  }
+
+  ::ng-deep .leaflet-shadow-pane {
+    z-index: 2000 !important;
+  }
+}
+
+
+// --- LÉGENDE ---
+
+.map-legend {
+  position: absolute;
+  bottom: 2vh;
+  left: 2vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--primary-color);
+  padding: 10px;
+  z-index: 2000;
+  font-family: var(--cyber-font);
+  width: 220px;
+  pointer-events: none;
+  animation: slideIn 0.5s ease-out;
+
+  .legend-header {
+    font-size: 0.7em;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    margin-bottom: 8px;
+    padding-bottom: 3px;
+    letter-spacing: 2px;
+  }
+
+  .legend-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .legend-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75em;
+
+    .label { color: #888; }
+    .value { color: #fff; }
+    .status-active { color: #00ff00; text-shadow: 0 0 5px #00ff00; }
+  }
+
+  .legend-timer {
+    font-size: 0.8em;
+    color: var(--primary-color);
+    margin-top: 10px;
+    text-align: right;
+    animation: blink 1s infinite;
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  }
+}
+
+// Panneau "mode de travail", symétrique de la légende principale
+.map-legend--remote {
+  bottom: auto;
+  left: auto;
+  top: 2vh;
+  right: 2vh;
+  animation-name: slideInRight;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+// --- EFFETS OVERLAY ---
+.scanlines {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background-size: 100% 4px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.vignette {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.3) 150%);
+  z-index: 1001;
+  pointer-events: none;
+}
+
+
+// --- MARQUEUR STYLE JEU VIDÉO ---
+::ng-deep .cyber-marker-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: 40px !important;
+  height: 40px !important;
+  flex-shrink: 0;
+}
+
+::ng-deep .cyber-marker {
+  width: 40px !important;
+  height: 40px !important;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: rotateOuter 4s linear infinite;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    background-color: var(--primary-color);
+  }
+
+  &::before { width: 60%; height: 2px; }
+  &::after { width: 2px; height: 60%; }
+
+  .inner-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary-color);
+    animation: pulse 0.5s infinite alternate;
+  }
+}
+
+// --- ANIMATIONS ---
+
+@keyframes rotateOuter {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  from { transform: scale(0.8); opacity: 0.6; }
+  to { transform: scale(1.2); opacity: 1; }
+}
+
+// --- ANIMATION RADAR CERCLE ---
+::ng-deep .radar-circle {
+  animation: radarRotate 10s linear infinite;
+  stroke-dasharray: 10, 10;
+}
+
+@keyframes radarRotate {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 200; // Doit être un multiple de la somme du dasharray pour un loop fluide
+  }
+}
+
+
+// --- ATTRIBUTION (obligatoire, mais discrète) ---
+::ng-deep .leaflet-control-attribution {
+  font-size: 9px;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #999;
+
+  a {
+    color: var(--primary-color);
+  }
+}
+
+// --- CARTE ÉTROITE (mobile) : légendes compactes pour laisser voir la carte ---
+@container (max-width: 520px) {
+  .map-legend {
+    width: auto;
+    min-width: 150px;
+    max-width: 62%;
+    padding: 6px 8px;
+    font-size: 0.8em;
+    left: 8px;
+    bottom: 26px;
+
+    .legend-header {
+      letter-spacing: 1px;
+    }
+  }
+
+  .map-legend--remote {
+    left: auto;
+    right: 8px;
+    top: 8px;
+    bottom: auto;
+  }
+}

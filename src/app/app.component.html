@@ -1,151 +1,144 @@
-<!-- Message d'avertissement pour mobile -->
-@if (showMobileMessage) {
-  <div class="mobile-warning">
-    <div class="mobile-warning-content">
-      <div class="warning-icon">⚠️</div>
-      <h2 class="warning-title">SITE MOBILE EN CONSTRUCTION</h2>
-      <p class="warning-message">
-        Cette version mobile est actuellement en développement.<br>
-        Pour une expérience optimale, veuillez consulter le site sur un ordinateur de bureau.
-      </p>
-      <div class="warning-footer">
-        <span class="cyber-text">> CONNEXION RECOMMANDÉE : DESKTOP</span>
+<!-- Écran de chargement : attend le modèle 3D, commun aux deux mises en page -->
+<app-simple-loading></app-simple-loading>
+
+<!-- Les composants lourds (Three.js, Leaflet, portfolio, version mobile...) sont dans des blocs @defer :
+     ils sont chargés dans des chunks séparés, hors du bundle initial. -->
+
+@if (layout.isMobile()) {
+  <!-- ========== MISE EN PAGE MOBILE / TABLETTE ========== -->
+  @defer (on immediate) {
+    <app-mobile-layout [rollingCode]="monCode"></app-mobile-layout>
+  }
+} @else {
+  <!-- ========== MISE EN PAGE BUREAU VIRTUEL ========== -->
+  <main class="main">
+
+    <header class="mainHeader">
+      <div class="title-container">
+        <video class="heartbeat left" autoplay muted [muted]="true" loop playsinline aria-hidden="true">
+          <source src="assets/media/deco/heartbeat.webm" type="video/webm">
+          <source src="assets/media/deco/heartbeat.mp4" type="video/mp4">
+        </video>
+        <h1>TRISTAN REGNIER</h1>
+        <video class="heartbeat right" autoplay muted [muted]="true" loop playsinline aria-hidden="true">
+          <source src="assets/media/deco/heartbeat.webm" type="video/webm">
+          <source src="assets/media/deco/heartbeat.mp4" type="video/mp4">
+        </video>
       </div>
-    </div>
-  </div>
+      <h3 class="barCode">OpenToWorkOpenToWorkOpenToWorkOpento</h3>
+      <h2>C0NC3PTEUR D3VELOPPEUR D'APPLICAT1ONS</h2>
+    </header>
+
+    <app-viewport-line></app-viewport-line>
+
+    <app-deco></app-deco>
+
+    @defer (on immediate) {
+      <app-avatar
+        [isVisible]="showAvatar"
+        [class.avatar-appear]="showAvatar && !wasAvatarHidden"
+        [class.avatar-visible]="showAvatar"
+        [class.avatar-hidden]="!showAvatar"
+        (avatarClicked)="onAvatarClicked()">
+      </app-avatar>
+    }
+
+    <!-- Colonne de gauche : les éléments s'empilent sans jamais se chevaucher -->
+    <aside class="left-rail">
+      <app-user-informations
+        id="userInformations"
+        (openMap)="onMapToggle()">
+      </app-user-informations>
+
+      <app-menu
+        id="menu"
+        [menuStates]="menuStates"
+        (menuToggle)="onMenuToggle($event)">
+      </app-menu>
+
+      <app-rolling-script
+        id="rollingScript1"
+        [code]="monCode"
+        [typingSpeed]="10"
+        width="100%"
+        height="100%">
+      </app-rolling-script>
+    </aside>
+
+    @if (showUserInfoCard) {
+      @defer (on immediate) {
+        <app-loisir-skills
+          id="loisirSkills"
+          [skillsZIndex]="skillsZIndex"
+          [loisirsZIndex]="loisirsZIndex"
+          [distancePercentage]="18"
+          (tabToggle)="onTabToggle($event)"
+          (closeComponent)="onSkillsLoisirsClose()">
+        </app-loisir-skills>
+      }
+    }
+
+    <app-info-bulle
+      id="infoBulle"
+      [avatarClicked]="avatarClickedState"
+      [portfolioOpen]="showPortfolio">
+    </app-info-bulle>
+
+    @if (showExperience) {
+      <app-personal-info
+        id="experience"
+        tabTitle="EXPER1ENCE"
+        componentId="experience"
+        lineColor="black"
+        [distancePercentage]="12"
+        [content]="experienceContent"
+        (closeComponent)="onExperienceClose()">
+      </app-personal-info>
+    }
+
+    @if (showFormation) {
+      <app-personal-info
+        id="formation"
+        tabTitle="FORMATIONS"
+        componentId="formation"
+        lineColor="black"
+        [distancePercentage]="12"
+        [content]="formationContent"
+        (closeComponent)="onFormationClose()">
+      </app-personal-info>
+    }
+
+    @if (showCompetences) {
+      @defer (on immediate) {
+        <app-competances
+          id="competances"
+          [distancePercentage]="13"
+          (closeComponent)="onCompetencesClose()">
+        </app-competances>
+      }
+    }
+
+    @if (showPortfolio) {
+      @defer (on immediate) {
+        <app-portfolio
+          id="portfolio"
+          (closePortfolio)="onPortfolioClose()">
+        </app-portfolio>
+      }
+    }
+
+    @if (showMapModal) {
+      @defer (on immediate) {
+        <app-map-modal
+          (close)="onMapClose()">
+        </app-map-modal>
+      }
+    }
+
+  </main>
 }
 
-<main class="main" [class.mobile-hidden]="showMobileMessage">
-
-  <header class="mainHeader">
-    <div class="title-container">
-      <video class="heartbeat left" autoplay muted [muted]="true" loop playsinline aria-hidden="true">
-        <source src="assets/media/deco/heartbeat.webm" type="video/webm">
-        <source src="assets/media/deco/heartbeat.mp4" type="video/mp4">
-      </video>
-      <h1>TRISTAN REGNIER</h1>
-      <video class="heartbeat right" autoplay muted [muted]="true" loop playsinline aria-hidden="true">
-        <source src="assets/media/deco/heartbeat.webm" type="video/webm">
-        <source src="assets/media/deco/heartbeat.mp4" type="video/mp4">
-      </video>
-    </div>
-    <h3 class="barCode">OpenToWorkOpenToWorkOpenToWorkOpento</h3>
-    <h2>C0NC3PTEUR D3VELOPPEUR D'APPLICAT1ONS</h2>
-  </header>
-
-
-  <!-- COMPOSANTS -->
-  <!-- Les composants lourds (Three.js, Leaflet, portfolio...) sont dans des blocs @defer :
-       ils sont chargés dans des chunks séparés, hors du bundle initial. -->
-
-  <app-viewport-line></app-viewport-line>
-
-  <app-simple-loading></app-simple-loading>
-
-  <app-deco></app-deco>
-
-  @defer (on immediate) {
-    <app-avatar
-      [isVisible]="showAvatar"
-      [class.avatar-appear]="showAvatar && !wasAvatarHidden"
-      [class.avatar-visible]="showAvatar"
-      [class.avatar-hidden]="!showAvatar"
-      (avatarClicked)="onAvatarClicked()">
-    </app-avatar>
-  }
-
-  <app-user-informations
-    id="userInformations"
-    (openMap)="onMapToggle()">
-  </app-user-informations>
-
-  @if (showUserInfoCard) {
-    @defer (on immediate) {
-      <app-loisir-skills
-        id="loisirSkills"
-        [skillsZIndex]="skillsZIndex"
-        [loisirsZIndex]="loisirsZIndex"
-        [distancePercentage]="18"
-        (tabToggle)="onTabToggle($event)"
-        (closeComponent)="onSkillsLoisirsClose()">
-      </app-loisir-skills>
-    }
-  }
-
-  <app-info-bulle
-    id="infoBulle"
-    [avatarClicked]="avatarClickedState"
-    [portfolioOpen]="showPortfolio">
-  </app-info-bulle>
-
-  <app-rolling-script
-    id="rollingScript1"
-    [code]="monCode"
-    [typingSpeed]="10"
-    width="12vw"
-    height="25vh">
-  </app-rolling-script>
-
-  @if (showExperience) {
-    <app-personal-info
-      id="experience"
-      tabTitle="EXPER1ENCE"
-      componentId="experience"
-      lineColor="black"
-      [distancePercentage]="12"
-      [content]="experienceContent"
-      (closeComponent)="onExperienceClose()"
-      >
-    </app-personal-info>
-  }
-
-  @if (showFormation) {
-    <app-personal-info
-      id="formation"
-      tabTitle="FORMATIONS"
-      componentId="formation"
-      lineColor="black"
-      [distancePercentage]="12"
-      [content]="formationContent"
-      (closeComponent)="onFormationClose()"
-      >
-    </app-personal-info>
-  }
-
-  <app-cursor #cursorComponent></app-cursor>
-
-  <app-menu
-    id="menu"
-    [menuStates]="menuStates"
-    (menuToggle)="onMenuToggle($event)">
-  </app-menu>
-
-  @if (showCompetences) {
-    @defer (on immediate) {
-      <app-competances
-        id="competances"
-        [distancePercentage]="13"
-        (closeComponent)="onCompetencesClose()"
-        >
-      </app-competances>
-    }
-  }
-
-  @if (showPortfolio) {
-    @defer (on immediate) {
-      <app-portfolio
-        id="portfolio"
-        (closePortfolio)="onPortfolioClose()">
-      </app-portfolio>
-    }
-  }
-
-  @if (showMapModal) {
-    @defer (on immediate) {
-      <app-map-modal
-        (close)="onMapClose()">
-      </app-map-modal>
-    }
-  }
-
-</main>
+<!-- Curseur personnalisé : uniquement avec une souris -->
+@if (layout.hasFinePointer()) {
+  <app-cursor></app-cursor>
+}
