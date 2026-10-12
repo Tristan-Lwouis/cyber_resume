@@ -1,11 +1,21 @@
 export const EXPERIENCE_CONTENT: string = `
     <div class="content-block">
-    <h2>Fev 2026 - Mar 2026 · Stage Barthe-ENR</h2>
+    <h2>Fév. → Nov. 2026 · Concepteur Développeur d’Applications · Barthe-ENR</h2>
       <p>
-        Conception et développement d’une <strong>application métier interne</strong> à architcture modulaire, destinée à centraliser plusieurs outils existants du groupe. 
-        Participation à l’analyse des besoins utilisateurs, à la création d’interfaces modernes et au développement de fonctionnalités stratégiques liées à la gestion des <strong>indisponibilités de centrales hydroélectriques</strong>. 
-        Mise en place d’une architecture sécurisée avec <strong>authentification OIDC / JWT</strong>, travail sur l’ergonomie, la performance et l’évolutivité de la solution. 
-        Expérience concrète en environnement professionnel sur un projet à forts enjeux opérationnels.
+        <strong>Stage de 2 mois</strong> (février – mars 2026) prolongé par un <strong>CDD de 6 mois</strong> (mai – novembre 2026).
+        Conception et développement full-stack (<strong>Vue.js / Python</strong>) d’une <strong>application métier interne</strong> à architecture modulaire, destinée à centraliser plusieurs outils existants du groupe.
+        Participation à l’analyse des besoins utilisateurs, à la création d’interfaces modernes et au développement de fonctionnalités stratégiques liées à la gestion des <strong>indisponibilités de centrales hydroélectriques</strong>.
+        Mise en place d’une architecture sécurisée avec <strong>authentification OIDC / JWT</strong>, travail sur l’ergonomie, la performance et l’évolutivité de la solution.
+      </p>
+    </div>
+
+    <div class="content-block">
+    <h2>2026 → Aujourd’hui · Fondateur de Nocte Syndikate</h2>
+      <p>
+        <a href="https://nocte-syndikate.com/" target="_blank" rel="noopener"><strong>Nocte Syndikate</strong></a> est mon agence de <strong>webdesign et de graphisme</strong> basée à Toulouse.
+        Création d’<strong>identités visuelles</strong> (logo, charte graphique), de <strong>sites web sur mesure</strong> conçus sans template et adaptés à chaque écran,
+        travail de la <strong>visibilité en ligne</strong> (SEO, campagnes, réseaux sociaux) et <strong>développement d’outils sur mesure</strong> :
+        applications, tableaux de bord et automatisations pensés autour du métier du client.
       </p>
     </div>
 
@@ -21,7 +31,7 @@ export const EXPERIENCE_CONTENT: string = `
     </div>
 
     <div class="content-block">
-    <h2>2019 - Aujourd'hui · Développeur Web & Graphiste (auto-entrepreneur)</h2>
+    <h2>2019 → 2022 · Développeur Web & Graphiste (auto-entrepreneur)</h2>
     <p>
       Création de sites internet ergonomiques et sur mesure <strong>from scratch</strong> ou via <strong>CMS</strong>. 
       Optimisation du référencement (<strong>SEO</strong>) et développement d’une <strong>identité numérique complète</strong> pour mes clients : Logo, charte graphique, webmarketing, 

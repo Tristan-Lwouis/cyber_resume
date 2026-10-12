@@ -41,12 +41,23 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       attributionControl: true
     });
 
-    // Couche de tuiles (CartoDB Dark Matter)
-    // Parfait pour le look Cyberpunk : fond noir et routes discrètes
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // Couche de tuiles Stadia Maps (Alidade Smooth Dark) : fond sombre et routes discrètes.
+    // Gratuit sans clé API : l'authentification se fait par domaine (à déclarer sur stadiamaps.com).
+    const darkLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
-      attribution: '&copy; OpenStreetMap &copy; CARTO'
+      attribution: '&copy; Stadia Maps &copy; OpenMapTiles &copy; OpenStreetMap'
     }).addTo(this.map);
+
+    // Repli sur OpenStreetMap si Stadia refuse les tuiles (domaine non déclaré, quota...)
+    darkLayer.once('tileerror', () => {
+      this.map.removeLayer(darkLayer);
+      // Les tuiles OSM sont claires : une classe dédiée applique un filtre pour garder le look sombre
+      this.map.getContainer().classList.add('osm-fallback');
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(this.map);
+    });
 
     // Ajout du cercle de rayon d'action (30km)
     L.circle(this.defaultLocation, {

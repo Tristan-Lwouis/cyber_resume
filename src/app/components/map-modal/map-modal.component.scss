@@ -76,6 +76,11 @@
     filter: sepia(1) saturate(250%) hue-rotate(10deg) brightness(1.8) contrast(1.1);
   }
 
+  // Repli OpenStreetMap (tuiles claires) : on inverse avant d'appliquer la teinte
+  &.osm-fallback ::ng-deep .leaflet-tile-pane {
+    filter: grayscale(1) invert(1) brightness(0.75) contrast(1.2) sepia(1) saturate(250%) hue-rotate(10deg);
+  }
+
   ::ng-deep .leaflet-container {
     background: #000;
   }
@@ -143,6 +148,20 @@
       100% { opacity: 1; }
     }
   }
+}
+
+// Panneau "mode de travail", symétrique de la légende principale
+.map-legend--remote {
+  bottom: auto;
+  left: auto;
+  top: 2vh;
+  right: 2vh;
+  animation-name: slideInRight;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes slideIn {

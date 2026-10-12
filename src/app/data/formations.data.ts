@@ -4,16 +4,15 @@ export const FORMATION_CONTENT: string = `
     <p>
       Formation intensive Full Stack de 1 an préparant au métier de <strong>concepteur développeur d'applications</strong>, alliant théorie et pratique à travers des projets tutorés et un stage en entreprise. 
       Le cursus couvre l’<strong>algorithmique</strong>, la programmation en C, C++ mais aussi <strong>Java (JSE, J2EE)</strong> et ses frameworks <strong>(Spring)</strong>, incluant une initiation au développement mobile sur <strong>Android</strong>. 
-      La formation aborde également le <strong>développement web</strong> (Angular, CSS, TypeScript ), la conception et l’utilisation de <strong>bases de données</strong>, les <strong>design patterns</strong> et la modélisation via <strong>UML</strong> pour la programmation orientée objet. 
-      S’ajoutent des modules de <strong>gestion de projet</strong> et de méthodologies agiles, une introduction à la <strong>sécurité informatique</strong>, ainsi qu’au <strong>déploiement d’applications CICD</strong>.
-    he
+      La formation aborde également le <strong>développement web</strong> (Angular, CSS, TypeScript), la conception et l’utilisation de <strong>bases de données</strong>, les <strong>design patterns</strong> et la modélisation via <strong>UML</strong> pour la programmation orientée objet. 
+      S’ajoutent des modules de <strong>gestion de projet</strong> et de méthodologies agiles, une introduction à la <strong>sécurité informatique</strong>, ainsi qu’au <strong>déploiement d’applications CI/CD</strong>.
     </p>
     </div>
 
     <div class="content-block">
     <h2>Formation autodidacte continue</h2>
     <p>
-      Auto‑formation permanente aux métiers du dev et de la cyber via des plateformes spécialisées : <strong>Udemy</strong>, <strong>OpenClassrooms</strong>, <strong>Hack The Box</strong> ,<strong>TryHackMe</strong>.
+      Auto‑formation permanente aux métiers du dev et de la cyber via des plateformes spécialisées : <strong>Udemy</strong>, <strong>OpenClassrooms</strong>, <strong>Hack The Box</strong>, <strong>TryHackMe</strong>.
       Approfondissement en <strong>développement web</strong>, <strong>scripting</strong>, <strong>sécurité informatique</strong> et <strong>environnements Linux</strong>, avec une logique d’apprentissage orientée <strong>pratique</strong>, <strong>résolution de problèmes</strong> et montée en compétence continue.
     </p>
     </div>

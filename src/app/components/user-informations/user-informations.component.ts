@@ -97,7 +97,7 @@ export class UserInformationsComponent implements OnInit, OnDestroy {
   /**
    * Déclenche l'animation souhaitée sur l'avatar
    */
-  onClickAnimation(animationName: string): void {
+  playAvatarAnimation(animationName: string): void {
     this.avatarAnimationService.requestAnimation(animationName);
   }
 
