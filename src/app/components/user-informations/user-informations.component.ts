@@ -12,6 +12,8 @@ export class UserInformationsComponent implements OnInit, OnDestroy {
   @Output() openMap = new EventEmitter<void>();
   phoneNumber: string = '';
   email: string = '';
+  // Niveau = âge, recalculé à partir de la date de naissance (01/10/1999)
+  readonly level: number = this.computeAge(new Date(1999, 9, 1));
   private colorChangeObserver: MutationObserver | null = null;
 
   constructor(private avatarAnimationService: AvatarAnimationService, private cdr: ChangeDetectorRef) {}
@@ -78,6 +80,18 @@ export class UserInformationsComponent implements OnInit, OnDestroy {
       const max = char <= 'Z' ? 90 : 122;
       return String.fromCharCode(shifted <= max ? shifted : shifted - 26);
     });
+  }
+
+  private computeAge(birthDate: Date): number {
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const birthdayNotReached =
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate());
+    if (birthdayNotReached) {
+      age--;
+    }
+    return age;
   }
 
   /**
