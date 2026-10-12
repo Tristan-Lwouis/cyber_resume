@@ -7,7 +7,7 @@
 
   <div class="terminal-content">
     <div #codeContainer class="code-display">
-      @for (line of lines; track line; let last = $last) {
+      @for (line of lines; track $index; let last = $last) {
         <pre [class.last-line]="last">{{ line }}</pre>
       }
     </div>

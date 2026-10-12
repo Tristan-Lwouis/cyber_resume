@@ -363,9 +363,15 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
   // =====================================================================
 
   private async loadModel(): Promise<void> {
-    // @ts-ignore
-    const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
+    const [{ GLTFLoader }, { MeshoptDecoder }] = await Promise.all([
+      // @ts-ignore
+      import('three/examples/jsm/loaders/GLTFLoader.js'),
+      // @ts-ignore
+      import('three/examples/jsm/libs/meshopt_decoder.module.js'),
+    ]);
     const loader = new GLTFLoader();
+    // Le modèle est compressé (EXT_meshopt_compression + textures WebP)
+    loader.setMeshoptDecoder(MeshoptDecoder);
     this.loadingProgress.updateProgress(5);
     
     loader.load(
