@@ -127,3 +127,17 @@
   width: 40%;
   height: auto;
 }
+
+// Bouton plein écran, posé sur la partie noire du bandeau (fond plein : lisible sur les rayures)
+.bandeau-onglet .expand-button {
+  color: var(--primary-color);
+  background: var(--background-color);
+  margin: 0 0.6em 0 0.4em;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--primary-color);
+    color: var(--background-color);
+    border-color: var(--primary-color);
+  }
+}

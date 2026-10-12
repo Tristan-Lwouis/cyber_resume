@@ -73,6 +73,7 @@
           [loisirsZIndex]="loisirsZIndex"
           [distancePercentage]="18"
           (tabToggle)="onTabToggle($event)"
+          (expand)="openFullscreen('skills')"
           (closeComponent)="onSkillsLoisirsClose()">
         </app-loisir-skills>
       }
@@ -92,7 +93,8 @@
         lineColor="black"
         [distancePercentage]="12"
         [content]="experienceContent"
-        (closeComponent)="onExperienceClose()">
+        (closeComponent)="onExperienceClose()"
+        (expand)="openFullscreen('experience')">
       </app-personal-info>
     }
 
@@ -104,7 +106,8 @@
         lineColor="black"
         [distancePercentage]="12"
         [content]="formationContent"
-        (closeComponent)="onFormationClose()">
+        (closeComponent)="onFormationClose()"
+        (expand)="openFullscreen('formation')">
       </app-personal-info>
     }
 
@@ -113,7 +116,8 @@
         <app-competances
           id="competances"
           [distancePercentage]="13"
-          (closeComponent)="onCompetencesClose()">
+          (closeComponent)="onCompetencesClose()"
+          (expand)="openFullscreen('competences')">
         </app-competances>
       }
     }
@@ -124,6 +128,12 @@
           id="portfolio"
           (closePortfolio)="onPortfolioClose()">
         </app-portfolio>
+      }
+    }
+
+    @if (fullscreenView; as view) {
+      @defer (on immediate) {
+        <app-fullscreen-view [view]="view" (close)="closeFullscreen()"></app-fullscreen-view>
       }
     }
 

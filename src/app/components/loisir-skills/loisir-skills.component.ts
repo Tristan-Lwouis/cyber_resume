@@ -35,6 +35,8 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
     
     @Output() tabToggle = new EventEmitter<{tab: 'skills' | 'loisirs', isActive: boolean}>();
     @Output() closeComponent = new EventEmitter<void>();
+  // Demande d'ouverture en plein écran
+  @Output() expand = new EventEmitter<void>();
 
     @ViewChild(ViewportLineDirective) viewportLineDirective!: ViewportLineDirective;
 
@@ -125,6 +127,11 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
    * Méthode appelée quand l'utilisateur clique sur la fenêtre
    * Fait passer la fenêtre au premier plan
    */
+  onExpandClick(event: Event): void {
+    event.stopPropagation();
+    this.expand.emit();
+  }
+
   onWindowClick(): void {
     this.windowZIndex = this.windowManagerService.bringToFront(this.componentId);
     this.cdr.markForCheck();

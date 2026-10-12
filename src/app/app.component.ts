@@ -22,6 +22,8 @@ import { ViewportLineComponent } from './components/viewport-line/viewport-line.
 import { SimpleLoadingComponent } from "./loading-page/simple-loading.component";
 import { MobileLayoutComponent } from './components/mobile-layout/mobile-layout.component';
 import { LayoutService } from './services/layout.service';
+import { FullscreenViewComponent } from './components/fullscreen-view/fullscreen-view.component';
+import type { FullscreenView } from './components/fullscreen-view/fullscreen-view.component';
 
 
 @Component({
@@ -41,7 +43,8 @@ import { LayoutService } from './services/layout.service';
     MapModalComponent,
     ViewportLineComponent,
     SimpleLoadingComponent,
-    MobileLayoutComponent
+    MobileLayoutComponent,
+    FullscreenViewComponent
 ],
 
   templateUrl: './app.component.html',
@@ -65,6 +68,9 @@ export class AppComponent {
   
   // Choix de la mise en page (bureau virtuel ou mobile) et du curseur
   readonly layout = inject(LayoutService);
+
+  // Vue plein écran ouverte depuis une fenêtre (null = aucune)
+  fullscreenView: FullscreenView | null = null;
 
   // État de la modale de carte
   showMapModal: boolean = false;
@@ -357,5 +363,17 @@ while (challenge) {
     this.audioEventsService.playCloseSound();
     this.cdr.markForCheck();
   }
-}
 
+  // ========================================
+  // VUE PLEIN ÉCRAN
+  // ========================================
+  openFullscreen(view: FullscreenView): void {
+    this.fullscreenView = view;
+    this.audioEventsService.playOpenSound();
+  }
+
+  closeFullscreen(): void {
+    this.fullscreenView = null;
+    this.audioEventsService.playCloseSound();
+  }
+}

@@ -7,7 +7,7 @@
         <foreignObject x="0.40%" y="0.5%" width="36px" height="98.8%">
             <div id="side">
                 <span id="portfolio-version">MAP</span>
-                <div id="close" class="clickable" (click)="onClose()">
+                <div id="close" class="clickable" role="button" tabindex="0" aria-label="Fermer" (keydown.enter)="onClose()" (click)="onClose()">
                     <span>CLOSE</span>
                     <span>X</span>
                 </div>

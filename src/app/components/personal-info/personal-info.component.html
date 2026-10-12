@@ -8,7 +8,10 @@
     
     <div id="onglet" >
         <span>{{ tabTitle }}</span>
-        <span class="close-button" (click)="onCloseClick()">X</span>
+        <span class="onglet-actions">
+            <button type="button" class="expand-button clickable" title="Plein écran" aria-label="Ouvrir en plein écran" (click)="onExpandClick($event)"><svg class="expand-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 6V1h5M10 1h5v5M15 10v5h-5M6 15H1v-5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+            <span class="close-button" (click)="onCloseClick()">X</span>
+        </span>
     </div >
     <!-- Handle -->
     <div id="Handle" class="clickable" cdkDragHandle>

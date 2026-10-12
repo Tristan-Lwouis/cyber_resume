@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { CyberMapComponent } from '../cyber-map/cyber-map.component';
 
 @Component({
@@ -12,6 +12,7 @@ import { CyberMapComponent } from '../cyber-map/cyber-map.component';
 export class MapModalComponent {
   @Output() close = new EventEmitter<void>();
 
+  @HostListener('document:keydown.escape')
   onClose(): void {
     this.close.emit();
   }

@@ -1,0 +1,109 @@
+<div class="fs-backdrop" (click)="close.emit()">
+  <section class="fs-window" role="dialog" aria-modal="true" [attr.aria-label]="title" (click)="$event.stopPropagation()">
+
+    <!-- Barre latérale, comme le portfolio et la carte -->
+    <aside class="fs-side">
+      <span class="fs-side__title">{{ title }}</span>
+      <button #closeButton type="button" class="fs-close clickable" (click)="close.emit()" aria-label="Fermer la vue plein écran">
+        <span>CLOSE</span>
+        <span>X</span>
+      </button>
+    </aside>
+
+    <div class="fs-body">
+      <header class="fs-header">
+        <h1>{{ title }}</h1>
+        <p class="fs-barcode" aria-hidden="true">{{ barcodeText }}</p>
+      </header>
+
+      @switch (view) {
+        @case ('experience') {
+          <ng-container *ngTemplateOutlet="timeline; context: { $implicit: experiences }"></ng-container>
+        }
+        @case ('formation') {
+          <ng-container *ngTemplateOutlet="timeline; context: { $implicit: formations }"></ng-container>
+        }
+        @case ('competences') {
+          <div class="fs-switch" role="tablist">
+            <button type="button" role="tab" class="clickable" [class.active]="competenceTab() === 'dev'"
+                    [attr.aria-selected]="competenceTab() === 'dev'" (click)="setCompetenceTab('dev')">C0MP3TENCES DEV</button>
+            <button type="button" role="tab" class="clickable" [class.active]="competenceTab() === 'tools'"
+                    [attr.aria-selected]="competenceTab() === 'tools'" (click)="setCompetenceTab('tools')">L0G1CIELS</button>
+          </div>
+          <div class="fs-grid">
+            @for (language of competenceTab() === 'dev' ? devCompetences : toolCompetences; track language.id) {
+              <article class="fs-card fs-card--skill">
+                <header class="fs-card__head">
+                  <img [src]="language.icon" alt="" loading="lazy">
+                  <h2>{{ language.name }}</h2>
+                </header>
+                <div class="fs-bar" role="img" [attr.aria-label]="'Niveau ' + language.progressWidth + ' %'">
+                  <span class="fs-bar__fill" [style.width.%]="language.progressWidth"></span>
+                </div>
+                <ul class="fs-list">
+                  @for (skill of language.skills; track skill) {
+                    <li>{{ skill }}</li>
+                  }
+                </ul>
+              </article>
+            }
+          </div>
+        }
+        @case ('skills') {
+          <h2 class="fs-subtitle">SOFT_SKILLS</h2>
+          <div class="fs-grid fs-grid--small">
+            @for (skill of skills; track skill.number) {
+              <article class="fs-card fs-card--soft">
+                <span class="fs-card__number">{{ skill.number }}</span>
+                <h3>{{ skill.name }}</h3>
+              </article>
+            }
+          </div>
+
+          <h2 class="fs-subtitle">L0IS1RS <small>// clique pour voir l'avatar en action</small></h2>
+          <div class="fs-grid fs-grid--small">
+            @for (loisir of loisirs; track loisir.id) {
+              <button type="button" class="fs-card fs-card--loisir clickable" (click)="playLoisir(loisir)">
+                <img [src]="loisir.imagePath" alt="" loading="lazy">
+                <span>{{ loisir.name }}</span>
+              </button>
+            }
+          </div>
+        }
+      }
+    </div>
+  </section>
+</div>
+
+<!-- Timeline en quinconce : deux colonnes (droite décalée) sur grand écran, une seule colonne sinon -->
+<ng-template #timeline let-entries>
+  <div class="fs-timeline fs-timeline--split">
+    @for (column of splitColumns(entries); track $index; let right = $odd) {
+      <ol class="fs-timeline__col" [class.fs-timeline__col--right]="right">
+        @for (entry of column; track entry.title + entry.period; let index = $index) {
+          <ng-container *ngTemplateOutlet="item; context: { $implicit: entry, right: right, index: index * 2 + (right ? 1 : 0) }"></ng-container>
+        }
+      </ol>
+    }
+  </div>
+
+  <ol class="fs-timeline fs-timeline--single">
+    @for (entry of entries; track entry.title + entry.period; let index = $index) {
+      <ng-container *ngTemplateOutlet="item; context: { $implicit: entry, right: false, index: index }"></ng-container>
+    }
+  </ol>
+</ng-template>
+
+<ng-template #item let-entry let-right="right" let-index="index">
+  <li class="fs-timeline__item" [class.fs-timeline__item--right]="right" [style.--i]="index">
+    <span class="fs-timeline__node" aria-hidden="true"></span>
+    <article class="fs-card fs-card--timeline">
+      <p class="fs-period">{{ entry.period }}</p>
+      <h2>{{ entry.title }}</h2>
+      @if (entry.organization) {
+        <p class="fs-org">// {{ entry.organization }}</p>
+      }
+      <p class="fs-description" [innerHTML]="entry.description"></p>
+    </article>
+  </li>
+</ng-template>

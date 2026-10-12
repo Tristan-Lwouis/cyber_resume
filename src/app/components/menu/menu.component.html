@@ -7,6 +7,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Expériences"
+        [attr.aria-pressed]="menuStates[0]"
+        (keydown.enter)="toggleMenu(0)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(0)"
         (click)="toggleMenu(0)">
         <path
           d="M14.6292 0L0 18V49H201.396L217 31.5V0H14.6292Z"
@@ -15,7 +21,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(0)">EXPER1ENCES</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(0)">EXPER1ENCES</a>
           </div>
         </foreignObject>
       </svg>
@@ -27,6 +33,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Formations"
+        [attr.aria-pressed]="menuStates[1]"
+        (keydown.enter)="toggleMenu(1)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(1)"
         (click)="toggleMenu(1)"
       >
         <path
@@ -36,7 +48,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(1)">F0RMATIONS</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(1)">F0RMATIONS</a>
           </div>
         </foreignObject>
       </svg>
@@ -48,6 +60,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Compétences"
+        [attr.aria-pressed]="menuStates[2]"
+        (keydown.enter)="toggleMenu(2)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(2)"
         (click)="toggleMenu(2)"
       >
         <path
@@ -57,7 +75,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(2)">C0MP3TENCES</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(2)">C0MP3TENCES</a>
           </div>
         </foreignObject>
       </svg>
@@ -69,6 +87,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Skills"
+        [attr.aria-pressed]="menuStates[3]"
+        (keydown.enter)="toggleMenu(3)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(3)"
         (click)="toggleMenu(3)"
       >
         <path
@@ -78,7 +102,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(3)">SK1LLS</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(3)">SK1LLS</a>
           </div>
         </foreignObject>
       </svg>
@@ -90,6 +114,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Loisirs"
+        [attr.aria-pressed]="menuStates[4]"
+        (keydown.enter)="toggleMenu(4)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(4)"
         (click)="toggleMenu(4)"
       >
         <path
@@ -99,7 +129,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(4)">L0IS1RS</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(4)">L0IS1RS</a>
           </div>
         </foreignObject>
       </svg>
@@ -111,6 +141,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Portfolio"
+        [attr.aria-pressed]="menuStates[5]"
+        (keydown.enter)="toggleMenu(5)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(5)"
         (click)="toggleMenu(5)"
       >
         <path
@@ -120,7 +156,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(5)">P0RTFOL10</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(5)">P0RTFOL10</a>
           </div>
         </foreignObject>
       </svg>
@@ -132,6 +168,12 @@
         viewBox="0 0 217 49"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        tabindex="0"
+        aria-label="Déplacement (carte)"
+        [attr.aria-pressed]="menuStates[6]"
+        (keydown.enter)="toggleMenu(6)"
+        (keydown.space)="$event.preventDefault(); toggleMenu(6)"
         (click)="toggleMenu(6)"
       >
         <path
@@ -141,7 +183,7 @@
         />
         <foreignObject x="0" y="0" width="217" height="49">
           <div class="menuItem">
-            <a href="" [class]="getLinkClass(6)">DÉPLAC3M3NT</a>
+            <a href="" tabindex="-1" aria-hidden="true" [class]="getLinkClass(6)">DÉPLAC3M3NT</a>
           </div>
         </foreignObject>
       </svg>

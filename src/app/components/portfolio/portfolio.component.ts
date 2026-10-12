@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy, HostListener } from '@angular/core';
 
 import { WindowManagerService } from '../../services/window-manager.service';
 import { Subscription } from 'rxjs';
@@ -75,6 +75,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   // Méthode pour fermer le portfolio
+  @HostListener('document:keydown.escape')
   onCloseClick(): void {
     this.closePortfolio.emit();
   }

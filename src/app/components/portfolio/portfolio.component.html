@@ -9,7 +9,7 @@
     <foreignObject x="0.40%" y="0.5%" width="36px" height="98.8%">
       <div id="side">
         <span id="portfolio-version">PORTFOLI0-V1</span>
-        <div id="close" class="clickable" (click)="onCloseClick()">
+        <div id="close" class="clickable" role="button" tabindex="0" aria-label="Fermer" (keydown.enter)="onCloseClick()" (click)="onCloseClick()">
           <span>CLOSE</span>
           <span>X</span>
         </div>
@@ -43,7 +43,8 @@
             </svg>
             <div class="info-container">
               <div class="options-item-container">
-                <svg class="see-more-button clickable" width="217" height="49" viewBox="0 0 217 49" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onSeeMoreClick(item)">
+                <svg class="see-more-button clickable" width="217" height="49" viewBox="0 0 217 49" fill="none" xmlns="http://www.w3.org/2000/svg" role="link" tabindex="0" [attr.aria-label]="'Voir le projet ' + item.title.replace('// ', '')"
+                  (keydown.enter)="onSeeMoreClick(item)" (click)="onSeeMoreClick(item)">
                   <path d="M14.6292 0L0 18V49H201.396L217 31.5V0H14.6292Z" fill="black" stroke-width="5"/>
                   <foreignObject x="0" y="0" width="217" height="49">
                     <span>See more</span>

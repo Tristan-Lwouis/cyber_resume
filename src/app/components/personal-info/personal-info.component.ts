@@ -29,6 +29,8 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
   
   // EventEmitter pour communiquer avec le composant parent
   @Output() closeComponent = new EventEmitter<void>();
+  // Demande d'ouverture en plein écran
+  @Output() expand = new EventEmitter<void>();
 
   // Propriétés pour la gestion des fenêtres
   private subscription: Subscription = new Subscription();
@@ -95,6 +97,11 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
    * Méthode appelée quand l'utilisateur clique sur la fenêtre
    * Fait passer la fenêtre au premier plan
    */
+  onExpandClick(event: Event): void {
+    event.stopPropagation();
+    this.expand.emit();
+  }
+
   onWindowClick(): void {
     this.windowZIndex = this.windowManagerService.bringToFront(this.componentId);
     this.cdr.markForCheck();
