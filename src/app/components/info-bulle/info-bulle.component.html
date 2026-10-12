@@ -1,29 +1,31 @@
-<div class="info-bulle-wrapper" *ngIf="isVisible" [class.fade-out]="isFadingOut">
-  <svg id="infoBulleSvg"
-    width="445"
-    height="300"
-    viewBox="0 0 445 300"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M 332.5 10.5 V 72.4844 L 430.337 12.0029 L 333.175 115.791 L 332.5 116.513 V 297.5 H 28.126 L 2.5 268.552 V 10.5 H 332.5 Z"
-      fill="var(--primary-color)"
-      stroke="black"
-      stroke-width="5"
-    />
-    <foreignObject x="18" y="20" width="305" height="550">
-      <div class="InfoBulle">
-          <img id="QrDeco2" src="assets/media/icons/QR-Icon.png" alt="Qr-code">
-          <div>
+@if (isVisible) {
+  <div class="info-bulle-wrapper" [class.fade-out]="isFadingOut">
+    <svg id="infoBulleSvg"
+      width="445"
+      height="300"
+      viewBox="0 0 445 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      >
+      <path
+        d="M 332.5 10.5 V 72.4844 L 430.337 12.0029 L 333.175 115.791 L 332.5 116.513 V 297.5 H 28.126 L 2.5 268.552 V 10.5 H 332.5 Z"
+        fill="var(--primary-color)"
+        stroke="black"
+        stroke-width="5"
+        />
+        <foreignObject x="18" y="20" width="305" height="550">
+          <div class="InfoBulle">
+            <img id="QrDeco2" src="assets/media/icons/QR-Icon.png" alt="Qr-code">
+            <div>
               <p id="barCode">Im looking for a job</p>
-          </div>
-          <div class="typing-container">
+            </div>
+            <div class="typing-container">
               <p class="typing-text">
-                  {{ displayedText }}<span class="cursor" [class.blink]="isTyping">|</span>
+                {{ displayedText }}<span class="cursor" [class.blink]="isTyping">|</span>
               </p>
+            </div>
           </div>
-      </div>
-    </foreignObject>
-  </svg>
-</div>
+        </foreignObject>
+      </svg>
+    </div>
+  }

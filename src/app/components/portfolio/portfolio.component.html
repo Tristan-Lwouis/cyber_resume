@@ -1,139 +1,139 @@
 <!-- Comment utiliser correctement la balise picture ?  -->
 
 <div class="background" (click)="onWindowClick()" [style.z-index]="windowZIndex">
-    <svg class="main-container" width="1590" height="909" viewBox="0 0 1590 909" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M 1586.9 3.0002 H 3.0002 L 3 118.849 L 27.5318 137.841 L 25.1571 693.028 L 3.0002 740.507 V 905.734 H 1586.9 L 1586.9 852.558 V 3.0002 Z"
-            fill="var(--primary-color)" stroke="var(--background-color)" stroke-width="5" />
-        <foreignObject x="0.40%" y="0.5%" width="36px" height="98.8%">
-            <div id="side">
-                <span id="portfolio-version">PORTFOLI0-V1</span>
-                <div id="close" class="clickable" (click)="onCloseClick()">
-                    <span>CLOSE</span>
-                    <span>X</span>
-                </div>
-            </div>
-        </foreignObject>
-        <foreignObject x="4%" y="0.8%" width="95.5%" height="98.5%">
-        <section>
-            <h1>PORTF0LI0</h1>
-            
-            <!-- Boucle sur tous les projets portfolio -->
-            <div class="portfolio-item" *ngFor="let item of portfolioItems; trackBy: trackByItemId">
-                <h2>{{ item.title }}</h2>
-                <svg class="background-image" width="100%" height="100%" viewBox="0 0 1426 397" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <!-- Image de fond -->
-                    <defs>
-                        <clipPath [id]="'imageClip-' + item.id">
-                            <path d="M1424.64 1V374.044L1402.58 395.29L1 393.547V22.127L18.4736 1H1424.64Z" />
-                        </clipPath>
-                    </defs>
-                    <!-- Image avec clipPath pour suivre la forme du path -->
-                    <image [attr.href]="item.imagePath" 
-                           x="0" y="0" 
-                           width="100%" height="100%" 
-                           preserveAspectRatio="xMidYMid slice"
-                           [attr.clip-path]="'url(#imageClip-' + item.id + ')'" />
-                    <!-- Bordure du path -->
-                    <path d="M1424.64 1V374.044L1402.58 395.29L1 393.547V22.127L18.4736 1H1424.64Z" fill="none"
-                        stroke="black" stroke-width="2" />
+  <svg class="main-container" width="1590" height="909" viewBox="0 0 1590 909" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M 1586.9 3.0002 H 3.0002 L 3 118.849 L 27.5318 137.841 L 25.1571 693.028 L 3.0002 740.507 V 905.734 H 1586.9 L 1586.9 852.558 V 3.0002 Z"
+      fill="var(--primary-color)" stroke="var(--background-color)" stroke-width="5" />
+    <foreignObject x="0.40%" y="0.5%" width="36px" height="98.8%">
+      <div id="side">
+        <span id="portfolio-version">PORTFOLI0-V1</span>
+        <div id="close" class="clickable" (click)="onCloseClick()">
+          <span>CLOSE</span>
+          <span>X</span>
+        </div>
+      </div>
+    </foreignObject>
+    <foreignObject x="4%" y="0.8%" width="95.5%" height="98.5%">
+      <section>
+        <h1>PORTF0LI0</h1>
+
+        <!-- Boucle sur tous les projets portfolio -->
+        @for (item of portfolioItems; track trackByItemId($index, item)) {
+          <div class="portfolio-item">
+            <h2>{{ item.title }}</h2>
+            <svg class="background-image" width="100%" height="100%" viewBox="0 0 1426 397" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <!-- Image de fond -->
+              <defs>
+                <clipPath [id]="'imageClip-' + item.id">
+                  <path d="M1424.64 1V374.044L1402.58 395.29L1 393.547V22.127L18.4736 1H1424.64Z" />
+                </clipPath>
+              </defs>
+              <!-- Image avec clipPath pour suivre la forme du path -->
+              <image [attr.href]="item.imagePath"
+                x="0" y="0"
+                width="100%" height="100%"
+                preserveAspectRatio="xMidYMid slice"
+                [attr.clip-path]="'url(#imageClip-' + item.id + ')'" />
+              <!-- Bordure du path -->
+              <path d="M1424.64 1V374.044L1402.58 395.29L1 393.547V22.127L18.4736 1H1424.64Z" fill="none"
+                stroke="black" stroke-width="2" />
+            </svg>
+            <div class="info-container">
+              <div class="options-item-container">
+                <svg class="see-more-button clickable" width="217" height="49" viewBox="0 0 217 49" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onSeeMoreClick(item)">
+                  <path d="M14.6292 0L0 18V49H201.396L217 31.5V0H14.6292Z" fill="black" stroke-width="5"/>
+                  <foreignObject x="0" y="0" width="217" height="49">
+                    <span>See more</span>
+                  </foreignObject>
                 </svg>
-                <div class="info-container">
-                    <div class="options-item-container">
-                        <svg class="see-more-button clickable" width="217" height="49" viewBox="0 0 217 49" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onSeeMoreClick(item)">
-                            <path d="M14.6292 0L0 18V49H201.396L217 31.5V0H14.6292Z" fill="black" stroke-width="5"/>
-                            <foreignObject x="0" y="0" width="217" height="49">
-                                <span>See more</span>
-                            </foreignObject>
-                        </svg>
-                            
-                        <!-- Technologies -->
-                        <div class="info-item" *ngFor="let tech of item.technologies">
-                            <img src="assets/media/icons/code.png" alt="Code">
-                            <span>{{ tech.label }}</span>
-                        </div>
-                        
-                        <!-- Langue -->
-                        <div class="info-item">
-                            <img src="assets/media/icons/lang.png" alt="Langue">
-                            <span>{{ item.language.label }}</span>
-                        </div>
-                        
-                        <!-- Difficulté -->
-                        <div class="info-item">
-                            <img src="assets/media/icons/strength.png" alt="strength">
-                            <span>{{ item.difficulty.label }}</span>
-                        </div>
-                        
-                        <!-- Date -->
-                        <div class="info-item">
-                            <img src="assets/media/icons/date.png" alt="Date">
-                            <span>{{ item.date.label }}</span>
-                        </div>
-                    </div>
-                    <div class="description-item-container">
-                        <p>{{ item.description }}</p>
-                    </div>
+                <!-- Technologies -->
+                @for (tech of item.technologies; track tech) {
+                  <div class="info-item">
+                    <img src="assets/media/icons/code.png" alt="Code">
+                    <span>{{ tech.label }}</span>
+                  </div>
+                }
+                <!-- Langue -->
+                <div class="info-item">
+                  <img src="assets/media/icons/lang.png" alt="Langue">
+                  <span>{{ item.language.label }}</span>
                 </div>
+                <!-- Difficulté -->
+                <div class="info-item">
+                  <img src="assets/media/icons/strength.png" alt="strength">
+                  <span>{{ item.difficulty.label }}</span>
+                </div>
+                <!-- Date -->
+                <div class="info-item">
+                  <img src="assets/media/icons/date.png" alt="Date">
+                  <span>{{ item.date.label }}</span>
+                </div>
+              </div>
+              <div class="description-item-container">
+                <p>{{ item.description }}</p>
+              </div>
             </div>
-        </section>
-        </foreignObject>
-        <path d="M50.6689 3.00009L60.9317 12.9785L60.9317 4.67057L59.4656 3.00009L51.6463 3.00009L50.6689 3.00009Z"
-            fill="black" />
-        <path d="M60.9316 182.843L42.8496 164.761L42.8496 173.558L60.9316 191.64L60.9316 182.843Z" fill="black" />
-        <path d="M60.9316 21.571L42.8496 3.48901L42.8496 12.2857L60.9316 30.3677L60.9316 21.571Z" fill="black" />
-        <path d="M60.9316 236.6L42.8496 218.518L42.8496 227.315L60.9316 245.397L60.9316 236.6Z" fill="black" />
-        <path d="M60.9316 75.3283L42.8496 57.2463L42.8496 66.043L60.9316 84.125L60.9316 75.3283Z" fill="black" />
-        <path d="M60.9316 290.358L42.8496 272.276L42.8496 281.072L60.9316 299.154L60.9316 290.358Z" fill="black" />
-        <path d="M60.9316 129.086L42.8496 111.004L42.8496 119.8L60.9316 137.882L60.9316 129.086Z" fill="black" />
-        <path d="M60.9316 200.436L42.8496 182.354L42.8496 191.151L60.9316 209.233L60.9316 200.436Z" fill="black" />
-        <path d="M60.9316 39.164L42.8496 21.082L42.8496 29.8787L60.9316 47.9607L60.9316 39.164Z" fill="black" />
-        <path d="M60.9316 254.194L42.8496 236.112L42.8496 244.908L60.9316 262.99L60.9316 254.194Z" fill="black" />
-        <path d="M60.9316 92.9214L42.8496 74.8394L42.8496 83.636L60.9316 101.718L60.9316 92.9214Z" fill="black" />
-        <path d="M60.9316 307.951L42.8496 289.869L42.8496 298.665L60.9316 316.747L60.9316 307.951Z" fill="black" />
-        <path d="M60.9316 146.679L42.8496 128.597L42.8496 137.393L60.9316 155.475L60.9316 146.679Z" fill="black" />
-        <path d="M60.9316 218.03L42.8496 199.948L42.8496 208.744L60.9316 226.826L60.9316 218.03Z" fill="black" />
-        <path d="M60.9316 56.7578L42.8496 38.6758L42.8496 47.4724L60.9316 65.5544L60.9316 56.7578Z" fill="black" />
-        <path d="M60.9316 271.787L42.8496 253.705L42.8496 262.501L60.9316 280.583L60.9316 271.787Z" fill="black" />
-        <path d="M60.9316 110.515L42.8496 92.4329L42.8496 101.23L60.9316 119.312L60.9316 110.515Z" fill="black" />
-        <path d="M60.9316 325.544L42.8496 307.462L42.8496 316.259L60.9316 334.341L60.9316 325.544Z" fill="black" />
-        <path d="M60.9316 164.272L42.8496 146.19L42.8496 154.987L60.9316 173.069L60.9316 164.272Z" fill="black" />
-        <path d="M60.7979 504.964L42.7158 486.882L42.7158 495.679L60.7979 513.761L60.7979 504.964Z" fill="black" />
-        <path d="M60.7979 343.693L42.7158 325.611L42.7158 334.407L60.7979 352.489L60.7979 343.693Z" fill="black" />
-        <path d="M60.7979 558.722L42.7158 540.64L42.7158 549.436L60.7979 567.518L60.7979 558.722Z" fill="black" />
-        <path d="M60.7979 397.45L42.7158 379.368L42.7158 388.165L60.7979 406.247L60.7979 397.45Z" fill="black" />
-        <path d="M60.7979 612.479L42.7158 594.397L42.7158 603.194L60.7979 621.276L60.7979 612.479Z" fill="black" />
-        <path d="M60.7979 451.207L42.7158 433.125L42.7158 441.922L60.7979 460.004L60.7979 451.207Z" fill="black" />
-        <path d="M60.7979 522.558L42.7158 504.476L42.7158 513.272L60.7979 531.354L60.7979 522.558Z" fill="black" />
-        <path d="M60.7979 361.286L42.7158 343.204L42.7158 352.001L60.7979 370.083L60.7979 361.286Z" fill="black" />
-        <path d="M60.7979 576.315L42.7158 558.233L42.7158 567.03L60.7979 585.112L60.7979 576.315Z" fill="black" />
-        <path d="M60.7979 415.043L42.7158 396.961L42.7158 405.758L60.7979 423.84L60.7979 415.043Z" fill="black" />
-        <path d="M60.7979 630.072L42.7158 611.99L42.7158 620.787L60.7979 638.869L60.7979 630.072Z" fill="black" />
-        <path d="M60.7979 468.801L42.7158 450.719L42.7158 459.515L60.7979 477.597L60.7979 468.801Z" fill="black" />
-        <path d="M60.7979 540.151L42.7158 522.069L42.7158 530.866L60.7979 548.948L60.7979 540.151Z" fill="black" />
-        <path d="M60.7979 378.879L42.7158 360.797L42.7158 369.594L60.7979 387.676L60.7979 378.879Z" fill="black" />
-        <path d="M60.7979 593.908L42.7158 575.826L42.7158 584.623L60.7979 602.705L60.7979 593.908Z" fill="black" />
-        <path d="M60.7979 432.636L42.7158 414.554L42.7158 423.351L60.7979 441.433L60.7979 432.636Z" fill="black" />
-        <path d="M60.7979 486.394L42.7158 468.312L42.7158 477.108L60.7979 495.19L60.7979 486.394Z" fill="black" />
-        <path d="M60.7979 807.811L42.7158 789.729L42.7158 798.525L60.7979 816.607L60.7979 807.811Z" fill="black" />
-        <path d="M60.7988 646.538L42.7168 628.456L42.7168 637.253L60.7988 655.335L60.7988 646.538Z" fill="black" />
-        <path d="M60.7979 861.567L42.7158 843.485L42.7158 852.282L60.7979 870.364L60.7979 861.567Z" fill="black" />
-        <path d="M60.7979 700.295L42.7158 682.213L42.7158 691.01L60.7979 709.092L60.7979 700.295Z" fill="black" />
-        <path d="M60.7979 754.053L42.7158 735.971L42.7158 744.768L60.7979 762.85L60.7979 754.053Z" fill="black" />
-        <path d="M60.7979 825.404L42.7158 807.322L42.7158 816.118L60.7979 834.2L60.7979 825.404Z" fill="black" />
-        <path d="M60.7979 664.132L42.7158 646.05L42.7158 654.846L60.7979 672.928L60.7979 664.132Z" fill="black" />
-        <path d="M60.7979 879.161L42.7158 861.079L42.7158 869.876L60.7979 887.958L60.7979 879.161Z" fill="black" />
-        <path d="M60.7979 717.889L42.7158 699.807L42.7158 708.604L60.7979 726.686L60.7979 717.889Z" fill="black" />
-        <path d="M60.7979 771.646L42.7158 753.564L42.7158 762.361L60.7979 780.443L60.7979 771.646Z" fill="black" />
-        <path d="M60.7979 842.997L42.7158 824.915L42.7158 833.712L60.7979 851.794L60.7979 842.997Z" fill="black" />
-        <path d="M60.7979 681.725L42.7158 663.643L42.7158 672.439L60.7979 690.521L60.7979 681.725Z" fill="black" />
-        <path d="M60.7979 896.754L42.7158 878.672L42.7158 887.469L60.7979 905.551L60.7979 896.754Z" fill="black" />
-        <path d="M60.7979 735.482L42.7158 717.4L42.7158 726.197L60.7979 744.279L60.7979 735.482Z" fill="black" />
-        <path d="M60.7979 789.239L42.7158 771.157L42.7158 779.954L60.7979 798.036L60.7979 789.239Z" fill="black" />
-        <path d="M55.9805 906.85L45.7177 896.871L45.7177 905.179L47.1838 906.85L55.0031 906.85L55.9805 906.85Z"
-            fill="black" />
-    </svg>
+          </div>
+        }
+      </section>
+    </foreignObject>
+    <path d="M50.6689 3.00009L60.9317 12.9785L60.9317 4.67057L59.4656 3.00009L51.6463 3.00009L50.6689 3.00009Z"
+      fill="black" />
+    <path d="M60.9316 182.843L42.8496 164.761L42.8496 173.558L60.9316 191.64L60.9316 182.843Z" fill="black" />
+    <path d="M60.9316 21.571L42.8496 3.48901L42.8496 12.2857L60.9316 30.3677L60.9316 21.571Z" fill="black" />
+    <path d="M60.9316 236.6L42.8496 218.518L42.8496 227.315L60.9316 245.397L60.9316 236.6Z" fill="black" />
+    <path d="M60.9316 75.3283L42.8496 57.2463L42.8496 66.043L60.9316 84.125L60.9316 75.3283Z" fill="black" />
+    <path d="M60.9316 290.358L42.8496 272.276L42.8496 281.072L60.9316 299.154L60.9316 290.358Z" fill="black" />
+    <path d="M60.9316 129.086L42.8496 111.004L42.8496 119.8L60.9316 137.882L60.9316 129.086Z" fill="black" />
+    <path d="M60.9316 200.436L42.8496 182.354L42.8496 191.151L60.9316 209.233L60.9316 200.436Z" fill="black" />
+    <path d="M60.9316 39.164L42.8496 21.082L42.8496 29.8787L60.9316 47.9607L60.9316 39.164Z" fill="black" />
+    <path d="M60.9316 254.194L42.8496 236.112L42.8496 244.908L60.9316 262.99L60.9316 254.194Z" fill="black" />
+    <path d="M60.9316 92.9214L42.8496 74.8394L42.8496 83.636L60.9316 101.718L60.9316 92.9214Z" fill="black" />
+    <path d="M60.9316 307.951L42.8496 289.869L42.8496 298.665L60.9316 316.747L60.9316 307.951Z" fill="black" />
+    <path d="M60.9316 146.679L42.8496 128.597L42.8496 137.393L60.9316 155.475L60.9316 146.679Z" fill="black" />
+    <path d="M60.9316 218.03L42.8496 199.948L42.8496 208.744L60.9316 226.826L60.9316 218.03Z" fill="black" />
+    <path d="M60.9316 56.7578L42.8496 38.6758L42.8496 47.4724L60.9316 65.5544L60.9316 56.7578Z" fill="black" />
+    <path d="M60.9316 271.787L42.8496 253.705L42.8496 262.501L60.9316 280.583L60.9316 271.787Z" fill="black" />
+    <path d="M60.9316 110.515L42.8496 92.4329L42.8496 101.23L60.9316 119.312L60.9316 110.515Z" fill="black" />
+    <path d="M60.9316 325.544L42.8496 307.462L42.8496 316.259L60.9316 334.341L60.9316 325.544Z" fill="black" />
+    <path d="M60.9316 164.272L42.8496 146.19L42.8496 154.987L60.9316 173.069L60.9316 164.272Z" fill="black" />
+    <path d="M60.7979 504.964L42.7158 486.882L42.7158 495.679L60.7979 513.761L60.7979 504.964Z" fill="black" />
+    <path d="M60.7979 343.693L42.7158 325.611L42.7158 334.407L60.7979 352.489L60.7979 343.693Z" fill="black" />
+    <path d="M60.7979 558.722L42.7158 540.64L42.7158 549.436L60.7979 567.518L60.7979 558.722Z" fill="black" />
+    <path d="M60.7979 397.45L42.7158 379.368L42.7158 388.165L60.7979 406.247L60.7979 397.45Z" fill="black" />
+    <path d="M60.7979 612.479L42.7158 594.397L42.7158 603.194L60.7979 621.276L60.7979 612.479Z" fill="black" />
+    <path d="M60.7979 451.207L42.7158 433.125L42.7158 441.922L60.7979 460.004L60.7979 451.207Z" fill="black" />
+    <path d="M60.7979 522.558L42.7158 504.476L42.7158 513.272L60.7979 531.354L60.7979 522.558Z" fill="black" />
+    <path d="M60.7979 361.286L42.7158 343.204L42.7158 352.001L60.7979 370.083L60.7979 361.286Z" fill="black" />
+    <path d="M60.7979 576.315L42.7158 558.233L42.7158 567.03L60.7979 585.112L60.7979 576.315Z" fill="black" />
+    <path d="M60.7979 415.043L42.7158 396.961L42.7158 405.758L60.7979 423.84L60.7979 415.043Z" fill="black" />
+    <path d="M60.7979 630.072L42.7158 611.99L42.7158 620.787L60.7979 638.869L60.7979 630.072Z" fill="black" />
+    <path d="M60.7979 468.801L42.7158 450.719L42.7158 459.515L60.7979 477.597L60.7979 468.801Z" fill="black" />
+    <path d="M60.7979 540.151L42.7158 522.069L42.7158 530.866L60.7979 548.948L60.7979 540.151Z" fill="black" />
+    <path d="M60.7979 378.879L42.7158 360.797L42.7158 369.594L60.7979 387.676L60.7979 378.879Z" fill="black" />
+    <path d="M60.7979 593.908L42.7158 575.826L42.7158 584.623L60.7979 602.705L60.7979 593.908Z" fill="black" />
+    <path d="M60.7979 432.636L42.7158 414.554L42.7158 423.351L60.7979 441.433L60.7979 432.636Z" fill="black" />
+    <path d="M60.7979 486.394L42.7158 468.312L42.7158 477.108L60.7979 495.19L60.7979 486.394Z" fill="black" />
+    <path d="M60.7979 807.811L42.7158 789.729L42.7158 798.525L60.7979 816.607L60.7979 807.811Z" fill="black" />
+    <path d="M60.7988 646.538L42.7168 628.456L42.7168 637.253L60.7988 655.335L60.7988 646.538Z" fill="black" />
+    <path d="M60.7979 861.567L42.7158 843.485L42.7158 852.282L60.7979 870.364L60.7979 861.567Z" fill="black" />
+    <path d="M60.7979 700.295L42.7158 682.213L42.7158 691.01L60.7979 709.092L60.7979 700.295Z" fill="black" />
+    <path d="M60.7979 754.053L42.7158 735.971L42.7158 744.768L60.7979 762.85L60.7979 754.053Z" fill="black" />
+    <path d="M60.7979 825.404L42.7158 807.322L42.7158 816.118L60.7979 834.2L60.7979 825.404Z" fill="black" />
+    <path d="M60.7979 664.132L42.7158 646.05L42.7158 654.846L60.7979 672.928L60.7979 664.132Z" fill="black" />
+    <path d="M60.7979 879.161L42.7158 861.079L42.7158 869.876L60.7979 887.958L60.7979 879.161Z" fill="black" />
+    <path d="M60.7979 717.889L42.7158 699.807L42.7158 708.604L60.7979 726.686L60.7979 717.889Z" fill="black" />
+    <path d="M60.7979 771.646L42.7158 753.564L42.7158 762.361L60.7979 780.443L60.7979 771.646Z" fill="black" />
+    <path d="M60.7979 842.997L42.7158 824.915L42.7158 833.712L60.7979 851.794L60.7979 842.997Z" fill="black" />
+    <path d="M60.7979 681.725L42.7158 663.643L42.7158 672.439L60.7979 690.521L60.7979 681.725Z" fill="black" />
+    <path d="M60.7979 896.754L42.7158 878.672L42.7158 887.469L60.7979 905.551L60.7979 896.754Z" fill="black" />
+    <path d="M60.7979 735.482L42.7158 717.4L42.7158 726.197L60.7979 744.279L60.7979 735.482Z" fill="black" />
+    <path d="M60.7979 789.239L42.7158 771.157L42.7158 779.954L60.7979 798.036L60.7979 789.239Z" fill="black" />
+    <path d="M55.9805 906.85L45.7177 896.871L45.7177 905.179L47.1838 906.85L55.0031 906.85L55.9805 906.85Z"
+      fill="black" />
+  </svg>
 
 </div>

@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AudioEventsService } from '../../services/audio-events.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cursor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './cursor.component.html',
   styleUrls: ['./cursor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

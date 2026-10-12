@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, PLATFORM_ID, Inject, AfterViewInit } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import * as L from 'leaflet';
 
 @Component({
   selector: 'app-map-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './map-modal.component.html',
   styleUrl: './map-modal.component.scss'
 })

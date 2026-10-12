@@ -1,51 +1,54 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ViewportLineService, ViewportLineData } from '../../services/viewport-line.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-viewport-line',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Lignes dynamiques du service -->
     <svg class="viewport-lines-container">
       <!-- Lignes avec points intermédiaires (deux segments) -->
-      <line 
-        *ngFor="let line of activeLinesWithIntermediate; trackBy: trackByLineId"
-        [attr.x1]="line.startX"
-        [attr.y1]="line.startY"
-        [attr.x2]="line.intermediateX"
-        [attr.y2]="line.intermediateY"
-        [attr.stroke]="line.color || 'black'"
-        stroke-width="5"
-        [attr.data-component-id]="line.id + '-segment1'">
-      </line>
-      <line 
-        *ngFor="let line of activeLinesWithIntermediate; trackBy: trackByLineId"
-        [attr.x1]="line.intermediateX"
-        [attr.y1]="line.intermediateY"
-        [attr.x2]="line.endX"
-        [attr.y2]="line.endY"
-        [attr.stroke]="line.color || 'black'"
-        stroke-width="5"
-        [attr.data-component-id]="line.id + '-segment2'">
-      </line>
-      
+      @for (line of activeLinesWithIntermediate; track trackByLineId($index, line)) {
+        <line
+          [attr.x1]="line.startX"
+          [attr.y1]="line.startY"
+          [attr.x2]="line.intermediateX"
+          [attr.y2]="line.intermediateY"
+          [attr.stroke]="line.color || 'black'"
+          stroke-width="5"
+          [attr.data-component-id]="line.id + '-segment1'">
+        </line>
+      }
+      @for (line of activeLinesWithIntermediate; track trackByLineId($index, line)) {
+        <line
+          [attr.x1]="line.intermediateX"
+          [attr.y1]="line.intermediateY"
+          [attr.x2]="line.endX"
+          [attr.y2]="line.endY"
+          [attr.stroke]="line.color || 'black'"
+          stroke-width="5"
+          [attr.data-component-id]="line.id + '-segment2'">
+        </line>
+      }
+    
       <!-- Lignes simples (sans points intermédiaires) -->
-      <line 
-        *ngFor="let line of activeLinesSimple; trackBy: trackByLineId"
-        [attr.x1]="line.startX"
-        [attr.y1]="line.startY"
-        [attr.x2]="line.endX"
-        [attr.y2]="line.endY"
-        [attr.stroke]="line.color || 'black'"
-        stroke-width="5"
-        [attr.data-component-id]="line.id">
-      </line>
+      @for (line of activeLinesSimple; track trackByLineId($index, line)) {
+        <line
+          [attr.x1]="line.startX"
+          [attr.y1]="line.startY"
+          [attr.x2]="line.endX"
+          [attr.y2]="line.endY"
+          [attr.stroke]="line.color || 'black'"
+          stroke-width="5"
+          [attr.data-component-id]="line.id">
+        </line>
+      }
     </svg>
-  `,
+    `,
   styles: [`
     .viewport-lines-container {
       position: fixed;

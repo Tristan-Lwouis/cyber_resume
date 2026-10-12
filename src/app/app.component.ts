@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectorRef, OnInit, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgIf } from '@angular/common';
+
 
 import { EXPERIENCE_CONTENT } from './data/experiences.data';
 import { FORMATION_CONTENT } from './data/formations.data';
@@ -28,7 +28,6 @@ import { SimpleLoadingComponent } from "./loading-page/simple-loading.component"
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    NgIf,
     LoisirSkillsComponent,
     InfoBulleComponent,
     RollingScriptComponent,
@@ -43,7 +42,7 @@ import { SimpleLoadingComponent } from "./loading-page/simple-loading.component"
     MapModalComponent,
     ViewportLineComponent,
     SimpleLoadingComponent
-  ],
+],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

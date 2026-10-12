@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { WindowManagerService } from '../../services/window-manager.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { PortfolioItem, PORTFOLIO_ITEMS } from '../../data/portfolio.data';
 
 @Component({
   selector: 'app-portfolio',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.scss'
 })

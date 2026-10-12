@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { NgIf, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { LoadingProgressService } from '../services/loading-progress.service';
 
 @Component({
   selector: 'app-simple-loading',
   standalone: true,
-  imports: [NgIf, DecimalPipe],
+  imports: [DecimalPipe],
   templateUrl: './simple-loading.component.html',
   styleUrl: './simple-loading.component.scss'
 })

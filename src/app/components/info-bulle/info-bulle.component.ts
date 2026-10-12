@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-info-bulle',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './info-bulle.component.html',
   styleUrl: './info-bulle.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

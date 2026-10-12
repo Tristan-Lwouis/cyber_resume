@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+ 
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
 import { ViewportLineDirective } from '../../directives/viewport-line.directive';
 import { WindowManagerService } from '../../services/window-manager.service';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-personal-info',
-  imports: [CommonModule, DragDropModule, ViewportLineDirective],
+  imports: [DragDropModule, ViewportLineDirective],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

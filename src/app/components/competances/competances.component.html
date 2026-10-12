@@ -1,215 +1,221 @@
-<section class="svg-container" cdkDrag 
-         (cdkDragMoved)="onDragMoved($event)"
-         (click)="onWindowClick()"
-         appViewportLine 
-         componentId="competances"
-         lineColor="black"
-         [distancePercentage]="distancePercentage"
-         [style.z-index]="windowZIndex">
+<section class="svg-container" cdkDrag
+  (cdkDragMoved)="onDragMoved($event)"
+  (click)="onWindowClick()"
+  appViewportLine
+  componentId="competances"
+  lineColor="black"
+  [distancePercentage]="distancePercentage"
+  [style.z-index]="windowZIndex">
 
-    <!-- TAB SELECTOR AND HANDLE -->
-    <div class="bandeau-onglet clickable">
-        <div id="selectorTab1" [class.inactive-tab]="activeTab !== 'dev'" (click)="setTab('dev')">
-            <span>C0MP3TENCES</span>
-            <span class="close-button" *ngIf="activeTab === 'dev'" (click)="onCloseClick(); $event.stopPropagation()">X</span>
-        </div>
-        <div id="selectorTab2" [class.inactive-tab]="activeTab !== 'tools'" (click)="setTab('tools')">
-            <span>L0G1CIELS</span>
-            <span class="close-button" *ngIf="activeTab === 'tools'" (click)="onCloseClick(); $event.stopPropagation()">X</span>
-        </div>
-        <div id="Handle" cdkDragHandle>
-            <span></span>
-        </div>
+  <!-- TAB SELECTOR AND HANDLE -->
+  <div class="bandeau-onglet clickable">
+    <div id="selectorTab1" [class.inactive-tab]="activeTab !== 'dev'" (click)="setTab('dev')">
+      <span>C0MP3TENCES</span>
+      @if (activeTab === 'dev') {
+        <span class="close-button" (click)="onCloseClick(); $event.stopPropagation()">X</span>
+      }
     </div>
+    <div id="selectorTab2" [class.inactive-tab]="activeTab !== 'tools'" (click)="setTab('tools')">
+      <span>L0G1CIELS</span>
+      @if (activeTab === 'tools') {
+        <span class="close-button" (click)="onCloseClick(); $event.stopPropagation()">X</span>
+      }
+    </div>
+    <div id="Handle" cdkDragHandle>
+      <span></span>
+    </div>
+  </div>
 
-    <!-- MAIN SVG : DEV -->
-    <!-- TODO : Vaire varier la view box pour ne pas impacter le cmposant en dessous -->
-    <svg class="carte" [ngStyle]="{'z-index': devZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path [attr.d]="getDevPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5" />
-        
-        <foreignObject x="0" y="0" width="100%" height="250px">
-        </foreignObject>
+  <!-- MAIN SVG : DEV -->
+  <!-- TODO : Vaire varier la view box pour ne pas impacter le cmposant en dessous -->
+  <svg class="carte" [ngStyle]="{'z-index': devZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path [attr.d]="getDevPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5" />
 
-        <!-- BOUCLE POUR GÉNÉRER LES LANGAGES -->
-        <foreignObject x="20" y="60" width="95%" [attr.height]="getLanguagesContainerHeight()">
-            <ng-container *ngFor="let language of currentLanguages; let i = index; trackBy: trackByLanguage">
-                <div class="language-item" [attr.data-language-id]="language.id">
-                    <!-- PROGRESS BAR -->
-                    <img [src]="language.icon" [alt]="language.name">
-                    <svg width="364" height="39" viewBox="0 0 364 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M198.5 10L180 28.5H189L207.5 10H198.5Z" fill="var(--secondary-color)" />
-                        <path d="M33.5 10L15 28.5H24L42.5 10H33.5Z" fill="var(--secondary-color)" />
-                        <path d="M253.5 10L235 28.5H244L262.5 10H253.5Z" fill="var(--secondary-color)" />
-                        <path d="M88.5 10L70 28.5H79L97.5 10H88.5Z" fill="var(--secondary-color)" />
-                        <path d="M308.5 10L290 28.5H299L317.5 10H308.5Z" fill="var(--secondary-color)" />
-                        <path d="M143.5 10L125 28.5H134L152.5 10H143.5Z" fill="var(--secondary-color)" />
-                        <path d="M216.5 10L198 28.5H207L225.5 10H216.5Z" fill="var(--secondary-color)" />
-                        <path d="M51.5 10L33 28.5H42L60.5 10H51.5Z" fill="var(--secondary-color)" />
-                        <path d="M271.5 10L253 28.5H262L280.5 10H271.5Z" fill="var(--secondary-color)" />
-                        <path d="M106.5 10L88 28.5H97L115.5 10H106.5Z" fill="var(--secondary-color)" />
-                        <path d="M326.5 10L308 28.5H317L335.5 10H326.5Z" fill="var(--secondary-color)" />
-                        <path d="M161.5 10L143 28.5H152L170.5 10H161.5Z" fill="var(--secondary-color)" />
-                        <path d="M234.5 10L216 28.5H225L243.5 10H234.5Z" fill="var(--secondary-color)" />
-                        <path d="M69.5 10L51 28.5H60L78.5 10H69.5Z" fill="var(--secondary-color)" />
-                        <path d="M289.5 10L271 28.5H280L298.5 10H289.5Z" fill="var(--secondary-color)" />
-                        <path d="M124.5 10L106 28.5H115L133.5 10H124.5Z" fill="var(--secondary-color)" />
-                        <path d="M344.5 10L326 28.5H335L353.5 10H344.5Z" fill="var(--secondary-color)" />
-                        <path d="M354.209 18L344 28.5H352.5L354.209 27V19V18Z" fill="var(--secondary-color)" />
-                        <path d="M179.5 10L161 28.5H170L188.5 10H179.5Z" fill="var(--secondary-color)" />
-                        <path d="M0 8H7V31H0" stroke="var(--secondary-color)" />
-                        <path d="M0 34L364 34" stroke="var(--secondary-color)" />
-                        <path d="M0 5L364 5" stroke="var(--secondary-color)" />
-                        <rect x="0.5" y="0.5" width="17" height="2" stroke="var(--secondary-color)" />
-                        <rect x="20.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="144.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="268.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="82.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="206.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="330.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="51.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="175.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="299.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="113.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="237.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="363.5" y="38.5" width="17" height="2" transform="rotate(-180 363.5 38.5)"
-                            stroke="var(--secondary-color)" />
-                        <rect x="343.5" y="38.5" width="4" height="2" transform="rotate(-180 343.5 38.5)"
-                            stroke="var(--secondary-color)" />
-                        <rect x="0.5" y="18.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <path d="M364 31L357 31L357 8L364 8" stroke="var(--secondary-color)" />
-                        <rect x="363.5" y="20.5" width="4" height="2" transform="rotate(-180 363.5 20.5)"
-                            stroke="var(--secondary-color)" />
-                        <foreignObject x="0" y="0" width="100%" height="100%" >
-                            <div class="test">
-                                <div class="progress-bar" [style.width]="getProgressBarWidth(language)">
-                                    <span>{{ language.name }}</span>
-                                </div>
-                            </div>
-                        </foreignObject>
-                    </svg>
-                    <!-- FLECHE -->
-                    <svg class="arrow clickable" width="15" height="28" viewBox="0 0 15 28" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" (click)="rotateArrow(language.id)"
-                        [style.transform]="'translateZ(0) rotate(' + arrowRotation[language.id] + 'deg)'">
-                        <path d="M14.1436 14L0.643557 27.8564L0.643557 0.143594L14.1436 14Z" fill="black" />
-                    </svg>
-                    <!-- FIN FLECHE -->
-                </div>
-                <!-- FIN PROGRESS BAR -->
-                
-                <!-- DESCRIPTION -->
-                <div class="language-description" [class.open]="open[language.id]">
-                    <ul>
-                        <li *ngFor="let skill of language.skills">
-                            <span>{{ skill }}</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- FIN DESCRIPTION -->
-            </ng-container>
-        </foreignObject>
-    </svg>
+    <foreignObject x="0" y="0" width="100%" height="250px">
+    </foreignObject>
 
-    <!-- MAIN SVG : TOOLS -->
-    <svg class="carte" [ngStyle]="{'z-index': toolsZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M576.5 16.5H383.5V50.5H586V26.6558L576.5 16.5Z" fill="black" stroke="black" stroke-width="5"/>
-        <mask id="mask0_378_952" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="385" y="14" width="204" height="39">
-        <path d="M578.5 16.5H387.5V50.5H586V26.6558L578.5 16.5Z" fill="black" stroke="black" stroke-width="5"/>
-        </mask>
-        <g mask="url(#mask0_378_952)">
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 304.149 -53.425)" fill="var(--primary-color)"/>
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 254.197 -60.4351)" fill="var(--primary-color)"/>
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 203.302 -67.5774)" fill="var(--primary-color)"/>
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 158.33 -68.6892)" fill="var(--primary-color)"/>
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 130.755 -52.8025)" fill="var(--primary-color)"/>
-        <rect width="375.028" height="12.563" transform="matrix(0.847858 0.530223 -0.470373 0.882468 593.343 -40.1665)" fill="var(--primary-color)"/>
-        <rect width="375.028" height="12.563" transform="matrix(0.847858 0.530223 -0.470373 0.882468 568.101 -20.5908)" fill="var(--primary-color)"/>
-        <path d="M479.529 -11.3184L768.544 229.924L761.236 240.088L472.222 -1.15502L479.529 -11.3184Z" fill="var(--primary-color)"/>
-        <path d="M479.529 -11.3184L768.544 229.924L761.236 240.088L472.222 -1.15502L479.529 -11.3184Z" fill="var(--primary-color)"/>
-        <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
-        <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 436.308 -11.1445)" fill="var(--primary-color)"/>
-        <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 385.674 -19.1086)" fill="var(--primary-color)"/>
-        <path d="M577 16.5H96V50.5H586V26.6558L577 16.5Z" stroke="black" stroke-width="5"/>
-        </g>
-        <path [attr.d]="getToolsPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5"/>
+    <!-- BOUCLE POUR GÉNÉRER LES LANGAGES -->
+    <foreignObject x="20" y="60" width="95%" [attr.height]="getLanguagesContainerHeight()">
+      @for (language of currentLanguages; track trackByLanguage(i, language); let i = $index) {
+        <div class="language-item" [attr.data-language-id]="language.id">
+          <!-- PROGRESS BAR -->
+          <img [src]="language.icon" [alt]="language.name">
+          <svg width="364" height="39" viewBox="0 0 364 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M198.5 10L180 28.5H189L207.5 10H198.5Z" fill="var(--secondary-color)" />
+            <path d="M33.5 10L15 28.5H24L42.5 10H33.5Z" fill="var(--secondary-color)" />
+            <path d="M253.5 10L235 28.5H244L262.5 10H253.5Z" fill="var(--secondary-color)" />
+            <path d="M88.5 10L70 28.5H79L97.5 10H88.5Z" fill="var(--secondary-color)" />
+            <path d="M308.5 10L290 28.5H299L317.5 10H308.5Z" fill="var(--secondary-color)" />
+            <path d="M143.5 10L125 28.5H134L152.5 10H143.5Z" fill="var(--secondary-color)" />
+            <path d="M216.5 10L198 28.5H207L225.5 10H216.5Z" fill="var(--secondary-color)" />
+            <path d="M51.5 10L33 28.5H42L60.5 10H51.5Z" fill="var(--secondary-color)" />
+            <path d="M271.5 10L253 28.5H262L280.5 10H271.5Z" fill="var(--secondary-color)" />
+            <path d="M106.5 10L88 28.5H97L115.5 10H106.5Z" fill="var(--secondary-color)" />
+            <path d="M326.5 10L308 28.5H317L335.5 10H326.5Z" fill="var(--secondary-color)" />
+            <path d="M161.5 10L143 28.5H152L170.5 10H161.5Z" fill="var(--secondary-color)" />
+            <path d="M234.5 10L216 28.5H225L243.5 10H234.5Z" fill="var(--secondary-color)" />
+            <path d="M69.5 10L51 28.5H60L78.5 10H69.5Z" fill="var(--secondary-color)" />
+            <path d="M289.5 10L271 28.5H280L298.5 10H289.5Z" fill="var(--secondary-color)" />
+            <path d="M124.5 10L106 28.5H115L133.5 10H124.5Z" fill="var(--secondary-color)" />
+            <path d="M344.5 10L326 28.5H335L353.5 10H344.5Z" fill="var(--secondary-color)" />
+            <path d="M354.209 18L344 28.5H352.5L354.209 27V19V18Z" fill="var(--secondary-color)" />
+            <path d="M179.5 10L161 28.5H170L188.5 10H179.5Z" fill="var(--secondary-color)" />
+            <path d="M0 8H7V31H0" stroke="var(--secondary-color)" />
+            <path d="M0 34L364 34" stroke="var(--secondary-color)" />
+            <path d="M0 5L364 5" stroke="var(--secondary-color)" />
+            <rect x="0.5" y="0.5" width="17" height="2" stroke="var(--secondary-color)" />
+            <rect x="20.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="144.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="268.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="82.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="206.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="330.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="51.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="175.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="299.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="113.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="237.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+            <rect x="363.5" y="38.5" width="17" height="2" transform="rotate(-180 363.5 38.5)"
+              stroke="var(--secondary-color)" />
+              <rect x="343.5" y="38.5" width="4" height="2" transform="rotate(-180 343.5 38.5)"
+                stroke="var(--secondary-color)" />
+                <rect x="0.5" y="18.5" width="4" height="2" stroke="var(--secondary-color)" />
+                <path d="M364 31L357 31L357 8L364 8" stroke="var(--secondary-color)" />
+                <rect x="363.5" y="20.5" width="4" height="2" transform="rotate(-180 363.5 20.5)"
+                  stroke="var(--secondary-color)" />
+                  <foreignObject x="0" y="0" width="100%" height="100%" >
+                    <div class="test">
+                      <div class="progress-bar" [style.width]="getProgressBarWidth(language)">
+                        <span>{{ language.name }}</span>
+                      </div>
+                    </div>
+                  </foreignObject>
+                </svg>
+                <!-- FLECHE -->
+                <svg class="arrow clickable" width="15" height="28" viewBox="0 0 15 28" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" (click)="rotateArrow(language.id)"
+                  [style.transform]="'translateZ(0) rotate(' + arrowRotation[language.id] + 'deg)'">
+                  <path d="M14.1436 14L0.643557 27.8564L0.643557 0.143594L14.1436 14Z" fill="black" />
+                </svg>
+                <!-- FIN FLECHE -->
+              </div>
+              <!-- FIN PROGRESS BAR -->
+              <!-- DESCRIPTION -->
+              <div class="language-description" [class.open]="open[language.id]">
+                <ul>
+                  @for (skill of language.skills; track skill) {
+                    <li>
+                      <span>{{ skill }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+              <!-- FIN DESCRIPTION -->
+            }
+          </foreignObject>
+        </svg>
 
-        <!-- BOUCLE POUR GÉNÉRER LES LOGICIELS -->
-        <foreignObject x="20" y="60" width="95%" [attr.height]="getLanguagesContainerHeight()">
-            <ng-container *ngFor="let language of currentLanguages; let i = index; trackBy: trackByLanguage">
-                <div class="language-item" [attr.data-language-id]="language.id">
-                    <!-- PROGRESS BAR -->
-                    <img [src]="language.icon" [alt]="language.name">
-                    <svg width="364" height="39" viewBox="0 0 364 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M198.5 10L180 28.5H189L207.5 10H198.5Z" fill="var(--secondary-color)" />
-                        <!-- Keeping the exact same path/rect block for progress bar logic -->
-                        <path d="M33.5 10L15 28.5H24L42.5 10H33.5Z" fill="var(--secondary-color)" />
-                        <path d="M253.5 10L235 28.5H244L262.5 10H253.5Z" fill="var(--secondary-color)" />
-                        <path d="M88.5 10L70 28.5H79L97.5 10H88.5Z" fill="var(--secondary-color)" />
-                        <path d="M308.5 10L290 28.5H299L317.5 10H308.5Z" fill="var(--secondary-color)" />
-                        <path d="M143.5 10L125 28.5H134L152.5 10H143.5Z" fill="var(--secondary-color)" />
-                        <path d="M216.5 10L198 28.5H207L225.5 10H216.5Z" fill="var(--secondary-color)" />
-                        <path d="M51.5 10L33 28.5H42L60.5 10H51.5Z" fill="var(--secondary-color)" />
-                        <path d="M271.5 10L253 28.5H262L280.5 10H271.5Z" fill="var(--secondary-color)" />
-                        <path d="M106.5 10L88 28.5H97L115.5 10H106.5Z" fill="var(--secondary-color)" />
-                        <path d="M326.5 10L308 28.5H317L335.5 10H326.5Z" fill="var(--secondary-color)" />
-                        <path d="M161.5 10L143 28.5H152L170.5 10H161.5Z" fill="var(--secondary-color)" />
-                        <path d="M234.5 10L216 28.5H225L243.5 10H234.5Z" fill="var(--secondary-color)" />
-                        <path d="M69.5 10L51 28.5H60L78.5 10H69.5Z" fill="var(--secondary-color)" />
-                        <path d="M289.5 10L271 28.5H280L298.5 10H289.5Z" fill="var(--secondary-color)" />
-                        <path d="M124.5 10L106 28.5H115L133.5 10H124.5Z" fill="var(--secondary-color)" />
-                        <path d="M344.5 10L326 28.5H335L353.5 10H344.5Z" fill="var(--secondary-color)" />
-                        <path d="M354.209 18L344 28.5H352.5L354.209 27V19V18Z" fill="var(--secondary-color)" />
-                        <path d="M179.5 10L161 28.5H170L188.5 10H179.5Z" fill="var(--secondary-color)" />
-                        <path d="M0 8H7V31H0" stroke="var(--secondary-color)" />
-                        <path d="M0 34L364 34" stroke="var(--secondary-color)" />
-                        <path d="M0 5L364 5" stroke="var(--secondary-color)" />
-                        <rect x="0.5" y="0.5" width="17" height="2" stroke="var(--secondary-color)" />
-                        <rect x="20.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="144.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="268.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="82.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="206.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="330.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="51.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="175.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="299.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="113.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="237.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <rect x="363.5" y="38.5" width="17" height="2" transform="rotate(-180 363.5 38.5)" stroke="var(--secondary-color)" />
-                        <rect x="343.5" y="38.5" width="4" height="2" transform="rotate(-180 343.5 38.5)" stroke="var(--secondary-color)" />
-                        <rect x="0.5" y="18.5" width="4" height="2" stroke="var(--secondary-color)" />
-                        <path d="M364 31L357 31L357 8L364 8" stroke="var(--secondary-color)" />
-                        <rect x="363.5" y="20.5" width="4" height="2" transform="rotate(-180 363.5 20.5)" stroke="var(--secondary-color)" />
-                        <foreignObject x="0" y="0" width="100%" height="100%" >
-                            <div class="test">
-                                <div class="progress-bar" [style.width]="getProgressBarWidth(language)">
-                                    <span>{{ language.name }}</span>
-                                </div>
-                            </div>
-                        </foreignObject>
-                    </svg>
-                    <!-- FLECHE -->
-                    <svg class="arrow clickable" width="15" height="28" viewBox="0 0 15 28" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" (click)="rotateArrow(language.id)"
-                        [style.transform]="'translateZ(0) rotate(' + arrowRotation[language.id] + 'deg)'">
-                        <path d="M14.1436 14L0.643557 27.8564L0.643557 0.143594L14.1436 14Z" fill="black" />
-                    </svg>
-                    <!-- FIN FLECHE -->
-                </div>
-                <!-- FIN PROGRESS BAR -->
-                
-                <!-- DESCRIPTION -->
-                <div class="language-description" [class.open]="open[language.id]">
-                    <ul>
-                        <li *ngFor="let skill of language.skills">
-                            <span>{{ skill }}</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- FIN DESCRIPTION -->
-            </ng-container>
-        </foreignObject>
-    </svg>
+        <!-- MAIN SVG : TOOLS -->
+        <svg class="carte" [ngStyle]="{'z-index': toolsZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M576.5 16.5H383.5V50.5H586V26.6558L576.5 16.5Z" fill="black" stroke="black" stroke-width="5"/>
+          <mask id="mask0_378_952" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="385" y="14" width="204" height="39">
+            <path d="M578.5 16.5H387.5V50.5H586V26.6558L578.5 16.5Z" fill="black" stroke="black" stroke-width="5"/>
+          </mask>
+          <g mask="url(#mask0_378_952)">
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 304.149 -53.425)" fill="var(--primary-color)"/>
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 254.197 -60.4351)" fill="var(--primary-color)"/>
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 203.302 -67.5774)" fill="var(--primary-color)"/>
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 158.33 -68.6892)" fill="var(--primary-color)"/>
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 130.755 -52.8025)" fill="var(--primary-color)"/>
+            <rect width="375.028" height="12.563" transform="matrix(0.847858 0.530223 -0.470373 0.882468 593.343 -40.1665)" fill="var(--primary-color)"/>
+            <rect width="375.028" height="12.563" transform="matrix(0.847858 0.530223 -0.470373 0.882468 568.101 -20.5908)" fill="var(--primary-color)"/>
+            <path d="M479.529 -11.3184L768.544 229.924L761.236 240.088L472.222 -1.15502L479.529 -11.3184Z" fill="var(--primary-color)"/>
+            <path d="M479.529 -11.3184L768.544 229.924L761.236 240.088L472.222 -1.15502L479.529 -11.3184Z" fill="var(--primary-color)"/>
+            <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
+            <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 436.308 -11.1445)" fill="var(--primary-color)"/>
+            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 385.674 -19.1086)" fill="var(--primary-color)"/>
+            <path d="M577 16.5H96V50.5H586V26.6558L577 16.5Z" stroke="black" stroke-width="5"/>
+          </g>
+          <path [attr.d]="getToolsPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5"/>
 
-</section>
+          <!-- BOUCLE POUR GÉNÉRER LES LOGICIELS -->
+          <foreignObject x="20" y="60" width="95%" [attr.height]="getLanguagesContainerHeight()">
+            @for (language of currentLanguages; track trackByLanguage(i, language); let i = $index) {
+              <div class="language-item" [attr.data-language-id]="language.id">
+                <!-- PROGRESS BAR -->
+                <img [src]="language.icon" [alt]="language.name">
+                <svg width="364" height="39" viewBox="0 0 364 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M198.5 10L180 28.5H189L207.5 10H198.5Z" fill="var(--secondary-color)" />
+                  <!-- Keeping the exact same path/rect block for progress bar logic -->
+                  <path d="M33.5 10L15 28.5H24L42.5 10H33.5Z" fill="var(--secondary-color)" />
+                  <path d="M253.5 10L235 28.5H244L262.5 10H253.5Z" fill="var(--secondary-color)" />
+                  <path d="M88.5 10L70 28.5H79L97.5 10H88.5Z" fill="var(--secondary-color)" />
+                  <path d="M308.5 10L290 28.5H299L317.5 10H308.5Z" fill="var(--secondary-color)" />
+                  <path d="M143.5 10L125 28.5H134L152.5 10H143.5Z" fill="var(--secondary-color)" />
+                  <path d="M216.5 10L198 28.5H207L225.5 10H216.5Z" fill="var(--secondary-color)" />
+                  <path d="M51.5 10L33 28.5H42L60.5 10H51.5Z" fill="var(--secondary-color)" />
+                  <path d="M271.5 10L253 28.5H262L280.5 10H271.5Z" fill="var(--secondary-color)" />
+                  <path d="M106.5 10L88 28.5H97L115.5 10H106.5Z" fill="var(--secondary-color)" />
+                  <path d="M326.5 10L308 28.5H317L335.5 10H326.5Z" fill="var(--secondary-color)" />
+                  <path d="M161.5 10L143 28.5H152L170.5 10H161.5Z" fill="var(--secondary-color)" />
+                  <path d="M234.5 10L216 28.5H225L243.5 10H234.5Z" fill="var(--secondary-color)" />
+                  <path d="M69.5 10L51 28.5H60L78.5 10H69.5Z" fill="var(--secondary-color)" />
+                  <path d="M289.5 10L271 28.5H280L298.5 10H289.5Z" fill="var(--secondary-color)" />
+                  <path d="M124.5 10L106 28.5H115L133.5 10H124.5Z" fill="var(--secondary-color)" />
+                  <path d="M344.5 10L326 28.5H335L353.5 10H344.5Z" fill="var(--secondary-color)" />
+                  <path d="M354.209 18L344 28.5H352.5L354.209 27V19V18Z" fill="var(--secondary-color)" />
+                  <path d="M179.5 10L161 28.5H170L188.5 10H179.5Z" fill="var(--secondary-color)" />
+                  <path d="M0 8H7V31H0" stroke="var(--secondary-color)" />
+                  <path d="M0 34L364 34" stroke="var(--secondary-color)" />
+                  <path d="M0 5L364 5" stroke="var(--secondary-color)" />
+                  <rect x="0.5" y="0.5" width="17" height="2" stroke="var(--secondary-color)" />
+                  <rect x="20.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="144.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="268.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="82.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="206.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="330.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="51.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="175.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="299.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="113.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="237.5" y="0.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <rect x="363.5" y="38.5" width="17" height="2" transform="rotate(-180 363.5 38.5)" stroke="var(--secondary-color)" />
+                  <rect x="343.5" y="38.5" width="4" height="2" transform="rotate(-180 343.5 38.5)" stroke="var(--secondary-color)" />
+                  <rect x="0.5" y="18.5" width="4" height="2" stroke="var(--secondary-color)" />
+                  <path d="M364 31L357 31L357 8L364 8" stroke="var(--secondary-color)" />
+                  <rect x="363.5" y="20.5" width="4" height="2" transform="rotate(-180 363.5 20.5)" stroke="var(--secondary-color)" />
+                  <foreignObject x="0" y="0" width="100%" height="100%" >
+                    <div class="test">
+                      <div class="progress-bar" [style.width]="getProgressBarWidth(language)">
+                        <span>{{ language.name }}</span>
+                      </div>
+                    </div>
+                  </foreignObject>
+                </svg>
+                <!-- FLECHE -->
+                <svg class="arrow clickable" width="15" height="28" viewBox="0 0 15 28" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" (click)="rotateArrow(language.id)"
+                  [style.transform]="'translateZ(0) rotate(' + arrowRotation[language.id] + 'deg)'">
+                  <path d="M14.1436 14L0.643557 27.8564L0.643557 0.143594L14.1436 14Z" fill="black" />
+                </svg>
+                <!-- FIN FLECHE -->
+              </div>
+              <!-- FIN PROGRESS BAR -->
+              <!-- DESCRIPTION -->
+              <div class="language-description" [class.open]="open[language.id]">
+                <ul>
+                  @for (skill of language.skills; track skill) {
+                    <li>
+                      <span>{{ skill }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+              <!-- FIN DESCRIPTION -->
+            }
+          </foreignObject>
+        </svg>
+
+      </section>

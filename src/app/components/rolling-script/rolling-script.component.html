@@ -7,9 +7,11 @@
 
   <div class="terminal-content">
     <div #codeContainer class="code-display">
-      <pre *ngFor="let line of lines; let last = last" [class.last-line]="last">{{ line }}</pre>
+      @for (line of lines; track line; let last = $last) {
+        <pre [class.last-line]="last">{{ line }}</pre>
+      }
     </div>
-    
+
     <!-- Overlays d'effets visuels -->
     <div class="scanlines"></div>
     <div class="vignette"></div>
