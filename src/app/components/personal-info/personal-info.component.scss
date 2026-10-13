@@ -1,5 +1,6 @@
 
 .svg-container {
+  container-type: inline-size; // Référence des unités cqw (baie des boutons)
   aspect-ratio: 600 / 693;
   position: relative;
   // filter: drop-shadow(4px 4px 4px var(--secondary-color));
@@ -108,10 +109,11 @@
   // background-color: var(--link-color);
 }
 
-
-.onglet-actions {
-  display: inline-flex;
-  margin-left: 0.8em;
-  align-items: center;
-  gap: 0.6em;
+// Baie des boutons agrandir / fermer — coordonnées du viewBox (largeur 600, barre noire jusqu'à x=578) converties en cqw
+// (unités du conteneur .svg-container) pour suivre exactement l'échelle du cadre SVG
+app-window-controls {
+  --bay-left: 77.67cqw;
+  --bay-top: calc(9.08cqw + 0.50cqw); // Le SVG est décalé de 9,08cqw par l'onglet titre (#onglet) placé au-dessus
+  --bay-width: 18.75cqw;
+  --bay-height: 8.97cqw;
 }

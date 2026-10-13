@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { WindowControlsComponent } from '../window-controls/window-controls.component';
 import { CommonModule } from '@angular/common'; // OBLIGATOIRE pour ngStyle
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
 import { ViewportLineDirective } from '../../directives/viewport-line.directive';
@@ -11,7 +12,7 @@ import { Loisir, LOISIRS_DATA, Skill, SKILLS_DATA } from '../../data/loisirs-ski
 @Component({
   selector: 'app-loisir-skills',
   //standalone: true, // ?? A quoi ca sert ?
-  imports: [CommonModule, DragDropModule, ViewportLineDirective],
+  imports: [CommonModule, DragDropModule, ViewportLineDirective, WindowControlsComponent],
   templateUrl: './loisir-skills.component.html',
   styleUrl: './loisir-skills.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -112,26 +113,9 @@ export class LoisirSkillsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Méthode appelée quand l'utilisateur clique sur le bouton "X"
-   * Émet un événement pour fermer le composant et empêche la propagation
-   */
-  onCloseClick(event: Event): void {
-    // Empêcher la propagation de l'événement pour éviter de déclencher le changement d'onglet
-    event.stopPropagation();
-    
-    // Émettre l'événement de fermeture
-    this.closeComponent.emit();
-  }
-
-  /**
    * Méthode appelée quand l'utilisateur clique sur la fenêtre
    * Fait passer la fenêtre au premier plan
    */
-  onExpandClick(event: Event): void {
-    event.stopPropagation();
-    this.expand.emit();
-  }
-
   onWindowClick(): void {
     this.windowZIndex = this.windowManagerService.bringToFront(this.componentId);
     this.cdr.markForCheck();

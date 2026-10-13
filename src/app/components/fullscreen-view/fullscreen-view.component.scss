@@ -39,7 +39,7 @@
   width: 44px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 14px 0;
   background: var(--background-color);
@@ -54,26 +54,14 @@
   }
 }
 
-.fs-close {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  display: flex;
-  gap: 10px;
-  padding: 10px 4px;
-  border: 2px solid var(--primary-color);
-  background: transparent;
-  color: var(--primary-color);
-  font: inherit;
-  font-weight: 900;
-  letter-spacing: 2px;
-  transition: background-color 0.2s ease, color 0.2s ease;
 
-  &:hover,
-  &:focus-visible {
-    background: var(--primary-color);
-    color: var(--background-color);
-    outline: none;
-  }
+// Contrôles en haut à droite, comme au bout de la barre d'une fenêtre
+.fs-controls {
+  --bay-left: auto;
+  --bay-top: 0;
+  --bay-width: 132px;
+  --bay-height: 54px;
+  right: 0;
 }
 
 // ---------------------------------------------------------------------

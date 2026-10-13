@@ -1,4 +1,5 @@
 import { Component, ViewChild, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { WindowControlsComponent } from '../window-controls/window-controls.component';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
 import { AudioEventsService } from '../../services/audio-events.service';
@@ -10,7 +11,7 @@ import { Language, COMPETENCES_DATA, SECONDARY_COMPETENCES_DATA } from '../../da
 
 @Component({
   selector: 'app-competances',
-  imports: [CommonModule, DragDropModule, ViewportLineDirective],
+  imports: [CommonModule, DragDropModule, ViewportLineDirective, WindowControlsComponent],
   templateUrl: './competances.component.html',
   styleUrl: './competances.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -214,11 +215,6 @@ export class CompetancesComponent implements OnInit, OnDestroy {
    * Méthode appelée quand l'utilisateur clique sur la fenêtre
    * Fait passer la fenêtre au premier plan
    */
-  onExpandClick(event: Event): void {
-    event.stopPropagation();
-    this.expand.emit();
-  }
-
   onWindowClick(): void {
     this.windowZIndex = this.windowManagerService.bringToFront(this.windowId);
     this.cdr.markForCheck();

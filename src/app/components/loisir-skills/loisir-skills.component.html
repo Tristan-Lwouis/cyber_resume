@@ -10,19 +10,19 @@
   <div class="bandeau-onglet clickable">
     <div id="selectorTab1" (click)="showFirstTab()">
       <span>LO1SIRS</span>
-      <span class="close-button" (click)="onCloseClick($event)">X</span>
     </div>
     <!-- Tab two -->
     <div id="selectorTab2" (click)="showSecondTab()">
       <span>SK1LLS</span>
-      <span class="close-button" (click)="onCloseClick($event)">X</span>
     </div>
     <!-- Handle -->
-    <button type="button" class="expand-button clickable" title="Plein écran" aria-label="Ouvrir en plein écran" (click)="onExpandClick($event)"><svg class="expand-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 6V1h5M10 1h5v5M15 10v5h-5M6 15H1v-5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
     <div id="Handle" cdkDragHandle>
       <span>´</span>
     </div>
   </div>
+
+  <!-- Boutons agrandir / fermer, encastrés au bout de la barre noire -->
+  <app-window-controls (toggleSize)="expand.emit()" (close)="closeComponent.emit()"></app-window-controls>
 
   <!-- FIRST TAB LOISIRS -->
   <svg class="carte" [ngStyle]="{'z-index': skillsZIndex}" width="853" height="284"

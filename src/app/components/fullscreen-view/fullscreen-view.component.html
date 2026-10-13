@@ -4,11 +4,11 @@
     <!-- Barre latérale, comme le portfolio et la carte -->
     <aside class="fs-side">
       <span class="fs-side__title">{{ title }}</span>
-      <button #closeButton type="button" class="fs-close clickable" (click)="close.emit()" aria-label="Fermer la vue plein écran">
-        <span>CLOSE</span>
-        <span>X</span>
-      </button>
     </aside>
+
+    <!-- Mêmes contrôles que les fenêtres : réduire (retour à la fenêtre) / fermer la fenêtre -->
+    <app-window-controls class="fs-controls" [expanded]="true"
+                         (toggleSize)="close.emit()" (close)="closeWindow.emit()"></app-window-controls>
 
     <div class="fs-body">
       <header class="fs-header">

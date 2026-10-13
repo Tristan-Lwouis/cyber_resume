@@ -1,0 +1,113 @@
+// Module de contrôle encastré au bout de la barre noire de chaque fenêtre.
+// Il dessine lui-même sa "baie" (corps noir biseauté + séparateur jaune oblique) :
+// elle reste visible quel que soit l'onglet / le calque SVG au premier plan.
+:host {
+  // Valeurs par défaut (vue plein écran) ; les fenêtres les surchargent en cqw
+  --bay-left: auto;
+  --bay-top: 0;
+  --bay-width: 120px;
+  --bay-height: 52px;
+  --slant: calc(var(--bay-height) * 0.45); // Décalage du biseau gauche
+  --bevel: calc(var(--bay-height) * 0.28); // Coin coupé en haut à droite
+  --control-size: 70%; // Taille des boutons par rapport à la hauteur de la baie
+
+  position: absolute;
+  z-index: 4; // Au-dessus de la poignée de drag
+  left: var(--bay-left);
+  top: var(--bay-top);
+  width: var(--bay-width);
+  height: var(--bay-height);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--bay-height) * 0.16);
+  padding: 0 calc(var(--bay-height) * 0.2) 0 0;
+  box-sizing: border-box;
+  isolation: isolate;
+
+  // Corps noir de la baie
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--background-color);
+    clip-path: polygon(
+      calc(var(--slant) + 7px) 0,
+      calc(100% - var(--bevel)) 0,
+      100% var(--bevel),
+      100% 100%,
+      7px 100%
+    );
+  }
+
+  // Séparateur jaune oblique, dans le prolongement des rayures de la barre
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--primary-color);
+    clip-path: polygon(var(--slant) 0, calc(var(--slant) + 4px) 0, 4px 100%, 0 100%);
+  }
+}
+
+.control {
+  flex: none;
+  height: var(--control-size);
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--primary-color);
+  transition: transform 0.12s ease;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .frame {
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linejoin: miter;
+    transition: fill 0.15s ease, stroke 0.15s ease;
+  }
+
+  .icon {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.6;
+    stroke-linecap: square;
+    transition: stroke 0.15s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+
+    .frame {
+      fill: var(--primary-color);
+    }
+
+    .icon {
+      stroke: var(--background-color);
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+// Le bouton fermer vire au rouge "alerte" au survol
+.control--close:hover,
+.control--close:focus-visible {
+  .frame {
+    fill: #ff3b3b;
+    stroke: #ff3b3b;
+  }
+}

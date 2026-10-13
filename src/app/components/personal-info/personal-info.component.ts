@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { WindowControlsComponent } from '../window-controls/window-controls.component';
  
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
 import { ViewportLineDirective } from '../../directives/viewport-line.directive';
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-personal-info',
-  imports: [DragDropModule, ViewportLineDirective],
+  imports: [DragDropModule, ViewportLineDirective, WindowControlsComponent],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -97,11 +98,6 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
    * Méthode appelée quand l'utilisateur clique sur la fenêtre
    * Fait passer la fenêtre au premier plan
    */
-  onExpandClick(event: Event): void {
-    event.stopPropagation();
-    this.expand.emit();
-  }
-
   onWindowClick(): void {
     this.windowZIndex = this.windowManagerService.bringToFront(this.componentId);
     this.cdr.markForCheck();

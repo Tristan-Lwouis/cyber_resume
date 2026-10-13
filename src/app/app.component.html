@@ -133,7 +133,7 @@
 
     @if (fullscreenView; as view) {
       @defer (on immediate) {
-        <app-fullscreen-view [view]="view" (close)="closeFullscreen()"></app-fullscreen-view>
+        <app-fullscreen-view [view]="view" (close)="closeFullscreen()" (closeWindow)="closeFullscreenAndWindow(view)"></app-fullscreen-view>
       }
     }
 

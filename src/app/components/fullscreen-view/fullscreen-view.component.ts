@@ -7,11 +7,11 @@ import {
   HostListener,
   Input,
   Output,
-  ViewChild,
   inject,
   signal
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { WindowControlsComponent } from '../window-controls/window-controls.component';
 
 import { EXPERIENCES } from '../../data/experiences.data';
 import { FORMATIONS } from '../../data/formations.data';
@@ -36,16 +36,19 @@ const TITLES: Record<FullscreenView, string> = {
  */
 @Component({
   selector: 'app-fullscreen-view',
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, WindowControlsComponent],
   templateUrl: './fullscreen-view.component.html',
   styleUrl: './fullscreen-view.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FullscreenViewComponent implements AfterViewInit {
   @Input({ required: true }) view!: FullscreenView;
+  /** Réduire : retour à la fenêtre d'origine */
   @Output() close = new EventEmitter<void>();
+  /** Fermer : ferme aussi la fenêtre d'origine */
+  @Output() closeWindow = new EventEmitter<void>();
 
-  @ViewChild('closeButton', { static: true }) closeButton!: ElementRef<HTMLButtonElement>;
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   private readonly avatarAnimationService = inject(AvatarAnimationService);
   private readonly audioEventsService = inject(AudioEventsService);
@@ -70,7 +73,7 @@ export class FullscreenViewComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // Accessibilité : le focus part dans la fenêtre ouverte
-    this.closeButton.nativeElement.focus({ preventScroll: true });
+    this.elementRef.nativeElement.querySelector('.fs-controls button')?.focus({ preventScroll: true });
   }
 
   @HostListener('document:keydown.escape')

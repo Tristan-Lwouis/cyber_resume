@@ -376,4 +376,18 @@ while (challenge) {
     this.fullscreenView = null;
     this.audioEventsService.playCloseSound();
   }
+
+  /**
+   * Bouton "fermer" de la vue plein écran : ferme la vue et la fenêtre d'origine
+   * (les méthodes de fermeture jouent déjà le son).
+   */
+  closeFullscreenAndWindow(view: FullscreenView): void {
+    this.fullscreenView = null;
+    switch (view) {
+      case 'experience': this.onExperienceClose(); break;
+      case 'formation': this.onFormationClose(); break;
+      case 'competences': this.onCompetencesClose(); break;
+      case 'skills': this.onSkillsLoisirsClose(); break;
+    }
+  }
 }

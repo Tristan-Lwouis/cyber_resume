@@ -1,0 +1,27 @@
+<button type="button" class="control clickable"
+        [attr.aria-label]="expanded ? 'Réduire la fenêtre' : 'Agrandir en plein écran'"
+        [title]="expanded ? 'Réduire' : 'Plein écran'"
+        (click)="onToggleSize($event)">
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <!-- Cadre à coin coupé, comme les onglets -->
+    <polygon class="frame" points="9 1.5 30.5 1.5 30.5 30.5 1.5 30.5 1.5 9" />
+    @if (expanded) {
+      <!-- 4 flèches vers le centre : réduire -->
+      <path class="icon" transform="translate(4 4)"
+            d="M3 3l6 6M9 4v5H4M21 3l-6 6M15 4v5h5M3 21l6-6M9 20v-5H4M21 21l-6-6M15 20v-5h5" />
+    } @else {
+      <!-- 4 flèches vers les coins : agrandir -->
+      <path class="icon" transform="translate(4 4)"
+            d="M10 10L3 3M3 9V3h6M14 10l7-7M15 3h6v6M10 14l-7 7M3 15v6h6M14 14l7 7M21 15v6h-6" />
+    }
+  </svg>
+</button>
+
+<button type="button" class="control control--close clickable"
+        aria-label="Fermer la fenêtre" title="Fermer"
+        (click)="onClose($event)">
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <polygon class="frame" points="9 1.5 30.5 1.5 30.5 30.5 1.5 30.5 1.5 9" />
+    <path class="icon" d="M9 9l14 14M23 9L9 23" />
+  </svg>
+</button>

@@ -11,21 +11,17 @@
   <div class="bandeau-onglet clickable">
     <div id="selectorTab1" [class.inactive-tab]="activeTab !== 'dev'" (click)="setTab('dev')">
       <span>C0MP3TENCES</span>
-      @if (activeTab === 'dev') {
-        <span class="close-button" (click)="onCloseClick(); $event.stopPropagation()">X</span>
-      }
     </div>
     <div id="selectorTab2" [class.inactive-tab]="activeTab !== 'tools'" (click)="setTab('tools')">
       <span>L0G1CIELS</span>
-      @if (activeTab === 'tools') {
-        <span class="close-button" (click)="onCloseClick(); $event.stopPropagation()">X</span>
-      }
     </div>
     <div id="Handle" cdkDragHandle>
       <span></span>
     </div>
-    <button type="button" class="expand-button clickable" title="Plein écran" aria-label="Ouvrir en plein écran" (click)="onExpandClick($event)"><svg class="expand-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 6V1h5M10 1h5v5M15 10v5h-5M6 15H1v-5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
   </div>
+
+  <!-- Boutons agrandir / fermer, encastrés au bout de la barre noire -->
+  <app-window-controls (toggleSize)="expand.emit()" (close)="onCloseClick()"></app-window-controls>
 
   <!-- MAIN SVG : DEV -->
   <!-- TODO : Vaire varier la view box pour ne pas impacter le cmposant en dessous -->
