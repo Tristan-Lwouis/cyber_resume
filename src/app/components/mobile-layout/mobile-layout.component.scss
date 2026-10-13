@@ -182,13 +182,47 @@
 }
 
 // ---------------------------------------------------------------------
-//  CARTE USER-INFO (composant SVG partagé avec le desktop)
+//  USER-INFO
 // ---------------------------------------------------------------------
 .m-userinfo {
-  display: block;
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4px 16px;
+
+  &__lines {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+
+    a {
+      color: inherit;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__city {
+    align-self: flex-start;
+    margin-top: 6px;
+    padding: 2px 12px;
+    background: var(--background-color);
+    color: var(--primary-color) !important;
+    font-weight: 800;
+    letter-spacing: 2px;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 88% 100%, 0 100%);
+  }
+
+  &__qr img {
+    display: block;
+    width: 84px;
+    height: 84px;
+  }
+
+  &__barcode {
+    grid-column: 1 / -1;
+    margin: 6px 0 0;
+  }
 }
 
 // ---------------------------------------------------------------------

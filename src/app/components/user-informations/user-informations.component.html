@@ -6,12 +6,11 @@
         <foreignObject x="6" y="6" width="450" height="500">
             <div id="onglet" >
                 <span>USER-INFO</span>
-                <span class="clickable">X</span>
             </div>
         </foreignObject>
         <foreignObject x="8" y="40" width="450" height="450">
             <div class="user-informations">
-                <a href="https://linktr.ee/tristan.regnier" target="_blank" class="qr-link">
+                <a [href]="links" target="_blank" rel="noopener" class="qr-link">
                     <img id="QrDeco2" src="assets/media/icons/QR-Code.png" alt="Qr-code" class="clickable-qr">
                 </a>
                 <a [href]="'tel:' + phoneNumber" class="contact-info clickable" (mouseenter)="playAvatarAnimation('call-me')">{{ phoneNumber }}</a>

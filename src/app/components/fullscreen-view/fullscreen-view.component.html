@@ -7,7 +7,7 @@
     </aside>
 
     <!-- Mêmes contrôles que les fenêtres : réduire (retour à la fenêtre) / fermer la fenêtre -->
-    <app-window-controls class="fs-controls" [expanded]="true" [framed]="true"
+    <app-window-controls class="fs-controls" [expanded]="true" [onLight]="true"
                          (toggleSize)="close.emit()" (close)="closeWindow.emit()"></app-window-controls>
 
     <div class="fs-body">

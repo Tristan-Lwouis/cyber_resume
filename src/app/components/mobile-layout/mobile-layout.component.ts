@@ -14,7 +14,6 @@ import {
 } from '@angular/core';
 
 import { AvatarComponent } from '../avatar/avatar.component';
-import { UserInformationsComponent } from '../user-informations/user-informations.component';
 import { RollingScriptComponent } from '../rolling-script/rolling-script.component';
 import { CyberMapComponent } from '../cyber-map/cyber-map.component';
 import { AvatarAnimationService } from '../../services/avatar-animation.service';
@@ -24,7 +23,7 @@ import { FORMATION_CONTENT } from '../../data/formations.data';
 import { COMPETENCES_DATA, SECONDARY_COMPETENCES_DATA } from '../../data/competences.data';
 import { LOISIRS_DATA, SKILLS_DATA } from '../../data/loisirs-skills.data';
 import { PORTFOLIO_ITEMS } from '../../data/portfolio.data';
-import { PROFILE_PITCH } from '../../data/profile.data';
+import { PROFILE_CONTACT, PROFILE_PITCH, computeLevel } from '../../data/profile.data';
 
 interface MobileSection {
   id: string;
@@ -38,7 +37,7 @@ interface MobileSection {
  */
 @Component({
   selector: 'app-mobile-layout',
-  imports: [AvatarComponent, UserInformationsComponent, RollingScriptComponent, CyberMapComponent],
+  imports: [AvatarComponent, RollingScriptComponent, CyberMapComponent],
   templateUrl: './mobile-layout.component.html',
   styleUrl: './mobile-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -64,6 +63,8 @@ export class MobileLayoutComponent implements AfterViewInit, OnDestroy {
   ];
 
   readonly pitch = PROFILE_PITCH;
+  readonly contact = PROFILE_CONTACT;
+  readonly level = computeLevel();
   readonly experienceContent = EXPERIENCE_CONTENT;
   readonly formationContent = FORMATION_CONTENT;
   readonly skills = SKILLS_DATA;

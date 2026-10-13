@@ -33,7 +33,23 @@
       </div>
     </section>
 
-    <app-user-informations class="m-userinfo" (openMap)="scrollTo('deplacement')"></app-user-informations>
+    <!-- USER-INFO : même présentation que les autres panneaux (tailles de police uniformes) -->
+    <section class="m-panel" aria-label="Informations de contact">
+      <h2 class="m-panel__tab">USER-INFO</h2>
+      <div class="m-panel__body m-userinfo">
+        <div class="m-userinfo__lines">
+          <a [href]="'tel:' + contact.phone">{{ contact.phone }}</a>
+          <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>
+          <span>lvl {{ level }}</span>
+          <span>permis B</span>
+          <a class="m-userinfo__city" href="#deplacement" (click)="scrollTo('deplacement', $event)">TOULOUSE</a>
+        </div>
+        <a class="m-userinfo__qr" [href]="contact.links" target="_blank" rel="noopener" aria-label="Tous mes liens (Linktree)">
+          <img src="assets/media/icons/QR-Code.png" alt="" loading="lazy">
+        </a>
+        <p class="m-barcode m-barcode--small m-userinfo__barcode" aria-hidden="true">HelloThere</p>
+      </div>
+    </section>
 
     <nav #nav class="m-nav" aria-label="Sections du CV">
       @for (section of sections; track section.id) {

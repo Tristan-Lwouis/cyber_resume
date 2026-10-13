@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { AvatarAnimationService } from '../../services/avatar-animation.service';
+import { PROFILE_CONTACT, computeLevel } from '../../data/profile.data';
 
 @Component({
   selector: 'app-user-informations',
@@ -10,16 +11,16 @@ import { AvatarAnimationService } from '../../services/avatar-animation.service'
 })
 export class UserInformationsComponent implements OnInit, OnDestroy {
   @Output() openMap = new EventEmitter<void>();
-  phoneNumber: string = '';
-  email: string = '';
-  // Niveau = âge, recalculé à partir de la date de naissance (01/10/1999)
-  readonly level: number = this.computeAge(new Date(1999, 9, 1));
+  readonly phoneNumber = PROFILE_CONTACT.phone;
+  readonly email = PROFILE_CONTACT.email;
+  readonly links = PROFILE_CONTACT.links;
+  // Niveau = âge, recalculé à partir de la date de naissance
+  readonly level = computeLevel();
   private colorChangeObserver: MutationObserver | null = null;
 
   constructor(private avatarAnimationService: AvatarAnimationService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.decodeContactInfo();
     this.setupColorChangeListener();
   }
 
@@ -60,38 +61,6 @@ export class UserInformationsComponent implements OnInit, OnDestroy {
   // Méthode pour obtenir la couleur de fond actuelle
   getBackgroundColor(): string {
     return getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
-  }
-
-  private decodeContactInfo() {
-    // Méthode d'obfuscation
-    const key = 'Cyber2077';
-    const encodedPhone = this.rot13('06.81.12.60.81');
-    const encodedEmail = this.rot13('regniertristan@gmail.com');
-    
-    this.phoneNumber = this.rot13(encodedPhone);
-    this.email = this.rot13(encodedEmail);
-  }
-
-  // Méthode pour décoder les informations de contact
-  private rot13(str: string): string {
-    return str.replace(/[a-zA-Z]/g, function(char) {
-      const charCode = char.charCodeAt(0);
-      const shifted = charCode + 13;
-      const max = char <= 'Z' ? 90 : 122;
-      return String.fromCharCode(shifted <= max ? shifted : shifted - 26);
-    });
-  }
-
-  private computeAge(birthDate: Date): number {
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const birthdayNotReached =
-      today.getMonth() < birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate());
-    if (birthdayNotReached) {
-      age--;
-    }
-    return age;
   }
 
   /**

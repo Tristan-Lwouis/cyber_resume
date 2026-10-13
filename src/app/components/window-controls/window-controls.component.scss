@@ -16,19 +16,31 @@
   justify-content: space-between;
 }
 
-// Vue plein écran : pas de cadre SVG, la baie est dessinée ici
-:host(.framed) {
-  padding: 10px 12px;
-  box-sizing: border-box;
-  isolation: isolate;
+// Vue plein écran : pas de baie noire, boutons noirs directement sur le fond jaune
+:host(.on-light) .control {
+  color: var(--background-color);
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--background-color);
-    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%); // Angle haut gauche droit
+  &:hover,
+  &:focus-visible {
+    .frame {
+      fill: var(--background-color);
+    }
+
+    .icon {
+      stroke: var(--primary-color);
+    }
+  }
+}
+
+:host(.on-light) .control--close:hover,
+:host(.on-light) .control--close:focus-visible {
+  .frame {
+    fill: #ff3b3b;
+    stroke: #ff3b3b;
+  }
+
+  .icon {
+    stroke: var(--background-color);
   }
 }
 
