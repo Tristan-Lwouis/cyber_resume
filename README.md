@@ -8,7 +8,7 @@ mes **compétences techniques**, **formations**, **expériences** et **portfolio
 
 Inspirée d’un **bureau virtuel**, l’application propose des **fenêtres déplaçables** (*draggable*) et une expérience visuelle soignée mêlant **design**, **interactivité** et **technologie**.
 
-##### [Voir le site en ligne](https://tristan-lwouis.github.io/cyber_resume/)
+##### [Voir le site en ligne](https://cyber-resume.nocte-syndikate.com/)
 
 
 ![spacer](./docs/Spacer1.png)
