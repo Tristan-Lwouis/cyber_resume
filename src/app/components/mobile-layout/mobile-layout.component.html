@@ -16,7 +16,7 @@
 <div class="m-layout">
 
   <!-- Avatar 3D : en tête sur téléphone, fixé à gauche sur tablette -->
-  <section #hero class="m-hero" aria-label="Avatar 3D de Tristan">
+  <section class="m-hero" aria-label="Avatar 3D de Tristan">
     @defer (on immediate) {
       <app-avatar [compact]="true" (avatarClicked)="onAvatarClicked()"></app-avatar>
     }
@@ -100,17 +100,16 @@
       </div>
     </section>
 
-    <!-- LOISIRS : chaque loisir fait jouer une animation à l'avatar -->
+    <!-- LOISIRS -->
     <section #section id="loisirs" class="m-panel">
       <h2 class="m-panel__tab">L0IS1RS</h2>
       <div class="m-panel__body">
-        <p class="m-hint">Touche un loisir pour voir l'avatar en action.</p>
         <div class="m-loisirs">
           @for (loisir of loisirs; track loisir.id) {
-            <button type="button" class="m-loisirs__item" (click)="playLoisir(loisir)">
+            <div class="m-loisirs__item">
               <img [src]="loisir.imagePath" alt="" loading="lazy">
               <span>{{ loisir.name }}</span>
-            </button>
+            </div>
           }
         </div>
       </div>

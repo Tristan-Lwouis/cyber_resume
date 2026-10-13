@@ -1,15 +1,9 @@
-// Module de contrôle encastré au bout de la barre noire de chaque fenêtre.
-// Il dessine lui-même sa "baie" (corps noir biseauté + séparateur jaune oblique) :
-// elle reste visible quel que soit l'onglet / le calque SVG au premier plan.
+// Zone des boutons, posée sur la baie dessinée dans le SVG du cadre
 :host {
-  // Valeurs par défaut (vue plein écran) ; les fenêtres les surchargent en cqw
   --bay-left: auto;
   --bay-top: 0;
   --bay-width: 120px;
   --bay-height: 52px;
-  --slant: calc(var(--bay-height) * 0.45); // Décalage du biseau gauche
-  --bevel: calc(var(--bay-height) * 0.28); // Coin coupé en haut à droite
-  --control-size: 70%; // Taille des boutons par rapport à la hauteur de la baie
 
   position: absolute;
   z-index: 4; // Au-dessus de la poignée de drag
@@ -18,43 +12,29 @@
   width: var(--bay-width);
   height: var(--bay-height);
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: calc(var(--bay-height) * 0.16);
-  padding: 0 calc(var(--bay-height) * 0.2) 0 0;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+// Vue plein écran : pas de cadre SVG, la baie est dessinée ici
+:host(.framed) {
+  padding: 10px 12px 10px 26px;
   box-sizing: border-box;
   isolation: isolate;
 
-  // Corps noir de la baie
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
     background: var(--background-color);
-    clip-path: polygon(
-      calc(var(--slant) + 7px) 0,
-      calc(100% - var(--bevel)) 0,
-      100% var(--bevel),
-      100% 100%,
-      7px 100%
-    );
-  }
-
-  // Séparateur jaune oblique, dans le prolongement des rayures de la barre
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--primary-color);
-    clip-path: polygon(var(--slant) 0, calc(var(--slant) + 4px) 0, 4px 100%, 0 100%);
+    clip-path: polygon(16px 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
   }
 }
 
 .control {
   flex: none;
-  height: var(--control-size);
+  height: 100%;
   aspect-ratio: 1;
   padding: 0;
   border: none;

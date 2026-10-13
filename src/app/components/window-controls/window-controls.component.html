@@ -3,8 +3,8 @@
         [title]="expanded ? 'Réduire' : 'Plein écran'"
         (click)="onToggleSize($event)">
   <svg viewBox="0 0 32 32" aria-hidden="true">
-    <!-- Cadre à coin coupé, comme les onglets -->
-    <polygon class="frame" points="9 1.5 30.5 1.5 30.5 30.5 1.5 30.5 1.5 9" />
+    <!-- Cadre à coin coupé en haut à droite, parallèle au biseau de la baie -->
+    <polygon class="frame" points="1.5 1.5 23 1.5 30.5 9 30.5 30.5 1.5 30.5" />
     @if (expanded) {
       <!-- 4 flèches vers le centre : réduire -->
       <path class="icon" transform="translate(4 4)"
@@ -21,7 +21,7 @@
         aria-label="Fermer la fenêtre" title="Fermer"
         (click)="onClose($event)">
   <svg viewBox="0 0 32 32" aria-hidden="true">
-    <polygon class="frame" points="9 1.5 30.5 1.5 30.5 30.5 1.5 30.5 1.5 9" />
+    <polygon class="frame" points="1.5 1.5 23 1.5 30.5 9 30.5 30.5 1.5 30.5" />
     <path class="icon" d="M9 9l14 14M23 9L9 23" />
   </svg>
 </button>

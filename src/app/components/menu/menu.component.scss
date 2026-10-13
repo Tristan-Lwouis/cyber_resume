@@ -58,6 +58,15 @@ svg {
     &:active {
         transform: scale(0.98);
     }
+
+    // Pas d'anneau de focus (ni au clic, ni au clavier) : au clavier, l'entrée se décale à la place
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        transform: translateX(8px);
+    }
 }
 
 // Style pour s'assurer que le stroke est visible

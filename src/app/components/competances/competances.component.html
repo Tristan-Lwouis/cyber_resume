@@ -27,6 +27,9 @@
   <!-- TODO : Vaire varier la view box pour ne pas impacter le cmposant en dessous -->
   <svg class="carte" [ngStyle]="{'z-index': devZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path [attr.d]="getDevPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5" />
+    <!-- Baie des boutons agrandir / fermer (au bout de la barre, bord droit de la fenêtre) -->
+    <path class="control-bay" d="M524 16.5H584L599 31.5V52H514Z" fill="var(--background-color)" />
+    <path class="control-bay" d="M517 16.5H521.5L511.5 52H507Z" fill="var(--primary-color)" />
 
     <foreignObject x="0" y="0" width="100%" height="250px">
     </foreignObject>
@@ -114,9 +117,9 @@
 
         <!-- MAIN SVG : TOOLS -->
         <svg class="carte" [ngStyle]="{'z-index': toolsZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M576.5 16.5H383.5V50.5H586V26.6558L576.5 16.5Z" fill="black" stroke="black" stroke-width="5"/>
-          <mask id="mask0_378_952" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="385" y="14" width="204" height="39">
-            <path d="M578.5 16.5H387.5V50.5H586V26.6558L578.5 16.5Z" fill="black" stroke="black" stroke-width="5"/>
+          <path d="M584 16.5H383.5V50.5H597V29.5L584 16.5Z" fill="black" stroke="black" stroke-width="5"/>
+          <mask id="mask0_378_952" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="385" y="14" width="214" height="39">
+            <path d="M584 16.5H387.5V50.5H597V29.5L584 16.5Z" fill="black" stroke="black" stroke-width="5"/>
           </mask>
           <g mask="url(#mask0_378_952)">
             <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 304.149 -53.425)" fill="var(--primary-color)"/>
@@ -132,9 +135,12 @@
             <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
             <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 436.308 -11.1445)" fill="var(--primary-color)"/>
             <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 385.674 -19.1086)" fill="var(--primary-color)"/>
-            <path d="M577 16.5H96V50.5H586V26.6558L577 16.5Z" stroke="black" stroke-width="5"/>
+            <path d="M584 16.5H96V50.5H597V29.5L584 16.5Z" stroke="black" stroke-width="5"/>
           </g>
           <path [attr.d]="getToolsPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5"/>
+          <!-- Baie des boutons agrandir / fermer (au bout de la barre, bord droit de la fenêtre) -->
+          <path class="control-bay" d="M524 16.5H584L599 31.5V52H514Z" fill="var(--background-color)" />
+          <path class="control-bay" d="M517 16.5H521.5L511.5 52H507Z" fill="var(--primary-color)" />
 
           <!-- BOUCLE POUR GÉNÉRER LES LOGICIELS -->
           <foreignObject x="20" y="60" width="95%" [attr.height]="getLanguagesContainerHeight()">

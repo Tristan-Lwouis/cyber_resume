@@ -129,12 +129,10 @@
   height: auto;
 }
 
-// Baie des boutons agrandir / fermer — coordonnées du viewBox (largeur 853, barre visible jusqu'à y=37) converties en cqw
-// (unités du conteneur .svg-container) pour suivre exactement l'échelle du cadre SVG
+// Zone des boutons agrandir / fermer, sur la baie dessinée dans le SVG (coordonnées du viewBox en cqw)
 app-window-controls {
-  --bay-left: 80.89cqw;
-  --bay-top: 0.35cqw;
-  --bay-width: 12.13cqw;
-  --bay-height: 3.99cqw;
-  --control-size: 84%; // Barre plus fine que sur les autres fenêtres : boutons proportionnellement plus grands
+  --bay-left: 91.68cqw;
+  --bay-top: 2.23cqw;
+  --bay-width: 7.50cqw;
+  --bay-height: 3.28cqw;
 }

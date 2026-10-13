@@ -210,11 +210,10 @@ svg foreignObject {
     }
 }
 
-// Baie des boutons agrandir / fermer — coordonnées du viewBox (largeur 599, barre visible jusqu'à y=44,5) converties en cqw
-// (unités du conteneur .svg-container) pour suivre exactement l'échelle du cadre SVG
+// Zone des boutons agrandir / fermer, sur la baie dessinée dans le SVG (coordonnées du viewBox en cqw)
 app-window-controls {
-  --bay-left: 82.47cqw;
-  --bay-top: 0.42cqw;
-  --bay-width: 15.78cqw;
-  --bay-height: 7.01cqw;
+  --bay-left: 88.31cqw;
+  --bay-top: 3.34cqw;
+  --bay-width: 10.68cqw;
+  --bay-height: 4.67cqw;
 }

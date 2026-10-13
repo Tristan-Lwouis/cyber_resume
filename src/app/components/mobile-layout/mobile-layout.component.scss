@@ -435,9 +435,7 @@
     min-height: 76px;
     padding: 8px 4px;
     border: 2px solid var(--background-color);
-    background: transparent;
     color: var(--background-color);
-    font: inherit;
     font-size: 0.68rem;
     font-weight: 700;
 
@@ -447,14 +445,6 @@
       object-fit: contain;
     }
 
-    &:active {
-      background: var(--background-color);
-      color: var(--primary-color);
-
-      img {
-        filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg);
-      }
-    }
   }
 }
 

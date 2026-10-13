@@ -22,7 +22,7 @@ import { AudioEventsService } from '../../services/audio-events.service';
 import { EXPERIENCE_CONTENT } from '../../data/experiences.data';
 import { FORMATION_CONTENT } from '../../data/formations.data';
 import { COMPETENCES_DATA, SECONDARY_COMPETENCES_DATA } from '../../data/competences.data';
-import { LOISIRS_DATA, Loisir, SKILLS_DATA } from '../../data/loisirs-skills.data';
+import { LOISIRS_DATA, SKILLS_DATA } from '../../data/loisirs-skills.data';
 import { PORTFOLIO_ITEMS } from '../../data/portfolio.data';
 import { PROFILE_PITCH } from '../../data/profile.data';
 
@@ -46,7 +46,6 @@ interface MobileSection {
 export class MobileLayoutComponent implements AfterViewInit, OnDestroy {
   @Input() rollingCode = '';
 
-  @ViewChild('hero', { static: true }) hero!: ElementRef<HTMLElement>;
   @ViewChild('nav', { static: true }) nav!: ElementRef<HTMLElement>;
   @ViewChildren('section') sectionRefs!: QueryList<ElementRef<HTMLElement>>;
 
@@ -124,17 +123,4 @@ export class MobileLayoutComponent implements AfterViewInit, OnDestroy {
     this.avatarAnimationService.requestAnimation('salute');
   }
 
-  /**
-   * Un loisir fait jouer son animation à l'avatar. Sur téléphone, l'avatar est en haut de page :
-   * on y remonte pour que l'animation soit visible.
-   */
-  playLoisir(loisir: Loisir): void {
-    this.audioEventsService.playOpenSound();
-    this.avatarAnimationService.requestAnimation(...loisir.animations);
-
-    const heroRect = this.hero.nativeElement.getBoundingClientRect();
-    if (heroRect.bottom < 0) {
-      this.hero.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
 }
