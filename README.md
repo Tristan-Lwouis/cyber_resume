@@ -39,11 +39,11 @@ Inspirée d’un **bureau virtuel**, l’application propose des **fenêtres dé
 
 | Catégorie | Technologies |
 |------------|--------------|
-| Front-end | Angular 18, TypeScript, RxJS |
+| Front-end | Angular 22, TypeScript, RxJS |
 | UI/UX |  SCSS |
 | Graphisme | Figma, Blender, Photoshop, Illustrator|
 | 3D | Avaturn (GLB), Three.js (animation & rendu) |
-| Outils | Node.js, Git, GitHub Pages |
+| Outils | Node.js, Git, Vitest, Docker + nginx (VPS) |
 
 ![spacer](./docs/Spacer2.png)
 

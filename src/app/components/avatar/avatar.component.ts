@@ -92,7 +92,16 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
     // Limite le pixel ratio pour éviter de flinguer le GPU (4K, téléphones à très haute densité)
     this.pixelRatio = Math.min(window.devicePixelRatio, this.compact ? 1.5 : 2);
 
-    await this.initThree();
+    try {
+      await this.initThree();
+    } catch (error) {
+      // WebGL indisponible (vieux navigateur, accélération graphique désactivée...) :
+      // on se passe de l'avatar plutôt que de bloquer l'écran de chargement indéfiniment
+      console.warn('Avatar 3D désactivé : WebGL indisponible.', error);
+      this.canvasRef.nativeElement.style.display = 'none';
+      this.loadingProgress.markCompleted();
+      return;
+    }
     await this.loadModel();
     this.updateRenderLoop();
     this.setupClickDetection();

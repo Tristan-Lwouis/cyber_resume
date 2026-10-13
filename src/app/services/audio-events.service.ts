@@ -41,6 +41,7 @@ export class AudioEventsService {
     }
     sound.currentTime = 0; // Remettre à zéro pour pouvoir rejouer immédiatement
     // Le navigateur peut refuser la lecture avant la première interaction : on ignore silencieusement
-    sound.play().catch(() => {});
+    // (certains navigateurs ne renvoient pas de Promise : d'où le ?.)
+    sound.play()?.catch(() => {});
   }
 }
