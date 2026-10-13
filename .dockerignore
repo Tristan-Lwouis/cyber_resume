@@ -1,0 +1,19 @@
+# Les dépendances sont installées dans l'image par "npm ci" :
+# un node_modules local (souvent d'une autre version) ne doit jamais écraser celui de l'image.
+node_modules
+npm-debug.log
+
+# Sorties de build et caches
+dist
+.angular
+out-tsc
+coverage
+
+# Inutile pour construire l'image
+.git
+.vscode
+.claude
+docs
+ignore
+*.md
+*.pdf
