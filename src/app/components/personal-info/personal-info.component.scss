@@ -41,11 +41,10 @@
       border-top: 4px solid var(--background-color);
       padding: 15px;
       margin-bottom: 20px;
-      transition: all 0.3s ease;
-      
+      transition: background-color 0.3s ease;
+
       &:hover {
-        background-color: rgba(0, 0, 0, 0.05); /* Assombrit légèrement au survol */
-        transform: translateX(5px);
+        background-color: rgba(0, 0, 0, 0.05); /* Assombrit légèrement au survol, sans décaler la card */
       }
       
       h2 {

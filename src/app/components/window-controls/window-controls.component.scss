@@ -18,7 +18,7 @@
 
 // Vue plein écran : pas de cadre SVG, la baie est dessinée ici
 :host(.framed) {
-  padding: 10px 12px 10px 26px;
+  padding: 10px 12px;
   box-sizing: border-box;
   isolation: isolate;
 
@@ -28,7 +28,7 @@
     inset: 0;
     z-index: -1;
     background: var(--background-color);
-    clip-path: polygon(16px 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%); // Angle haut gauche droit
   }
 }
 
