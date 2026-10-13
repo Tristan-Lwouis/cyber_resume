@@ -210,10 +210,16 @@ svg foreignObject {
     }
 }
 
-// Zone des boutons agrandir / fermer, sur la baie dessinée dans le SVG (coordonnées du viewBox en cqw)
+// Zone des boutons agrandir / fermer, sur la baie dessinée dans le SVG (coordonnées du viewBox en cqw).
+// La baie est décalée en haut à droite pour déborder du cadre.
 app-window-controls {
-  --bay-left: 88.31cqw;
-  --bay-top: 3.34cqw;
+  --bay-left: 89.98cqw;
+  --bay-top: 1.67cqw;
   --bay-width: 10.68cqw;
   --bay-height: 4.67cqw;
+}
+
+// La baie des boutons déborde volontairement du cadre : le SVG ne doit pas la rogner
+svg.carte {
+  overflow: visible;
 }

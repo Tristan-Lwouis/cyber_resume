@@ -18,10 +18,17 @@
         <path d="M310.719 3H3V43.3765H326V15.0605L310.719 3Z" fill="black" stroke="black" stroke-width="5"/>
     </svg> -->
     <svg id="svg" width="100%" height="100%" viewBox="0 0 600 693" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M584 16.4587H253V56.8352H597V29.5L584 16.4587Z" fill="var(--background-color)" stroke="var(--background-color)" stroke-width="5"/>
+        <!-- Motif rayé jaune / noir des barres de déplacement -->
+        <defs>
+          <pattern [attr.id]="stripesId" patternUnits="userSpaceOnUse" width="22" height="22" patternTransform="rotate(40)">
+            <rect width="22" height="22" fill="var(--background-color)" />
+            <rect width="22" height="11" fill="var(--primary-color)" />
+          </pattern>
+        </defs>
+        <path d="M584 16.4587H253V56.8352H597V29.5L584 16.4587Z" [attr.fill]="'url(#' + stripesId + ')'" stroke="var(--background-color)" stroke-width="5" />
         <path d="M3 690V3H248.5L306 36.0275H597V690H3Z" fill="var(--primary-color)" stroke="var(--background-color)" stroke-width="5"/>
         <!-- Baie des boutons agrandir / fermer : bord gauche droit, au bout de la barre (bord droit de la fenêtre) -->
-        <path class="control-bay" d="M515 16.46H584L599.5 32V58H515Z" fill="var(--background-color)" />
+        <path class="control-bay" d="M525 6.46H594L609.5 22V48H525Z" fill="var(--background-color)" />
         
         <foreignObject x="20" y="60" width="94%" height="88%">
             <div class="text-container scrollable" [innerHTML]="content">

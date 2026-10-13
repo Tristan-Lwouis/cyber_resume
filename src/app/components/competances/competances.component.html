@@ -28,7 +28,7 @@
   <svg class="carte" [ngStyle]="{'z-index': devZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path [attr.d]="getDevPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5" />
     <!-- Baie des boutons agrandir / fermer : bord gauche droit, au bout de la barre (bord droit de la fenêtre) -->
-    <path class="control-bay" d="M521 16.5H584L599 31.5V52H521Z" fill="var(--background-color)" />
+    <path class="control-bay" d="M531 6.5H594L609 21.5V42H531Z" fill="var(--background-color)" />
 
     <foreignObject x="0" y="0" width="100%" height="250px">
     </foreignObject>
@@ -116,29 +116,17 @@
 
         <!-- MAIN SVG : TOOLS -->
         <svg class="carte" [ngStyle]="{'z-index': toolsZIndex}" [attr.viewBox]="getViewBox()" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M584 16.5H383.5V50.5H597V29.5L584 16.5Z" fill="black" stroke="black" stroke-width="5"/>
-          <mask id="mask0_378_952" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="385" y="14" width="214" height="39">
-            <path d="M584 16.5H387.5V50.5H597V29.5L584 16.5Z" fill="black" stroke="black" stroke-width="5"/>
-          </mask>
-          <g mask="url(#mask0_378_952)">
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 304.149 -53.425)" fill="var(--primary-color)"/>
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 254.197 -60.4351)" fill="var(--primary-color)"/>
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 203.302 -67.5774)" fill="var(--primary-color)"/>
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 158.33 -68.6892)" fill="var(--primary-color)"/>
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 130.755 -52.8025)" fill="var(--primary-color)"/>
-            <rect width="375.028" height="12.563" transform="matrix(0.847858 0.530223 -0.470373 0.882468 593.343 -40.1665)" fill="var(--primary-color)"/>
-            <rect width="375.028" height="12.563" transform="matrix(0.847858 0.530223 -0.470373 0.882468 568.101 -20.5908)" fill="var(--primary-color)"/>
-            <path d="M479.529 -11.3184L768.544 229.924L761.236 240.088L472.222 -1.15502L479.529 -11.3184Z" fill="var(--primary-color)"/>
-            <path d="M479.529 -11.3184L768.544 229.924L761.236 240.088L472.222 -1.15502L479.529 -11.3184Z" fill="var(--primary-color)"/>
-            <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
-            <path d="M521.162 -11.3184L810.177 229.924L802.869 240.088L513.855 -1.15502L521.162 -11.3184Z" fill="var(--primary-color)"/>
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 436.308 -11.1445)" fill="var(--primary-color)"/>
-            <rect width="376.467" height="12.5177" transform="matrix(0.767702 0.640807 -0.58377 0.811919 385.674 -19.1086)" fill="var(--primary-color)"/>
-            <path d="M584 16.5H96V50.5H597V29.5L584 16.5Z" stroke="black" stroke-width="5"/>
-          </g>
+          <!-- Motif rayé jaune / noir des barres de déplacement -->
+          <defs>
+            <pattern [attr.id]="stripesId" patternUnits="userSpaceOnUse" width="22" height="22" patternTransform="rotate(40)">
+              <rect width="22" height="22" fill="var(--background-color)" />
+              <rect width="22" height="11" fill="var(--primary-color)" />
+            </pattern>
+          </defs>
+          <path d="M584 16.5H383.5V50.5H597V29.5L584 16.5Z" [attr.fill]="'url(#' + stripesId + ')'" stroke="var(--background-color)" stroke-width="5" />
           <path [attr.d]="getToolsPathD()" fill="var(--primary-color)" stroke="black" stroke-width="5"/>
           <!-- Baie des boutons agrandir / fermer : bord gauche droit, au bout de la barre (bord droit de la fenêtre) -->
-          <path class="control-bay" d="M521 16.5H584L599 31.5V52H521Z" fill="var(--background-color)" />
+          <path class="control-bay" d="M531 6.5H594L609 21.5V42H531Z" fill="var(--background-color)" />
 
           <!-- BOUCLE POUR GÉNÉRER LES LOGICIELS -->
           <foreignObject x="20" y="60" width="95%" [attr.height]="getLanguagesContainerHeight()">

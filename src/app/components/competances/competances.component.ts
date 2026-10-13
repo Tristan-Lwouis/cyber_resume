@@ -1,4 +1,5 @@
 import { Component, ViewChild, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { nextStripesId } from '../window-controls/stripes';
 import { WindowControlsComponent } from '../window-controls/window-controls.component';
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
@@ -17,6 +18,9 @@ import { Language, COMPETENCES_DATA, SECONDARY_COMPETENCES_DATA } from '../../da
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompetancesComponent implements OnInit, OnDestroy {
+  // Identifiant unique du motif rayé de la barre de déplacement
+  readonly stripesId = nextStripesId();
+
   /**
    * Pourcentage de la largeur de l'écran pour calculer la distance du point intermédiaire de la ligne.
    * Cette valeur détermine à quelle distance du composant le point intermédiaire sera placé.

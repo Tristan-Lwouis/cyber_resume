@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { nextStripesId } from '../window-controls/stripes';
 import { WindowControlsComponent } from '../window-controls/window-controls.component';
 import { CommonModule } from '@angular/common'; // OBLIGATOIRE pour ngStyle
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
@@ -19,6 +20,9 @@ import { Loisir, LOISIRS_DATA, Skill, SKILLS_DATA } from '../../data/loisirs-ski
 })
 
 export class LoisirSkillsComponent implements OnInit, OnDestroy {
+  // Identifiant unique du motif rayé de la barre de déplacement
+  readonly stripesId = nextStripesId();
+
     @Input() title: string = '';
     @Input() titleClass: string = '';
     @Input() skillsZIndex: number = 1;

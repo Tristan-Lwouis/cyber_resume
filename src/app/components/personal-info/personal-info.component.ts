@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { nextStripesId } from '../window-controls/stripes';
 import { WindowControlsComponent } from '../window-controls/window-controls.component';
  
 import { DragDropModule, CdkDragMove } from '@angular/cdk/drag-drop'; //Drag and Drop
@@ -15,6 +16,9 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonalInfoComponent implements OnInit, OnDestroy {
+  // Identifiant unique du motif rayé de la barre de déplacement
+  readonly stripesId = nextStripesId();
+
   @Input() tabTitle: string = 'EXPER1ENCE';
   @Input() componentId: string = 'experience'; // ID unique du composant
   /**
