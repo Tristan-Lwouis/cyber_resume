@@ -404,7 +404,12 @@ export class AvatarComponent implements AfterViewInit, OnDestroy, OnChanges {
           this.setupAnimations(gltf.animations);
         }
 
-        this.loadingProgress.markCompleted();
+        // Le premier rendu du modèle (compilation des shaders, envoi des textures au GPU) est lourd :
+        // on le fait tant que l'écran de chargement est encore fermé, puis on laisse passer
+        // deux frames avant de lancer l'ouverture des portes, pour qu'elle reste fluide.
+        this.renderer.compile(this.scene, this.camera);
+        this.renderer.render(this.scene, this.camera);
+        requestAnimationFrame(() => requestAnimationFrame(() => this.loadingProgress.markCompleted()));
       },
       (event: ProgressEvent<EventTarget>) => {
         if (event.lengthComputable && event.total > 0) {
